@@ -2,14 +2,14 @@ import type { ReactNode } from 'react'
 import { useTextMetrics } from '../hooks/useTextMetrics'
 
 type SlideShellProps = {
-  body: string
+  body?: string
   brand?: string
-  children: ReactNode
+  children?: ReactNode
   eyebrow?: string
   sectionLabel: string
   slideIndex: number
-  summary: string
-  title: string
+  summary?: string
+  title?: string
   totalSlides: number
 }
 
@@ -25,11 +25,15 @@ export function SlideShell({
   totalSlides,
 }: SlideShellProps) {
   const metrics = useTextMetrics({
-    text: summary,
-    maxWidth: 484,
-    lineHeight: 38,
-    font: '500 26px "General Sans"',
+    text: summary ?? '',
+    maxWidth: 500,
+    lineHeight: 31,
+    font: '500 22px "General Sans"',
   })
+  const hasLead = Boolean(eyebrow || title || body)
+  const hasContent = children !== undefined && children !== null && children !== false
+  const hasSummary = Boolean(summary)
+  const hasMain = hasLead || hasContent
 
   return (
     <article className="slide-shell">
@@ -42,30 +46,38 @@ export function SlideShell({
         </span>
       </header>
 
-      <section className="slide-shell__main">
-        <div className="slide-shell__lead">
-          {eyebrow ? <span className="slide-shell__eyebrow">{eyebrow}</span> : null}
-          <h1 className="slide-shell__title">{title}</h1>
-          <p className="slide-shell__body">{body}</p>
-        </div>
+      {hasMain ? (
+        <section className="slide-shell__main">
+          {hasLead ? (
+            <div className="slide-shell__lead">
+              {eyebrow ? (
+                <span className="slide-shell__eyebrow">{eyebrow}</span>
+              ) : null}
+              {title ? <h1 className="slide-shell__title">{title}</h1> : null}
+              {body ? <p className="slide-shell__body">{body}</p> : null}
+            </div>
+          ) : null}
 
-        <div className="slide-shell__content">{children}</div>
-      </section>
+          {hasContent ? <div className="slide-shell__content">{children}</div> : null}
+        </section>
+      ) : null}
 
-      <footer className="slide-shell__footer">
-        <div />
+      {hasSummary ? (
+        <footer className="slide-shell__footer">
+          <div />
 
-        <aside
-          className="slide-summary"
-          style={{ minHeight: `${Math.max(metrics.height, 156)}px` }}
-        >
-          <span className="slide-summary__label">Summary</span>
-          <p className="slide-summary__body">{summary}</p>
-          <span className="slide-summary__meta">
-            Pretext measured • {metrics.lineCount} lines
-          </span>
-        </aside>
-      </footer>
+          <aside
+            className="slide-summary"
+            style={{ minHeight: `${Math.max(metrics.height, 156)}px` }}
+          >
+            <span className="slide-summary__label">Summary</span>
+            <p className="slide-summary__body">{summary}</p>
+            <span className="slide-summary__meta">
+              Pretext measured • {metrics.lineCount} lines
+            </span>
+          </aside>
+        </footer>
+      ) : null}
     </article>
   )
 }
