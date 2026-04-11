@@ -58,7 +58,7 @@ function readLocation(slides: SlideDefinition[]): DeckLocation {
 }
 
 function writeLocation(location: DeckLocation, slides: SlideDefinition[]) {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || slides.length === 0) {
     return
   }
 
@@ -72,6 +72,10 @@ function writeLocation(location: DeckLocation, slides: SlideDefinition[]) {
 
 export function useDeckState(slides: SlideDefinition[]) {
   const [location, setLocation] = useState(() => readLocation(slides))
+  const clampedLocation = useMemo(
+    () => clampLocation(location, slides),
+    [location, slides],
+  )
 
   const goToSlide = useCallback(
     (slideIndex: number, step = 0) => {
@@ -116,8 +120,8 @@ export function useDeckState(slides: SlideDefinition[]) {
   }, [slides])
 
   useEffect(() => {
-    writeLocation(location, slides)
-  }, [location, slides])
+    writeLocation(clampedLocation, slides)
+  }, [clampedLocation, slides])
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -164,14 +168,14 @@ export function useDeckState(slides: SlideDefinition[]) {
   }, [goToSlide, next, previous, slides])
 
   const currentSlide = useMemo(
-    () => slides[location.slideIndex],
-    [location.slideIndex, slides],
+    () => slides[clampedLocation.slideIndex],
+    [clampedLocation.slideIndex, slides],
   )
 
   return {
     currentSlide,
-    currentSlideIndex: location.slideIndex,
-    currentStep: location.step,
+    currentSlideIndex: clampedLocation.slideIndex,
+    currentStep: clampedLocation.step,
     goToSlide,
     next,
     previous,

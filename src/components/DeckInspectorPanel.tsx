@@ -15,12 +15,14 @@ import type { CanvasSelection } from '../types/inspector'
 function MetricField({
   label,
   value,
+  wide = false,
 }: {
   label: string
   value: string
+  wide?: boolean
 }) {
   return (
-    <div className="inspector-field">
+    <div className={`inspector-field${wide ? ' inspector-field--wide' : ''}`}>
       <span className="inspector-field__label">{label}</span>
       <span className="inspector-field__value">{value}</span>
     </div>
@@ -65,6 +67,31 @@ export function DeckInspectorPanel({
 }: DeckInspectorPanelProps) {
   function formatPixels(value: number | null) {
     return value === null ? '-' : `${value}px`
+  }
+
+  function formatPercent(value: number | null, base: number | null) {
+    if (value === null || base === null || base === 0) {
+      return '-'
+    }
+
+    const ratio = Math.round((value / base) * 1000) / 10
+    return `${Number.isInteger(ratio) ? ratio.toFixed(0) : ratio}%`
+  }
+
+  function formatFontWeight(weight: number | null) {
+    if (weight === null) {
+      return '-'
+    }
+
+    if (weight < 150) return 'Thin'
+    if (weight < 250) return 'Extra Light'
+    if (weight < 350) return 'Light'
+    if (weight < 450) return 'Regular'
+    if (weight < 550) return 'Medium'
+    if (weight < 650) return 'Semi Bold'
+    if (weight < 750) return 'Bold'
+    if (weight < 850) return 'Extra Bold'
+    return 'Black'
   }
 
   const selectionTitle = selection
@@ -170,15 +197,27 @@ export function DeckInspectorPanel({
 
                       <div className="inspector-field-grid">
                         <MetricField
+                          label="Font"
+                          value={selection.fontFamily ?? '-'}
+                          wide
+                        />
+                        <MetricField
+                          label="Weight"
+                          value={formatFontWeight(selection.fontWeight)}
+                        />
+                        <MetricField
                           label="Size"
                           value={formatPixels(selection.fontSize)}
                         />
                         <MetricField
-                          label="Leading"
-                          value={formatPixels(selection.lineHeight)}
+                          label="Line height"
+                          value={formatPercent(
+                            selection.lineHeight,
+                            selection.fontSize,
+                          )}
                         />
                         <MetricField
-                          label="Tracking"
+                          label="Letter spacing"
                           value={formatPixels(selection.letterSpacing)}
                         />
                         <MetricField

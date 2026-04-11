@@ -3,10 +3,13 @@ import { DeckInspectorPanel } from './components/DeckInspectorPanel'
 import { PresentationViewport } from './components/PresentationViewport'
 import { SlideIndexPanel } from './components/SlideIndexPanel'
 import { useDeckState } from './hooks/useDeckState'
-import { deckSlides } from './slides/deck'
+import { deleteSlideFromDeck, reorderDeckSlides } from './lib/deckEditor'
+import { deckSlides as initialDeckSlides } from './slides/deck'
+import { designSystemSlides } from './slides/systemDeck'
 import type { CanvasSelection } from './types/inspector'
 
 type PresentationMode = 'edit' | 'present'
+type DeckCollection = 'portfolio' | 'system'
 
 function readPresentationMode() {
   if (typeof window === 'undefined') {
@@ -17,21 +20,38 @@ function readPresentationMode() {
   return params.get('mode') === 'present' ? 'present' : 'edit'
 }
 
+function readDeckCollection(): DeckCollection {
+  if (typeof window === 'undefined') {
+    return 'portfolio'
+  }
+
+  const params = new URLSearchParams(window.location.search)
+  return params.get('deck') === 'system' ? 'system' : 'portfolio'
+}
+
 function App() {
   const [isInspectorCollapsed, setIsInspectorCollapsed] = useState(false)
   const [isSlideIndexCollapsed, setIsSlideIndexCollapsed] = useState(false)
   const [selection, setSelection] = useState<CanvasSelection | null>(null)
   const [showGrid, setShowGrid] = useState(false)
+  const [deckCollection] = useState<DeckCollection>(readDeckCollection)
+  const [slides, setSlides] = useState(initialDeckSlides)
   const [presentationMode, setPresentationMode] = useState<PresentationMode>(
     readPresentationMode,
   )
+  const sourceSlides =
+    deckCollection === 'system' ? designSystemSlides : slides
+  const deckEditingEnabled =
+    import.meta.env.DEV &&
+    presentationMode === 'edit' &&
+    deckCollection === 'portfolio'
   const {
     currentSlide,
     currentSlideIndex,
     currentStep,
     goToSlide,
-    slides,
-  } = useDeckState(deckSlides)
+    slides: activeSlides,
+  } = useDeckState(sourceSlides)
 
   function handleGoToSlide(slideIndex: number, step = 0) {
     setSelection(null)
@@ -59,6 +79,53 @@ function App() {
     const nextQuery = params.toString()
     const nextUrl = nextQuery ? `?${nextQuery}` : window.location.pathname
     window.history.replaceState(null, '', nextUrl)
+  }
+
+  async function handleDeleteSlide(slideId: string) {
+    if (!deckEditingEnabled || slides.length <= 1) {
+      return
+    }
+
+    const previousSlides = slides
+    const nextSlides = slides.filter((slide) => slide.id !== slideId)
+
+    if (nextSlides.length === slides.length) {
+      return
+    }
+
+    setSelection(null)
+    setSlides(nextSlides)
+
+    try {
+      await deleteSlideFromDeck(slideId)
+    } catch (error) {
+      console.error(error)
+      setSlides(previousSlides)
+    }
+  }
+
+  async function handleReorderSlides(fromIndex: number, toIndex: number) {
+    if (!deckEditingEnabled || fromIndex === toIndex) {
+      return
+    }
+
+    const previousSlides = slides
+    const nextSlides = [...slides]
+    const [movedSlide] = nextSlides.splice(fromIndex, 1)
+
+    if (!movedSlide) {
+      return
+    }
+
+    nextSlides.splice(toIndex, 0, movedSlide)
+    setSlides(nextSlides)
+
+    try {
+      await reorderDeckSlides(nextSlides.map((slide) => slide.id))
+    } catch (error) {
+      console.error(error)
+      setSlides(previousSlides)
+    }
   }
 
   const shellClassName = ['editor-shell', presentationMode === 'present' ? 'editor-shell--present' : '']
@@ -95,11 +162,14 @@ function App() {
         <SlideIndexPanel
           collapsed={isSlideIndexCollapsed}
           currentSlideId={currentSlide.id}
+          editingEnabled={deckEditingEnabled}
+          onDelete={handleDeleteSlide}
+          onReorder={handleReorderSlides}
           onSelect={handleGoToSlide}
           onToggleCollapse={() => {
             setIsSlideIndexCollapsed((current) => !current)
           }}
-          slides={slides}
+          slides={activeSlides}
         />
 
         <main className="editor-workspace">
@@ -118,7 +188,7 @@ function App() {
               autoPlay: presentationMode === 'present',
               step: currentStep,
               slideIndex: currentSlideIndex,
-              totalSlides: slides.length,
+              totalSlides: activeSlides.length,
             })}
           </PresentationViewport>
         </main>
@@ -137,7 +207,7 @@ function App() {
           presentationMode={presentationMode}
           selection={selection}
           showGrid={showGrid}
-          slides={slides}
+          slides={activeSlides}
         />
       </div>
     </div>

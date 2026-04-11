@@ -27,8 +27,8 @@ export function SlideShell({
   const metrics = useTextMetrics({
     text: summary ?? '',
     maxWidth: 500,
-    lineHeight: 31,
-    font: '500 22px "General Sans"',
+    lineHeight: 30.8,
+    font: '420 22px "General Sans"',
   })
   const hasLead = Boolean(eyebrow || title || body)
   const hasContent = children !== undefined && children !== null && children !== false

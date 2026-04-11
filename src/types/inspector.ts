@@ -1,5 +1,7 @@
 export type CanvasSelection = {
+  fontFamily: string | null
   fontSize: number | null
+  fontWeight: number | null
   height: number
   kind: 'object' | 'text'
   letterSpacing: number | null

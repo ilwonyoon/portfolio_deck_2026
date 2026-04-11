@@ -1,4 +1,5 @@
-import { FileText, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+import { FileText, GripVertical, PanelLeftClose, PanelLeftOpen, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 import type { SlideDefinition } from '../types/presentation'
 
 const THUMBNAIL_WIDTH = 204
@@ -7,6 +8,9 @@ const THUMBNAIL_SCALE = THUMBNAIL_WIDTH / 1920
 type SlideIndexPanelProps = {
   collapsed: boolean
   currentSlideId: string
+  editingEnabled?: boolean
+  onDelete?: (slideId: string) => void
+  onReorder?: (fromIndex: number, toIndex: number) => void
   onSelect: (slideIndex: number) => void
   onToggleCollapse: () => void
   slides: SlideDefinition[]
@@ -15,10 +19,20 @@ type SlideIndexPanelProps = {
 export function SlideIndexPanel({
   collapsed,
   currentSlideId,
+  editingEnabled = false,
+  onDelete,
+  onReorder,
   onSelect,
   onToggleCollapse,
   slides,
 }: SlideIndexPanelProps) {
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+  const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null)
+
+  function handleSelect(index: number) {
+    onSelect(index)
+  }
+
   return (
     <aside
       className="editor-sidebar editor-sidebar--left"
@@ -56,25 +70,81 @@ export function SlideIndexPanel({
       <div className="editor-sidebar__body">
         <div className="slide-index">
           {slides.map((slide, index) => {
-              const isActive = slide.id === currentSlideId
-              const formattedIndex = String(index + 1).padStart(2, '0')
-              const showStepDots = slide.stepDisplay !== 'none' && slide.steps > 1
-              const totalSteps = Math.max(slide.steps, 1)
-              const stepDots = Array.from({ length: totalSteps }, (_, stepIndex) => stepIndex)
+            const isActive = slide.id === currentSlideId
+            const formattedIndex = String(index + 1).padStart(2, '0')
+            const showStepDots = slide.stepDisplay !== 'none' && slide.steps > 1
+            const totalSteps = Math.max(slide.steps, 1)
+            const stepDots = Array.from({ length: totalSteps }, (_, stepIndex) => stepIndex)
+            const canDelete = editingEnabled && slides.length > 1 && onDelete
+            const canReorder = editingEnabled && !collapsed && Boolean(onReorder)
+            const isDropTarget =
+              dropTargetIndex === index && draggedIndex !== null && draggedIndex !== index
 
             return (
-              <button
-                aria-current={isActive ? 'true' : undefined}
-                className="slide-index__item"
+              <div
+                className="slide-index__item-shell"
                 data-active={isActive}
+                data-drop-target={isDropTarget}
+                draggable={canReorder}
                 key={slide.id}
-                onClick={() => onSelect(index)}
-                type="button"
-              >
-                <span className="slide-index__number">{formattedIndex}</span>
+                onDragEnd={() => {
+                  setDraggedIndex(null)
+                  setDropTargetIndex(null)
+                }}
+                onDragOver={(event) => {
+                  if (!canReorder) {
+                    return
+                  }
 
-                {collapsed ? null : (
-                  <>
+                  event.preventDefault()
+                  if (dropTargetIndex !== index) {
+                    setDropTargetIndex(index)
+                  }
+                }}
+                onDragStart={(event) => {
+                  if (!canReorder) {
+                    return
+                  }
+
+                  setDraggedIndex(index)
+                  event.dataTransfer.effectAllowed = 'move'
+                  event.dataTransfer.setData('text/plain', slide.id)
+                }}
+                onDrop={(event) => {
+                  if (!canReorder) {
+                    return
+                  }
+
+                  event.preventDefault()
+                  if (draggedIndex === null || draggedIndex === index) {
+                    setDraggedIndex(null)
+                    setDropTargetIndex(null)
+                    return
+                  }
+
+                  onReorder?.(draggedIndex, index)
+                  setDraggedIndex(null)
+                  setDropTargetIndex(null)
+                }}
+              >
+                <div
+                  aria-current={isActive ? 'true' : undefined}
+                  className="slide-index__item"
+                  onClick={() => {
+                    handleSelect(index)
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault()
+                      handleSelect(index)
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <span className="slide-index__number">{formattedIndex}</span>
+
+                  {collapsed ? null : (
                     <span aria-hidden="true" className="slide-index__thumbnail">
                       <span className="slide-index__thumbnail-frame">
                         <span
@@ -107,9 +177,30 @@ export function SlideIndexPanel({
                         ) : null}
                       </span>
                     </span>
-                  </>
-                )}
-              </button>
+                  )}
+                </div>
+
+                {!collapsed && editingEnabled ? (
+                  <div className="slide-index__item-actions">
+                    <span className="slide-index__drag-handle" title="Drag to reorder">
+                      <GripVertical aria-hidden="true" size={14} strokeWidth={2} />
+                    </span>
+                    {canDelete ? (
+                      <button
+                        aria-label={`Delete ${slide.navLabel}`}
+                        className="slide-index__action-button"
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          onDelete?.(slide.id)
+                        }}
+                        type="button"
+                      >
+                        <Trash2 aria-hidden="true" size={14} strokeWidth={2} />
+                      </button>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
             )
           })}
         </div>

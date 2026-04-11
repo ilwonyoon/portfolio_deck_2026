@@ -31,6 +31,34 @@ function readPixelValue(value: string) {
   return Number.isFinite(parsedValue) ? roundMetric(parsedValue) : null
 }
 
+function readFontFamily(value: string) {
+  if (!value) {
+    return null
+  }
+
+  const [firstFamily] = value.split(',')
+  const normalizedFamily = firstFamily?.trim().replace(/^['"]|['"]$/g, '') ?? ''
+
+  if (!normalizedFamily) {
+    return null
+  }
+
+  if (normalizedFamily === 'General Sans') {
+    return 'General Sans Variable'
+  }
+
+  return normalizedFamily
+}
+
+function readFontWeight(value: string) {
+  if (!value || value === 'normal') {
+    return null
+  }
+
+  const parsedValue = Number.parseFloat(value)
+  return Number.isFinite(parsedValue) ? Math.round(parsedValue) : null
+}
+
 function isTextElement(element: HTMLElement) {
   const textTags = new Set([
     'a',
@@ -72,7 +100,9 @@ function measureSelection(
   const kind = isTextElement(element) ? 'text' : 'object'
 
   return {
+    fontFamily: kind === 'text' ? readFontFamily(computedStyle.fontFamily) : null,
     fontSize: kind === 'text' ? readPixelValue(computedStyle.fontSize) : null,
+    fontWeight: kind === 'text' ? readFontWeight(computedStyle.fontWeight) : null,
     height: roundMetric(elementRect.height * scaleY),
     kind,
     letterSpacing: kind === 'text' ? readPixelValue(computedStyle.letterSpacing) : null,
