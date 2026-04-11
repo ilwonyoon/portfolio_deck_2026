@@ -1,5 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap } from 'gsap'
 import { motion } from 'framer-motion'
+import { useMemo, useState } from 'react'
+import { useRef } from 'react'
 
 type CareerCard = {
   body: string
@@ -10,6 +13,14 @@ type CareerCard = {
   role: string
   year: string
 }
+
+type CareerSlideIntro = {
+  body?: string
+  eyebrow?: string
+  title: string
+}
+
+type CareerSlideVariant = 'default' | 'spotlight'
 
 const CAREER_CARDS: CareerCard[] = [
   {
@@ -55,11 +66,13 @@ function CareerCardView({
   card,
   index,
   onActivate,
+  spotlight,
 }: {
   active: boolean
   card: CareerCard
   index: number
   onActivate: (index: number) => void
+  spotlight?: boolean
 }) {
   return (
     <motion.button
@@ -75,6 +88,10 @@ function CareerCardView({
       onMouseEnter={() => onActivate(index)}
       type="button"
     >
+      {spotlight ? (
+        <span aria-hidden="true" className="career-hover-slide__spotlight" />
+      ) : null}
+
       <div className="career-hover-slide__card-shell">
         <div className="career-hover-slide__brand">
           <img
@@ -153,14 +170,149 @@ function CareerCardView({
 }
 
 export function CareerHoverSlide() {
+  return <CareerHoverSlideFrame />
+}
+
+export function CareerHoverSlideWithIntro() {
+  return (
+    <CareerHoverSlideFrame
+      intro={{
+        title: 'My Careers',
+      }}
+    />
+  )
+}
+
+export function CareerHoverSlideWithSpotlight() {
+  return (
+    <CareerHoverSlideFrame
+      intro={{
+        title: 'My Careers',
+      }}
+      variant="spotlight"
+    />
+  )
+}
+
+function CareerHoverSlideFrame({
+  intro,
+  variant = 'default',
+}: {
+  intro?: CareerSlideIntro
+  variant?: CareerSlideVariant
+}) {
   const cards = useMemo(() => CAREER_CARDS, [])
   const [activeIndex, setActiveIndex] = useState(0)
+  const scopeRef = useRef<HTMLElement | null>(null)
+  const className = [
+    'career-hover-slide',
+    intro ? 'career-hover-slide--with-intro' : '',
+    variant === 'spotlight' ? 'career-hover-slide--spotlight' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  useGSAP(
+    () => {
+      if (variant !== 'spotlight' || !scopeRef.current) {
+        return
+      }
+
+      const cards = gsap.utils.toArray<HTMLElement>(
+        '.career-hover-slide__card',
+        scopeRef.current,
+      )
+
+      const cleanupFunctions = cards.map((card) => {
+        const spotlight = card.querySelector<HTMLElement>(
+          '.career-hover-slide__spotlight',
+        )
+
+        if (!spotlight) {
+          return () => undefined
+        }
+
+        const xTo = gsap.quickTo(spotlight, 'x', {
+          duration: 0.34,
+          ease: 'power3.out',
+        })
+        const yTo = gsap.quickTo(spotlight, 'y', {
+          duration: 0.34,
+          ease: 'power3.out',
+        })
+        const opacityTo = gsap.quickTo(spotlight, 'opacity', {
+          duration: 0.3,
+          ease: 'power2.out',
+        })
+
+        function moveSpotlight(event: PointerEvent) {
+          const rect = card.getBoundingClientRect()
+          const nextX = event.clientX - rect.left - 220
+          const nextY = event.clientY - rect.top - 220
+
+          xTo(nextX)
+          yTo(nextY)
+        }
+
+        function handlePointerEnter(event: PointerEvent) {
+          moveSpotlight(event)
+          opacityTo(1)
+          gsap.to(spotlight, {
+            duration: 0.46,
+            ease: 'power3.out',
+            overwrite: true,
+            scale: 1,
+          })
+        }
+
+        function handlePointerLeave() {
+          opacityTo(0)
+          gsap.to(spotlight, {
+            duration: 0.4,
+            ease: 'power3.out',
+            overwrite: true,
+            scale: 0.82,
+          })
+        }
+
+        card.addEventListener('pointerenter', handlePointerEnter)
+        card.addEventListener('pointermove', moveSpotlight)
+        card.addEventListener('pointerleave', handlePointerLeave)
+
+        return () => {
+          card.removeEventListener('pointerenter', handlePointerEnter)
+          card.removeEventListener('pointermove', moveSpotlight)
+          card.removeEventListener('pointerleave', handlePointerLeave)
+        }
+      })
+
+      return () => {
+        cleanupFunctions.forEach((cleanup) => cleanup())
+      }
+    },
+    { dependencies: [variant], scope: scopeRef },
+  )
 
   return (
     <article
-      className="career-hover-slide"
+      className={className}
       onMouseLeave={() => setActiveIndex(0)}
+      ref={scopeRef}
     >
+      {intro ? (
+        <header className="career-hover-slide__intro">
+          {intro.eyebrow ? (
+            <span className="career-hover-slide__intro-eyebrow">
+              {intro.eyebrow}
+            </span>
+          ) : null}
+          <h1 className="career-hover-slide__intro-title">{intro.title}</h1>
+          {intro.body ? (
+            <p className="career-hover-slide__intro-body">{intro.body}</p>
+          ) : null}
+        </header>
+      ) : null}
+
       <div className="career-hover-slide__rail">
         {cards.map((card, index) => (
           <CareerCardView
@@ -169,6 +321,7 @@ export function CareerHoverSlide() {
             card={card}
             index={index}
             onActivate={setActiveIndex}
+            spotlight={variant === 'spotlight'}
           />
         ))}
       </div>

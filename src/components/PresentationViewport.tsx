@@ -5,6 +5,7 @@ import type { CanvasSelection } from '../types/inspector'
 const DESIGN_WIDTH = 1920
 const DESIGN_HEIGHT = 1080
 const GRID_COLUMNS = Array.from({ length: 12 }, (_, index) => index)
+const GRID_ROWS = Array.from({ length: 8 }, (_, index) => index)
 
 function readFrameSize(element: HTMLDivElement | null) {
   if (!element) {
@@ -182,9 +183,19 @@ export function PresentationViewport({
 
             {showGrid ? (
               <div aria-hidden="true" className="presentation-grid-overlay">
-                {GRID_COLUMNS.map((column) => (
-                  <span className="presentation-grid-overlay__column" key={column} />
-                ))}
+                <div className="presentation-grid-overlay__rows">
+                  {GRID_ROWS.map((row) => (
+                    <span className="presentation-grid-overlay__row" key={row} />
+                  ))}
+                </div>
+                <div className="presentation-grid-overlay__columns">
+                  {GRID_COLUMNS.map((column) => (
+                    <span
+                      className="presentation-grid-overlay__column"
+                      key={column}
+                    />
+                  ))}
+                </div>
               </div>
             ) : null}
 
