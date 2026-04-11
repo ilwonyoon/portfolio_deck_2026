@@ -56,8 +56,11 @@ export function SlideIndexPanel({
       <div className="editor-sidebar__body">
         <div className="slide-index">
           {slides.map((slide, index) => {
-            const isActive = slide.id === currentSlideId
-            const formattedIndex = String(index + 1).padStart(2, '0')
+              const isActive = slide.id === currentSlideId
+              const formattedIndex = String(index + 1).padStart(2, '0')
+              const showStepDots = slide.stepDisplay !== 'none' && slide.steps > 1
+              const totalSteps = Math.max(slide.steps, 1)
+              const stepDots = Array.from({ length: totalSteps }, (_, stepIndex) => stepIndex)
 
             return (
               <button
@@ -83,11 +86,25 @@ export function SlideIndexPanel({
                           }}
                         >
                           {slide.render({
+                            advanceStep: () => undefined,
+                            advanceSlide: () => undefined,
+                            autoPlay: false,
                             step: 0,
                             slideIndex: index,
                             totalSlides: slides.length,
                           })}
                         </span>
+                        {showStepDots ? (
+                          <span className="slide-index__step-dots" aria-hidden="true">
+                            {stepDots.map((stepIndex) => (
+                              <span
+                                className="slide-index__step-dot"
+                                data-active={stepIndex === 0}
+                                key={stepIndex}
+                              />
+                            ))}
+                          </span>
+                        ) : null}
                       </span>
                     </span>
                   </>

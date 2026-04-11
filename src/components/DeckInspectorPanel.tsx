@@ -3,6 +3,8 @@ import {
   Grid3X3,
   SlidersHorizontal,
   Type,
+  Play,
+  X,
   PanelRightClose,
   PanelRightOpen,
 } from 'lucide-react'
@@ -44,6 +46,8 @@ type DeckInspectorPanelProps = {
   collapsed: boolean
   onToggleCollapse: () => void
   onToggleGrid: () => void
+  onTogglePresentationMode: () => void
+  presentationMode: 'edit' | 'present'
   selection: CanvasSelection | null
   showGrid: boolean
   slides: SlideDefinition[]
@@ -53,6 +57,8 @@ export function DeckInspectorPanel({
   collapsed,
   onToggleCollapse,
   onToggleGrid,
+  onTogglePresentationMode,
+  presentationMode,
   selection,
   showGrid,
   slides,
@@ -95,18 +101,37 @@ export function DeckInspectorPanel({
           </div>
         )}
 
-        <button
-          aria-label={collapsed ? 'Expand tools panel' : 'Collapse tools panel'}
-          className="editor-sidebar__toggle"
-          onClick={onToggleCollapse}
-          type="button"
-        >
-          {collapsed ? (
-            <PanelRightOpen aria-hidden="true" size={16} strokeWidth={2} />
-          ) : (
-            <PanelRightClose aria-hidden="true" size={16} strokeWidth={2} />
-          )}
-        </button>
+        <div className="editor-sidebar__header-actions">
+          <button
+            aria-label={
+              presentationMode === 'present'
+                ? 'Exit presentation mode'
+                : 'Enter presentation mode'
+            }
+            className="editor-sidebar__toggle editor-sidebar__toggle--mode"
+            onClick={onTogglePresentationMode}
+            type="button"
+          >
+            {presentationMode === 'present' ? (
+              <X aria-hidden="true" size={16} strokeWidth={2} />
+            ) : (
+              <Play aria-hidden="true" size={16} strokeWidth={2} />
+            )}
+          </button>
+
+          <button
+            aria-label={collapsed ? 'Expand tools panel' : 'Collapse tools panel'}
+            className="editor-sidebar__toggle"
+            onClick={onToggleCollapse}
+            type="button"
+          >
+            {collapsed ? (
+              <PanelRightOpen aria-hidden="true" size={16} strokeWidth={2} />
+            ) : (
+              <PanelRightClose aria-hidden="true" size={16} strokeWidth={2} />
+            )}
+          </button>
+        </div>
       </div>
 
       {collapsed ? null : (

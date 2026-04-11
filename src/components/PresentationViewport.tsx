@@ -135,8 +135,16 @@ export function PresentationViewport({
     0.1,
   )
 
+  const stageShellStyle: CSSProperties = {
+    left: `${(viewportSize.width - DESIGN_WIDTH * scale) / 2}px`,
+    top: `${(viewportSize.height - DESIGN_HEIGHT * scale) / 2}px`,
+    width: `${DESIGN_WIDTH * scale}px`,
+    height: `${DESIGN_HEIGHT * scale}px`,
+  }
+
   const stageStyle: CSSProperties = {
-    transform: `translate(${(viewportSize.width - DESIGN_WIDTH * scale) / 2}px, ${(viewportSize.height - DESIGN_HEIGHT * scale) / 2}px) scale(${scale})`,
+    transform: `scale(${scale})`,
+    transformOrigin: 'top left',
   }
 
   function handleStageClick(event: MouseEvent<HTMLDivElement>) {
@@ -163,39 +171,41 @@ export function PresentationViewport({
   return (
     <div className="presentation-viewport" ref={frameRef}>
       <div className="presentation-stage-frame">
-        <div
-          className="presentation-stage"
-          onClick={handleStageClick}
-          ref={stageRef}
-          style={stageStyle}
-        >
-          {children}
+        <div className="presentation-stage-shell" style={stageShellStyle}>
+          <div
+            className="presentation-stage"
+            onClick={handleStageClick}
+            ref={stageRef}
+            style={stageStyle}
+          >
+            {children}
 
-          {showGrid ? (
-            <div aria-hidden="true" className="presentation-grid-overlay">
-              {GRID_COLUMNS.map((column) => (
-                <span className="presentation-grid-overlay__column" key={column} />
-              ))}
-            </div>
-          ) : null}
+            {showGrid ? (
+              <div aria-hidden="true" className="presentation-grid-overlay">
+                {GRID_COLUMNS.map((column) => (
+                  <span className="presentation-grid-overlay__column" key={column} />
+                ))}
+              </div>
+            ) : null}
 
-          {selection ? (
-            <div aria-hidden="true" className="presentation-selection-overlay">
-              <span
-                className="presentation-selection-highlight"
-                style={{
-                  height: `${selection.height}px`,
-                  left: `${selection.x}px`,
-                  top: `${selection.y}px`,
-                  width: `${selection.width}px`,
-                }}
-              >
-                <span className="presentation-selection-label">
-                  {selection.tagName}
+            {selection ? (
+              <div aria-hidden="true" className="presentation-selection-overlay">
+                <span
+                  className="presentation-selection-highlight"
+                  style={{
+                    height: `${selection.height}px`,
+                    left: `${selection.x}px`,
+                    top: `${selection.y}px`,
+                    width: `${selection.width}px`,
+                  }}
+                >
+                  <span className="presentation-selection-label">
+                    {selection.tagName}
+                  </span>
                 </span>
-              </span>
-            </div>
-          ) : null}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>

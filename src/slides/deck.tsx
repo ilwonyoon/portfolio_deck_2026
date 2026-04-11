@@ -1,5 +1,11 @@
 import { SlideShell } from '../components/SlideShell'
 import type { SlideDefinition } from '../types/presentation'
+import { FigmaExportSlide } from './FigmaExportSlide'
+import { CareerHoverSlide } from './CareerHoverSlide'
+import { InspirationSlide } from './InspirationSlide'
+import { OhouseChartSlide } from './OhouseChartSlide'
+import { OhouseSlide } from './OhouseSlide'
+import { PersonalHoverSlide } from './PersonalHoverSlide'
 
 function renderIntroHeroSlide() {
   return (
@@ -45,27 +51,74 @@ export const deckSlides: SlideDefinition[] = [
     id: 'intro',
     navLabel: 'Intro',
     steps: 1,
-    render: () => renderIntroHeroSlide(),
+    render: (context) => {
+      void context
+      return renderIntroHeroSlide()
+    },
   },
   {
     id: 'case-study-01',
     navLabel: 'Case 01',
-    steps: 1,
-    render: ({ slideIndex, totalSlides }) =>
-      renderEmptySlide('Case Study 01', slideIndex, totalSlides),
+    steps: 5,
+    stepDisplay: 'none',
+    render: ({ advanceSlide, advanceStep, autoPlay, step }) => (
+      <InspirationSlide
+        advanceSlide={advanceSlide}
+        advanceStep={advanceStep}
+        autoPlay={autoPlay}
+        step={step}
+      />
+    ),
   },
   {
     id: 'case-study-02',
-    navLabel: 'Case 02',
+    navLabel: 'Ohouse',
+    steps: 2,
+    stepDisplay: 'none',
+    render: ({ advanceSlide, advanceStep, autoPlay, step }) => (
+      <OhouseSlide
+        advanceSlide={advanceSlide}
+        advanceStep={advanceStep}
+        autoPlay={autoPlay}
+        step={step}
+      />
+    ),
+  },
+  {
+    id: 'case-study-03',
+    navLabel: 'Chart',
     steps: 1,
-    render: ({ slideIndex, totalSlides }) =>
-      renderEmptySlide('Case Study 02', slideIndex, totalSlides),
+    render: () => <OhouseChartSlide />,
+  },
+  {
+    id: 'case-study-04',
+    navLabel: 'CLP Topic',
+    steps: 1,
+    render: () => (
+      <FigmaExportSlide
+        alt="Figma export of the CLP Topic frame"
+        src="/media/clp-topic-root-3x.png"
+      />
+    ),
+  },
+  {
+    id: 'case-study-05',
+    navLabel: 'Career',
+    steps: 1,
+    render: () => <CareerHoverSlide />,
+  },
+  {
+    id: 'case-study-06',
+    navLabel: 'Personal',
+    steps: 1,
+    render: () => <PersonalHoverSlide />,
   },
   {
     id: 'work-like-ai-native',
     navLabel: 'AI Native',
     steps: 1,
-    render: ({ slideIndex, totalSlides }) =>
-      renderEmptySlide('Work Like AI Native', slideIndex, totalSlides),
+    render: ({ slideIndex, totalSlides }) => {
+      return renderEmptySlide('Work Like AI Native', slideIndex, totalSlides)
+    },
   },
 ]
