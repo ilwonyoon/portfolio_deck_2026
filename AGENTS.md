@@ -61,6 +61,16 @@ PRs should include:
 
 The deck assumes a fixed `1920x1080` presentation canvas. Preserve that ratio unless the change is deliberate and repository-wide. Use `.env` for hosted media configuration; keep secrets out of the repo.
 
+## Figma Workflow Rules
+
+When a slide is driven by a Figma node, always verify both the node payload and the rendered screenshot before implementing or marking the change complete.
+
+- Fetch the exact node JSON and the node screenshot first.
+- Treat Figma inspector values for position, dimensions, and rotation as the source of truth for image and poster layouts.
+- Compare the exported asset against the Figma screenshot before finalizing the slide.
+- Do not expand or rewrite on-slide copy beyond what the Figma node shows unless the user explicitly asks for new text.
+- Do not rely on a visual guess or memory when the node JSON or screenshot is available; use both and keep them in sync with the browser render.
+
 ## Deck Constitution
 
 This deck should be edited under three standing principles:

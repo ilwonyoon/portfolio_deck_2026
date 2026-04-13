@@ -6,14 +6,18 @@ import {
   CareerHoverSlideWithIntro,
   CareerHoverSlideWithSpotlight,
 } from './CareerHoverSlide'
+import { BeliefStatementSlide } from './BeliefStatementSlide'
 import { InspirationSlide } from './InspirationSlide'
 import { GsapStudySlide } from './GsapStudySlide'
 import { OhouseChartSlide } from './OhouseChartSlide'
 import { OhouseSlide } from './OhouseSlide'
+import { ContributionStorySlide } from './ContributionStorySlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
+import { PosterProfileSlide } from './PosterProfileSlide'
 import { PatternTemplateSlide } from './PatternTemplateSlide'
 import { ProfileStatementSlide } from './ProfileStatementSlide'
 import { SectionIndexSlide } from './SectionIndexSlide'
+import { WinningStatementSlide } from './WinningStatementSlide'
 import { TileEntranceStudySlide } from './TileEntranceStudySlide'
 import { deckManifest } from './deckManifest'
 
@@ -72,11 +76,53 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <ProfileStatementSlide />,
   },
-  'section-index': {
-    id: 'section-index',
-    navLabel: 'Overview',
+  'section-index-01': {
+    id: 'section-index-01',
+    navLabel: 'Overview 1',
     steps: 1,
-    render: () => <SectionIndexSlide />,
+    render: () => <SectionIndexSlide activeIndex={0} />,
+  },
+  'section-index-02': {
+    id: 'section-index-02',
+    navLabel: 'Overview 2',
+    steps: 1,
+    render: () => <SectionIndexSlide activeIndex={1} />,
+  },
+  'section-index-03': {
+    id: 'section-index-03',
+    navLabel: 'Overview 3',
+    steps: 1,
+    render: () => <SectionIndexSlide activeIndex={2} />,
+  },
+  'section-index-04': {
+    id: 'section-index-04',
+    navLabel: 'Overview 4',
+    steps: 1,
+    render: () => <SectionIndexSlide activeIndex={3} />,
+  },
+  'belief-statement': {
+    id: 'belief-statement',
+    navLabel: 'Belief',
+    steps: 1,
+    render: () => <BeliefStatementSlide />,
+  },
+  'winning-statement': {
+    id: 'winning-statement',
+    navLabel: 'Winning',
+    steps: 1,
+    render: () => <WinningStatementSlide />,
+  },
+  'poster-profile': {
+    id: 'poster-profile',
+    navLabel: 'Profile',
+    steps: 1,
+    render: () => <PosterProfileSlide />,
+  },
+  'contribution-story': {
+    id: 'contribution-story',
+    navLabel: 'Contrib',
+    steps: 1,
+    render: () => <ContributionStorySlide />,
   },
   'case-study-01': {
     id: 'case-study-01',
