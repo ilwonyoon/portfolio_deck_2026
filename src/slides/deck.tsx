@@ -11,9 +11,12 @@ import { InspirationSlide } from './InspirationSlide'
 import { GsapStudySlide } from './GsapStudySlide'
 import { OhouseChartSlide } from './OhouseChartSlide'
 import { OhouseConfidenceSlide } from './OhouseConfidenceSlide'
+import { OhouseContentStatementSlide } from './OhouseContentStatementSlide'
 import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
+import { OhouseJourneySlide } from './OhouseJourneySlide'
 import { OhouseMetricsSlide } from './OhouseMetricsSlide'
+import { OhouseRoleSlide } from './OhouseRoleSlide'
 import { OhouseSlide } from './OhouseSlide'
 import { ContributionStorySlide } from './ContributionStorySlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
@@ -186,6 +189,24 @@ export const slideRegistry: Record<string, SlideDefinition> = {
         step={step}
       />
     ),
+  },
+  'case-study-02f': {
+    id: 'case-study-02f',
+    navLabel: 'Ohouse Journey',
+    steps: 1,
+    render: () => <OhouseJourneySlide />,
+  },
+  'case-study-02g': {
+    id: 'case-study-02g',
+    navLabel: 'Content 2.0',
+    steps: 1,
+    render: () => <OhouseContentStatementSlide />,
+  },
+  'case-study-02h': {
+    id: 'case-study-02h',
+    navLabel: 'My Role',
+    steps: 1,
+    render: () => <OhouseRoleSlide />,
   },
   'case-study-03': {
     id: 'case-study-03',

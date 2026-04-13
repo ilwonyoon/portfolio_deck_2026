@@ -1023,6 +1023,245 @@ h3 {
   }
 }
 
+.ohouse-journey-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.ohouse-journey-slide__copy {
+  position: absolute;
+  top: 325px;
+  left: 162px;
+  display: flex;
+  width: 626px;
+  flex-direction: column;
+  gap: 43px;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-journey-slide__copy-block {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+}
+
+.ohouse-journey-slide__copy-block--emphasis {
+  color: #ffffff;
+}
+
+.ohouse-journey-slide__underline {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.08em;
+}
+
+.ohouse-journey-slide__content-area {
+  position: absolute;
+  top: 0;
+  left: 808px;
+  width: 1112px;
+  height: 1080px;
+  background: #000000;
+}
+
+.ohouse-journey-slide__rail {
+  position: absolute;
+  top: 203px;
+  left: 186px;
+  width: 22px;
+  height: 702px;
+}
+
+.ohouse-journey-slide__rail-line {
+  position: absolute;
+  top: 0;
+  left: 10.5px;
+  width: 1px;
+  height: 702px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ohouse-journey-slide__journey {
+  position: absolute;
+  top: 274.5px;
+  left: 256px;
+  width: 737px;
+}
+
+.ohouse-journey-slide__eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-journey-slide__journey-row {
+  position: relative;
+  display: flex;
+  width: 737px;
+  height: 122px;
+  align-items: center;
+}
+
+.ohouse-journey-slide__dot {
+  position: absolute;
+  top: 50%;
+  left: -65.5px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background: #000000;
+  transform: translateY(-50%);
+}
+
+.ohouse-journey-slide__dot--large {
+  left: -70.5px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.ohouse-journey-slide__journey-label {
+  width: 665px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 122px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -6px;
+}
+
+.ohouse-journey-slide__journey-row--current .ohouse-journey-slide__journey-label {
+  color: #ffffff;
+}
+
+.ohouse-content-statement-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  overflow: hidden;
+  color: #000000;
+  font-family: var(--font-sans);
+}
+
+.ohouse-content-statement-slide__copy {
+  position: absolute;
+  top: 431px;
+  left: 323px;
+  width: 1024px;
+}
+
+.ohouse-content-statement-slide__eyebrow {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-content-statement-slide__headline {
+  display: flex;
+  width: 1274px;
+  margin: 0;
+  flex-direction: column;
+  font-size: 80px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -2.72px;
+}
+
+.ohouse-content-statement-slide__headline span {
+  display: block;
+}
+
+.ohouse-role-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.ohouse-role-slide__header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 140px;
+}
+
+.ohouse-role-slide__header-brand,
+.ohouse-role-slide__header-context {
+  position: absolute;
+  top: 51px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.1545px;
+}
+
+.ohouse-role-slide__header-brand {
+  left: 167px;
+}
+
+.ohouse-role-slide__header-context {
+  left: 649px;
+}
+
+.ohouse-role-slide__label {
+  position: absolute;
+  top: 275px;
+  left: 162px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-role-slide__copy {
+  position: absolute;
+  top: 275px;
+  left: 667px;
+  display: flex;
+  width: 950px;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.ohouse-role-slide__body,
+.ohouse-role-slide__goal {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-role-slide__goal {
+  display: flex;
+  flex-direction: column;
+}
+
 .section-index-slide {
   position: relative;
   width: 100%;
