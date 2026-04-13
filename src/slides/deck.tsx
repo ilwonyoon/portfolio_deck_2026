@@ -10,6 +10,10 @@ import { BeliefStatementSlide } from './BeliefStatementSlide'
 import { InspirationSlide } from './InspirationSlide'
 import { GsapStudySlide } from './GsapStudySlide'
 import { OhouseChartSlide } from './OhouseChartSlide'
+import { OhouseConfidenceSlide } from './OhouseConfidenceSlide'
+import { OhouseContentSlide } from './OhouseContentSlide'
+import { OhouseIntroSlide } from './OhouseIntroSlide'
+import { OhouseMetricsSlide } from './OhouseMetricsSlide'
 import { OhouseSlide } from './OhouseSlide'
 import { ContributionStorySlide } from './ContributionStorySlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
@@ -145,6 +149,37 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     stepDisplay: 'none',
     render: ({ advanceSlide, advanceStep, autoPlay, step }) => (
       <OhouseSlide
+        advanceSlide={advanceSlide}
+        advanceStep={advanceStep}
+        autoPlay={autoPlay}
+        step={step}
+      />
+    ),
+  },
+  'case-study-02b': {
+    id: 'case-study-02b',
+    navLabel: 'Ohouse Intro',
+    steps: 1,
+    render: () => <OhouseIntroSlide />,
+  },
+  'case-study-02c': {
+    id: 'case-study-02c',
+    navLabel: 'Ohouse Content',
+    steps: 1,
+    render: () => <OhouseContentSlide />,
+  },
+  'case-study-02d': {
+    id: 'case-study-02d',
+    navLabel: 'Ohouse Proof',
+    steps: 1,
+    render: () => <OhouseConfidenceSlide />,
+  },
+  'case-study-02e': {
+    id: 'case-study-02e',
+    navLabel: 'Ohouse Metrics',
+    steps: 2,
+    render: ({ advanceSlide, advanceStep, autoPlay, step }) => (
+      <OhouseMetricsSlide
         advanceSlide={advanceSlide}
         advanceStep={advanceStep}
         autoPlay={autoPlay}

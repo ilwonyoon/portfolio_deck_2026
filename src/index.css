@@ -696,6 +696,333 @@ h3 {
   margin-top: 10px;
 }
 
+.ohouse-intro-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+}
+
+.ohouse-intro-slide__copy {
+  position: absolute;
+  top: 422px;
+  left: 323px;
+  width: 1242px;
+  height: 237px;
+  display: flex;
+  flex-direction: column;
+  color: #fafafa;
+  font-family: var(--font-sans);
+}
+
+.ohouse-intro-slide__eyebrow {
+  width: 100%;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-intro-slide__headline {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0;
+  color: #fafafa;
+  font-size: 88px;
+  font-weight: 550;
+  line-height: 1.1;
+  letter-spacing: -2.992px;
+}
+
+.ohouse-intro-slide__headline span {
+  display: block;
+}
+
+.ohouse-content-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+}
+
+.ohouse-content-slide__copy {
+  position: absolute;
+  top: 497px;
+  left: 162px;
+  width: 626px;
+  height: 86px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-content-slide__copy p {
+  margin: 0;
+}
+
+.ohouse-content-slide__underline {
+  text-decoration-line: underline;
+  text-decoration-skip-ink: none;
+}
+
+.ohouse-content-slide__images {
+  position: absolute;
+  top: 0;
+  left: 808px;
+  width: 1112px;
+  height: 1080px;
+}
+
+.ohouse-content-slide__image {
+  position: absolute;
+  top: 134px;
+  width: 375px;
+  height: 812px;
+  object-fit: cover;
+  display: block;
+}
+
+.ohouse-content-slide__image--feed {
+  left: 154px;
+}
+
+.ohouse-content-slide__image--detail {
+  left: 583px;
+}
+
+.ohouse-confidence-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+}
+
+.ohouse-confidence-slide__copy {
+  position: absolute;
+  top: 454px;
+  left: 162px;
+  width: 626px;
+  height: 172px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-confidence-slide__copy p {
+  margin: 0;
+}
+
+.ohouse-confidence-slide__underline {
+  text-decoration-line: underline;
+  text-decoration-skip-ink: none;
+}
+
+.ohouse-confidence-slide__images {
+  position: absolute;
+  top: 0;
+  left: 808px;
+  width: 1112px;
+  height: 1080px;
+}
+
+.ohouse-confidence-slide__image {
+  position: absolute;
+  top: 134px;
+  width: 375px;
+  height: 812px;
+  object-fit: cover;
+  display: block;
+}
+
+.ohouse-confidence-slide__image--detail {
+  left: 154px;
+}
+
+.ohouse-confidence-slide__image--styled {
+  left: 583px;
+}
+
+.ohouse-metrics-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.ohouse-metrics-slide__eyebrow {
+  position: absolute;
+  top: 347px;
+  left: 323px;
+  width: 949px;
+  height: 43px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.279;
+  letter-spacing: 0.1px;
+}
+
+.ohouse-metrics-slide__list {
+  position: absolute;
+  top: 407px;
+  left: 324px;
+  width: 969px;
+  height: 244px;
+}
+
+.ohouse-metrics-slide__row {
+  display: flex;
+  width: 969px;
+  height: 122px;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.ohouse-metrics-slide__metric {
+  display: flex;
+  width: 290px;
+  height: 122px;
+  align-items: flex-end;
+  margin: 0;
+  font-size: 122px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -4px;
+}
+
+.ohouse-metrics-slide__metric[data-counting='true'] .ohouse-metrics-slide__metric-number {
+  animation: ohouse-metrics-counter-settle 760ms cubic-bezier(0.16, 0.84, 0.22, 1);
+}
+
+.ohouse-metrics-slide__metric-content {
+  display: inline-flex;
+  width: fit-content;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.ohouse-metrics-slide__label {
+  display: flex;
+  width: 667px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin: 0;
+  padding-bottom: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 88px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -2px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ohouse-metrics-slide__eyebrow-text {
+  display: inline-block;
+  min-height: 43px;
+  white-space: pre;
+}
+
+.ohouse-metrics-slide__eyebrow-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 2px;
+  vertical-align: -0.08em;
+  background: rgba(255, 255, 255, 0.58);
+  animation: ohouse-metrics-caret-blink 1s steps(1, end) infinite;
+}
+
+.ohouse-metrics-slide__metric-number {
+  display: inline-block;
+}
+
+.ohouse-metrics-slide__metric-number-slot {
+  display: flex;
+  width: var(--metric-number-width, auto);
+  min-width: var(--metric-number-width, auto);
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.ohouse-metrics-slide__metric-suffix-slot {
+  display: flex;
+  align-items: flex-end;
+  text-align: left;
+}
+
+.ohouse-metrics-slide__metric-suffix {
+  display: inline-block;
+}
+
+.ohouse-metrics-slide__metric[data-kind='k'] .ohouse-metrics-slide__metric-number-slot {
+  width: var(--metric-number-width, auto);
+  min-width: var(--metric-number-width, auto);
+}
+
+.ohouse-metrics-slide__metric[data-kind='k'] .ohouse-metrics-slide__metric-suffix-slot {
+  margin-left: -0.028em;
+}
+
+.ohouse-metrics-slide__metric[data-kind='percent'] .ohouse-metrics-slide__metric-number-slot {
+  width: var(--metric-number-width, auto);
+  min-width: var(--metric-number-width, auto);
+}
+
+.ohouse-metrics-slide__metric[data-kind='percent'] .ohouse-metrics-slide__metric-suffix-slot {
+  margin-left: -0.042em;
+}
+
+.ohouse-metrics-slide__metric-suffix[data-kind='percent'] {
+  font-size: 100px;
+  line-height: 1;
+}
+
+.ohouse-metrics-slide__metric-suffix[data-kind='k'] {
+  font-size: 122px;
+  line-height: 1;
+}
+
+@keyframes ohouse-metrics-counter-settle {
+  0% {
+    opacity: 0.78;
+    transform: translateY(-0.12em);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ohouse-metrics-caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 .section-index-slide {
   position: relative;
   width: 100%;
