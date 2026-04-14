@@ -17,6 +17,7 @@ import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
 import { OhouseJourneySlide } from './OhouseJourneySlide'
 import { OhouseMetricsSlide } from './OhouseMetricsSlide'
+import { OhousePersonaSlide } from './OhousePersonaSlide'
 import { OhouseRoleSlide } from './OhouseRoleSlide'
 import { OhouseSlide } from './OhouseSlide'
 import { ContributionStorySlide } from './ContributionStorySlide'
@@ -226,6 +227,13 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'My Role',
     steps: 1,
     render: () => <OhouseRoleSlide />,
+  },
+  'case-study-02i': {
+    id: 'case-study-02i',
+    navLabel: 'Personas',
+    steps: 3,
+    stepDisplay: 'none',
+    render: ({ step }) => <OhousePersonaSlide step={step} />,
   },
   'case-study-03': {
     id: 'case-study-03',
