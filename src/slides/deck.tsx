@@ -12,6 +12,7 @@ import { GsapStudySlide } from './GsapStudySlide'
 import { OhouseChartSlide } from './OhouseChartSlide'
 import { OhouseConfidenceSlide } from './OhouseConfidenceSlide'
 import { OhouseContentStatementSlide } from './OhouseContentStatementSlide'
+import { OhouseBrowseMotionSlide } from './OhouseBrowseMotionSlide'
 import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
 import { OhouseJourneySlide } from './OhouseJourneySlide'
@@ -201,6 +202,24 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Content 2.0',
     steps: 1,
     render: () => <OhouseContentStatementSlide />,
+  },
+  'case-study-02g1': {
+    id: 'case-study-02g1',
+    navLabel: 'Browse 01',
+    steps: 1,
+    render: () => <OhouseBrowseMotionSlide mode="trail" />,
+  },
+  'case-study-02g2': {
+    id: 'case-study-02g2',
+    navLabel: 'Browse 02',
+    steps: 1,
+    render: () => <OhouseBrowseMotionSlide mode="stack" />,
+  },
+  'case-study-02g3': {
+    id: 'case-study-02g3',
+    navLabel: 'Browse 03',
+    steps: 1,
+    render: () => <OhouseBrowseMotionSlide mode="field" />,
   },
   'case-study-02h': {
     id: 'case-study-02h',

@@ -2439,6 +2439,7 @@ h3 {
 
 .slide-index__thumbnail {
   display: flex;
+  width: 100%;
   min-height: 0;
   flex-direction: column;
   gap: 0;
@@ -2446,6 +2447,7 @@ h3 {
 
 .slide-index__thumbnail-frame {
   position: relative;
+  width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -2502,6 +2504,7 @@ h3 {
   position: absolute;
   top: 0;
   left: 0;
+  display: block;
   transform-origin: top left;
   pointer-events: none;
 }
@@ -4175,6 +4178,136 @@ h3 {
   opacity: 0;
 }
 
+.ohouse-browse-motion {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 34px;
+}
+
+.ohouse-browse-motion--trail,
+.ohouse-browse-motion--stack {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.84), transparent 26%),
+    linear-gradient(180deg, #f7f3ee 0%, #eee8df 100%);
+}
+
+.ohouse-browse-motion--field {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.07), transparent 24%),
+    linear-gradient(180deg, #0e0f11 0%, #17191d 100%);
+}
+
+.ohouse-browse-motion__trail-stage,
+.ohouse-browse-motion__stack-canvas,
+.ohouse-browse-motion__field-grid {
+  position: absolute;
+  inset: 0;
+}
+
+.ohouse-browse-motion__trail-stage {
+  display: grid;
+  place-items: center;
+}
+
+.ohouse-browse-motion__trail-card,
+.ohouse-browse-motion__stack-card,
+.ohouse-browse-motion__field-tile {
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: 28px;
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.72) inset;
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.ohouse-browse-motion__trail-card {
+  position: absolute;
+  width: 320px;
+  height: 420px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+}
+
+.ohouse-browse-motion__stack-canvas {
+  padding: 0;
+}
+
+.ohouse-browse-motion__stack-canvas::before,
+.ohouse-browse-motion__stack-canvas::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 17%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.ohouse-browse-motion__stack-canvas::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(247, 243, 238, 0.98) 0%, rgba(247, 243, 238, 0) 100%);
+}
+
+.ohouse-browse-motion__stack-canvas::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(247, 243, 238, 0.98) 0%, rgba(247, 243, 238, 0) 100%);
+}
+
+.ohouse-browse-motion__stack-card {
+  position: absolute;
+  margin: 0;
+  border-radius: 34px;
+  transform-origin: center center;
+  transform: translate(-50%, -50%);
+  will-change: transform, filter, opacity;
+}
+
+.ohouse-browse-motion__stack-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) contrast(1.02);
+}
+
+.ohouse-browse-motion__field-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  padding: 36px;
+  mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.ohouse-browse-motion__field-column,
+.ohouse-browse-motion__field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ohouse-browse-motion__field-column {
+  will-change: transform;
+}
+
+.ohouse-browse-motion__field-tile {
+  position: relative;
+  height: 188px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ohouse-browse-motion__field-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.92) saturate(0.88);
+}
+
 .pattern-template {
   --pattern-copy-line-height: 1.4;
   --pattern-copy-letter-spacing: 0.15px;
@@ -5073,5 +5206,386 @@ h3 {
 
   .editor-sidebar--right {
     width: 288px;
+  }
+}
+
+.ohouse-actionability-study {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.8), transparent 28%),
+    linear-gradient(180deg, #f7f3ee 0%, #ede8df 100%);
+  color: #111111;
+  font-family: var(--font-sans);
+}
+
+.ohouse-actionability-study__header {
+  position: absolute;
+  top: 72px;
+  left: 120px;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ohouse-actionability-study__eyebrow {
+  color: rgba(17, 17, 17, 0.52);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ohouse-actionability-study__note {
+  width: 420px;
+  margin: 0;
+  color: rgba(17, 17, 17, 0.68);
+  font-size: 28px;
+  font-weight: 450;
+  line-height: 1.24;
+  letter-spacing: -0.03em;
+}
+
+.ohouse-actionability-study__title-block {
+  position: absolute;
+  left: 120px;
+  bottom: 82px;
+  z-index: 6;
+  max-width: 700px;
+}
+
+.ohouse-actionability-study__title-block--buried {
+  max-width: 660px;
+}
+
+.ohouse-actionability-study__title-block h2 {
+  margin: 0;
+  font-size: 66px;
+  font-weight: 560;
+  line-height: 0.96;
+  letter-spacing: -0.065em;
+}
+
+.ohouse-actionability-study__glass-query {
+  position: absolute;
+  z-index: 7;
+  padding: 22px 26px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 28px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 0 -12px 28px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(26px) saturate(165%);
+}
+
+.ohouse-actionability-study__glass-query::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  right: 18px;
+  left: 18px;
+  height: 28%;
+  border-radius: 24px 24px 14px 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.ohouse-actionability-study__glass-query p {
+  position: relative;
+  margin: 0;
+  font-size: 34px;
+  font-weight: 470;
+  line-height: 1.16;
+  letter-spacing: -0.05em;
+}
+
+.ohouse-actionability-study__glass-query--reveal {
+  top: 168px;
+  left: 120px;
+  width: 590px;
+}
+
+.ohouse-actionability-study__glass-query--buried {
+  top: 182px;
+  right: 120px;
+  width: 500px;
+}
+
+.ohouse-actionability-study__glass-label {
+  position: relative;
+  display: inline-flex;
+  margin-bottom: 14px;
+  color: rgba(17, 17, 17, 0.54);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ohouse-actionability-study__tile {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 17, 0.05);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.54);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.72) inset;
+}
+
+.ohouse-actionability-study__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  filter: saturate(0.74) contrast(1.02) brightness(0.98);
+}
+
+.ohouse-actionability-study__wall {
+  position: absolute;
+  top: 98px;
+  right: 78px;
+  bottom: 72px;
+  left: 690px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px;
+  mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.ohouse-actionability-study__wall-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transform: translateY(var(--column-offset));
+  animation: actionability-wall-drift var(--column-duration) linear infinite;
+}
+
+.ohouse-actionability-study__wall-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ohouse-actionability-study__wall .ohouse-actionability-study__tile--tall {
+  height: 234px;
+}
+
+.ohouse-actionability-study__wall .ohouse-actionability-study__tile--square {
+  height: 168px;
+}
+
+.ohouse-actionability-study__wall .ohouse-actionability-study__tile--wide {
+  height: 138px;
+}
+
+.ohouse-actionability-study--wall .ohouse-actionability-study__glass-query {
+  top: 348px;
+  left: 202px;
+  width: 540px;
+}
+
+.ohouse-actionability-study__reveal-grid {
+  position: absolute;
+  top: 188px;
+  right: 440px;
+  bottom: 112px;
+  left: 120px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-content: center;
+}
+
+.ohouse-actionability-study__tile--reveal {
+  transform-origin: center;
+}
+
+.ohouse-actionability-study__reveal-grid .ohouse-actionability-study__tile--tall {
+  aspect-ratio: 0.82;
+}
+
+.ohouse-actionability-study__reveal-grid .ohouse-actionability-study__tile--square {
+  aspect-ratio: 1;
+}
+
+.ohouse-actionability-study__reveal-grid .ohouse-actionability-study__tile--wide {
+  aspect-ratio: 1.35;
+}
+
+.ohouse-actionability-study__scope-panel {
+  position: absolute;
+  top: 286px;
+  right: 120px;
+  z-index: 6;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ohouse-actionability-study__scope-label {
+  color: rgba(17, 17, 17, 0.52);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ohouse-actionability-study__scope-panel h2 {
+  margin: 0;
+  font-size: 60px;
+  font-weight: 560;
+  line-height: 0.94;
+  letter-spacing: -0.07em;
+}
+
+.ohouse-actionability-study__scope-panel p {
+  width: 280px;
+  margin: 0;
+  color: rgba(17, 17, 17, 0.74);
+  font-size: 29px;
+  font-weight: 450;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+
+.ohouse-actionability-study__scope-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ohouse-actionability-study__scope-tags span,
+.ohouse-actionability-study__action-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.86);
+  color: #f3ede1;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.ohouse-actionability-study__buried-field {
+  position: absolute;
+  inset: 176px 120px 88px;
+  overflow: hidden;
+  border-radius: 34px;
+}
+
+.ohouse-actionability-study__chip-stack {
+  position: absolute;
+  top: 116px;
+  left: 52px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ohouse-actionability-study__ribbon {
+  position: absolute;
+  top: 92px;
+  right: -10%;
+  left: -10%;
+  z-index: 3;
+  display: flex;
+  gap: 18px;
+  animation: actionability-ribbon-sweep 18s linear infinite;
+}
+
+.ohouse-actionability-study__ribbon-card {
+  display: flex;
+  height: 112px;
+  min-width: 300px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 28px;
+  background: rgba(19, 19, 19, 0.92);
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.22);
+  color: rgba(243, 237, 225, 0.96);
+  font-size: 32px;
+  font-weight: 470;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+.ohouse-actionability-study__buried-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px;
+  padding-top: 198px;
+}
+
+.ohouse-actionability-study__tile--buried {
+  animation: actionability-tile-breathe 4.8s ease-in-out infinite;
+  animation-delay: var(--tile-delay);
+}
+
+.ohouse-actionability-study__buried-grid .ohouse-actionability-study__tile--tall {
+  height: 236px;
+}
+
+.ohouse-actionability-study__buried-grid .ohouse-actionability-study__tile--square {
+  height: 172px;
+}
+
+.ohouse-actionability-study__buried-grid .ohouse-actionability-study__tile--wide {
+  height: 142px;
+}
+
+@keyframes actionability-wall-drift {
+  from {
+    transform: translateY(var(--column-offset));
+  }
+
+  to {
+    transform: translateY(calc(var(--column-offset) - 50%));
+  }
+}
+
+@keyframes actionability-ribbon-sweep {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes actionability-tile-breathe {
+  0%,
+  100% {
+    opacity: 0.92;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.025);
   }
 }
