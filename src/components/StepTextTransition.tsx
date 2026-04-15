@@ -14,7 +14,7 @@ function EraseTypeText({
   text,
 }: Pick<StepTextTransitionProps, 'className' | 'text'>) {
   const config = INTERACTION_SYSTEM.text.variants['erase-type']
-  const { blankPauseMs, eraseCharMs, typeCharMs } = config
+  const { blankPauseMs, eraseMode, typeCharMs } = config
   const [displayText, setDisplayText] = useState(text)
   const timeoutsRef = useRef<number[]>([])
   const previousTextRef = useRef(text)
@@ -43,19 +43,13 @@ function EraseTypeText({
       timeoutsRef.current.push(timeoutId)
     }
 
-    for (let index = previousText.length - 1; index >= 0; index -= 1) {
-      const delay = (previousText.length - index) * eraseCharMs
+    if (eraseMode === 'instant') {
       schedule(() => {
-        setDisplayText(previousText.slice(0, index))
-      }, delay)
+        setDisplayText('')
+      }, 0)
     }
 
-    const eraseDuration = previousText.length * eraseCharMs
-    const typeStart = eraseDuration + blankPauseMs
-
-    schedule(() => {
-      setDisplayText('')
-    }, eraseDuration)
+    const typeStart = blankPauseMs
 
     for (let index = 1; index <= text.length; index += 1) {
       const delay = typeStart + index * typeCharMs
@@ -72,7 +66,7 @@ function EraseTypeText({
       })
       timeoutsRef.current = []
     }
-  }, [blankPauseMs, eraseCharMs, text, typeCharMs])
+  }, [blankPauseMs, eraseMode, text, typeCharMs])
 
   return (
     <div className={className}>

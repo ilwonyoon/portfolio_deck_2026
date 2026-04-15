@@ -299,7 +299,11 @@ export function OhousePersonaSlide({ step }: { step: number }) {
   const currentStep = STEP_STATES[Math.min(step, STEP_STATES.length - 1)]
 
   return (
-    <article className="ohouse-persona-slide" data-node-id="6057:24903">
+    <article
+      className="ohouse-persona-slide"
+      data-node-id="6057:24903"
+      data-persona-step={step === 0 ? 'overview' : 'focus'}
+    >
       <StepTextTransition
         className="ohouse-persona-slide__copy"
         text={currentStep.copy.join('\n')}

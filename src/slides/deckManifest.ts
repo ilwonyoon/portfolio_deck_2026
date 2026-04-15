@@ -13,7 +13,6 @@ export const deckManifest = [
   'case-study-02h',
   'case-study-02i',
   'case-study-02j',
-  'case-study-02j2',
   'case-study-02g',
   'section-index-03',
   'section-index-04',

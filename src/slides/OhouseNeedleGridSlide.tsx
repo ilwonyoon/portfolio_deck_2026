@@ -14,6 +14,10 @@ const THUMB_PATHS = Array.from({ length: THUMB_COUNT }, (_, index) => {
   return `/media/ohouse-grid/thumbs/ohouse-grid-${String(index + 1).padStart(3, '0')}.jpg`
 })
 
+const FOCUS_PATHS = Array.from({ length: THUMB_COUNT }, (_, index) => {
+  return `/media/ohouse-grid/focus/ohouse-focus-${String(index + 1).padStart(3, '0')}.jpg`
+})
+
 const DENSITY_CONFIG = {
   dense: {
     columns: 30,
@@ -27,9 +31,9 @@ const DENSITY_CONFIG = {
   },
 } as const
 
-function getTileImage(index: number, columns: number) {
+function getTileImageId(index: number, columns: number) {
   const row = Math.floor(index / columns)
-  return THUMB_PATHS[(index * 11 + row * 3) % THUMB_PATHS.length]
+  return (index * 11 + row * 3) % THUMB_PATHS.length
 }
 
 export function OhouseNeedleGridSlide({
@@ -49,8 +53,9 @@ export function OhouseNeedleGridSlide({
 
   const tiles = useMemo(() => {
     return Array.from({ length: tileCount }, (_, index) => ({
+      focusSrc: FOCUS_PATHS[getTileImageId(index, config.columns)],
       id: index,
-      src: getTileImage(index, config.columns),
+      src: THUMB_PATHS[getTileImageId(index, config.columns)],
     }))
   }, [config.columns, tileCount])
 
@@ -189,11 +194,22 @@ export function OhouseNeedleGridSlide({
                   <img
                     alt=""
                     aria-hidden="true"
-                    className="ohouse-needle-grid__tile-image"
+                    className="ohouse-needle-grid__tile-image ohouse-needle-grid__tile-image--base"
                     draggable="false"
                     loading="lazy"
                     src={tile.src}
                   />
+                  {isActive ? (
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      className="ohouse-needle-grid__tile-image ohouse-needle-grid__tile-image--focus"
+                      draggable="false"
+                      fetchPriority="high"
+                      loading="eager"
+                      src={tile.focusSrc}
+                    />
+                  ) : null}
                 </span>
               </button>
             )

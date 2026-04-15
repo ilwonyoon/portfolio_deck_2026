@@ -44,8 +44,8 @@ export const INTERACTION_SYSTEM = {
         y: 6,
       },
       'erase-type': {
-        blankPauseMs: 180,
-        eraseCharMs: 34,
+        blankPauseMs: 110,
+        eraseMode: 'instant',
         intent: 'Replace copy in place with editorial sequencing.',
         typeCharMs: 26,
       },
