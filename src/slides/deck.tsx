@@ -17,6 +17,7 @@ import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
 import { OhouseJourneySlide } from './OhouseJourneySlide'
 import { OhouseMetricsSlide } from './OhouseMetricsSlide'
+import { OhouseNeedleGridSlide } from './OhouseNeedleGridSlide'
 import { OhousePersonaSlide } from './OhousePersonaSlide'
 import { OhouseRoleSlide } from './OhouseRoleSlide'
 import { OhouseSlide } from './OhouseSlide'
@@ -234,6 +235,18 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 3,
     stepDisplay: 'none',
     render: ({ step }) => <OhousePersonaSlide step={step} />,
+  },
+  'case-study-02j': {
+    id: 'case-study-02j',
+    navLabel: 'Needle Grid',
+    steps: 1,
+    render: () => <OhouseNeedleGridSlide />,
+  },
+  'case-study-02j2': {
+    id: 'case-study-02j2',
+    navLabel: 'Needle Grid 1.5x',
+    steps: 1,
+    render: () => <OhouseNeedleGridSlide density="dense" />,
   },
   'case-study-03': {
     id: 'case-study-03',

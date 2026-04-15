@@ -4505,6 +4505,80 @@ h3 {
   filter: brightness(0.92) saturate(0.88);
 }
 
+.ohouse-needle-grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 16%, rgba(255, 255, 255, 0.05), transparent 22%),
+    linear-gradient(180deg, #060606 0%, #0a0a0a 100%);
+}
+
+.ohouse-needle-grid__stage {
+  position: absolute;
+  top: 97px;
+  left: 162px;
+  width: 1596px;
+  height: 886px;
+}
+
+.ohouse-needle-grid__grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(var(--needle-grid-columns), var(--needle-grid-tile-size));
+  grid-template-rows: repeat(var(--needle-grid-rows), var(--needle-grid-tile-size));
+  column-gap: var(--needle-grid-column-gap);
+  row-gap: var(--needle-grid-row-gap);
+  justify-content: center;
+  align-content: center;
+}
+
+.ohouse-needle-grid__tile {
+  position: relative;
+  width: var(--needle-grid-tile-size);
+  height: var(--needle-grid-tile-size);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ohouse-needle-grid__tile[data-active='true'] {
+  z-index: 12;
+}
+
+.ohouse-needle-grid__tile-card {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  will-change: transform, opacity, filter;
+}
+
+.ohouse-needle-grid__tile-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 10px;
+  transform: scale(1.12);
+  transform-origin: center center;
+}
+
+.ohouse-needle-grid__tile:focus-visible {
+  outline: none;
+}
+
+.ohouse-needle-grid__tile:focus-visible .ohouse-needle-grid__tile-card {
+  outline: 1px solid rgba(255, 255, 255, 0.2);
+  outline-offset: 0;
+}
+
 .pattern-template {
   --pattern-copy-line-height: 1.4;
   --pattern-copy-letter-spacing: 0.15px;
