@@ -1,10 +1,7 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import type { CSSProperties } from 'react'
+import { motion } from 'framer-motion'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { StepTextTransition } from '../components/StepTextTransition'
-import { resolveFocusTone } from '../lib/focusState'
-
-const PERSONA_STRIP_ASSET = '/media/ohouse-persona-strip.svg'
 
 type PersonaMetric = {
   gap?: number
@@ -12,32 +9,22 @@ type PersonaMetric = {
   value: string
 }
 
+type PersonaCardId = 'creator' | 'hcpn' | 'hcpy' | 'lcpy' | 'premium' | 'review'
+
 type PersonaCard = {
   description: string
-  detailRows?: string[]
-  fillerDetailRows?: number
-  id: string
+  overviewDetails?: string[]
+  id: PersonaCardId
   metrics: PersonaMetric[]
-  size: 'large' | 'small'
   title: string
 }
 
 type StepState = {
   copy: string[]
-  emphasis: Record<
-    string,
-    {
-      active?: boolean
-      detailsVisible?: boolean
-      dimCard?: boolean
-      mutedDetailRows?: number[]
-      mutedMetricRows?: number[]
-      strongDetailRow?: number
-    }
-  >
+  focusCardId?: PersonaCardId
 }
 
-const PERSONA_CARDS: Record<string, PersonaCard> = {
+const PERSONA_CARDS: Record<PersonaCardId, PersonaCard> = {
   creator: {
     description: 'Uploaded Content That Month',
     id: 'creator',
@@ -46,41 +33,40 @@ const PERSONA_CARDS: Record<string, PersonaCard> = {
       { label: 'GMV', value: '2.37% (avg.$152)' },
       { label: 'M3 Ret', value: '79%' },
     ],
-    size: 'small',
+    overviewDetails: [
+      'Revenue/customer: $152.',
+      'Retention remains strong despite the group’s limited scale.',
+      'Content-view intensity is highest among creator-side cohorts.',
+    ],
     title: 'Content Creator',
   },
   hcpn: {
     description: 'High Content Purchase No',
-    detailRows: [
-      'Conversion Rate to HCPY: 15%',
-      'Renovation request: 2.9x HCPY',
-      'Tag click per users: 19.89',
-      'Product saves per users: 10.64',
-    ],
     id: 'hcpn',
     metrics: [
       { label: 'MAU', value: '8.2%' },
       { label: 'GMV', value: '0%' },
       { label: 'M3 Ret', value: '72%' },
     ],
-    size: 'large',
+    overviewDetails: [
+      'Revenue/customer: $0.',
+      'High content engagement, but no purchase behavior.',
+      'Only 15% convert into HCPY; most remain non-buyers.',
+    ],
     title: 'HCPN',
   },
   hcpy: {
     description: 'High Content Purchase Yes',
-    detailRows: [
-      'Purchase per month : 2.94',
-      'Tag click per users: 33.76',
-      'Product saves per users: 24.77',
-    ],
-    fillerDetailRows: 1,
     id: 'hcpy',
     metrics: [
       { label: 'MAU', value: '5.38%' },
       { label: 'GMV', value: '42.3% (avg. $227)' },
       { label: 'M3 Ret', value: '78%' },
     ],
-    size: 'large',
+    overviewDetails: [
+      'Highest revenue/customer: avg. $227.',
+      'Winning persona for the content-to-commerce loop.',
+    ],
     title: 'HCPY',
   },
   lcpy: {
@@ -91,7 +77,11 @@ const PERSONA_CARDS: Record<string, PersonaCard> = {
       { label: 'GMV', value: '34.8% (avg.$88)' },
       { label: 'M3 Ret', value: '54%' },
     ],
-    size: 'small',
+    overviewDetails: [
+      'Revenue/customer: $88.',
+      'Weakest retention when purchase happens without content engagement.',
+      'The pattern suggests externally driven discovery, followed by transactional use.',
+    ],
     title: 'LCPY',
   },
   premium: {
@@ -99,10 +89,14 @@ const PERSONA_CARDS: Record<string, PersonaCard> = {
     id: 'premium',
     metrics: [
       { label: 'MAU', value: '2.6%' },
-      { label: 'GMV', value: '15.6% (avg.$195)' },
-      { label: 'M3 Ret', value: '75%' },
+      { label: 'GMV', value: '13% (avg.$142)' },
+      { label: 'M3 Ret', value: '91%' },
     ],
-    size: 'small',
+    overviewDetails: [
+      'Revenue/customer: $142.',
+      'Taste-led browsing shows the strongest retention profile across groups.',
+      'High content-view frequency suggests a durable interest graph.',
+    ],
     title: 'Premium',
   },
   review: {
@@ -113,185 +107,204 @@ const PERSONA_CARDS: Record<string, PersonaCard> = {
       { gap: 27.239, label: 'GMV', value: '15.6% (avg.$195)' },
       { gap: 27.239, label: 'M3 Ret', value: '75%' },
     ],
-    size: 'small',
+    overviewDetails: [
+      'Revenue/customer: $195.',
+      'Review writers form a small but commercially dense contributor group.',
+      'Purchase frequency remains among the strongest creator-side signals.',
+    ],
     title: 'Review writer',
   },
 }
 
-const PERSONA_COLUMNS = [
-  {
-    cards: [{ cardId: 'hcpy', height: 561.441 }],
-    id: 'column-hcpy',
-  },
-  {
-    cards: [{ cardId: 'hcpn', height: 561.441 }],
-    id: 'column-hcpn',
-  },
-  {
-    cards: [
-      { cardId: 'lcpy', height: 274.527 },
-      { cardId: 'premium', height: 272.386 },
-    ],
-    id: 'column-secondary',
-  },
-  {
-    cards: [
-      { cardId: 'creator', height: 273.457 },
-      { cardId: 'review', height: 273.457 },
-    ],
-    id: 'column-tertiary',
-  },
-] as const
+const PERSONA_OVERVIEW_ORDER = ['hcpy', 'hcpn', 'lcpy', 'creator', 'premium', 'review'] as const
+const OVERVIEW_EVIDENCE_HOLD_MS = 720
+
+function formatOverviewMetricValue(metric: PersonaMetric) {
+  if (metric.label !== 'GMV') {
+    return metric.value
+  }
+
+  return metric.value.replace(/\s*\(avg\.?\s*\$?\d+\)/, '')
+}
 
 const STEP_STATES: StepState[] = [
   {
     copy: [
-      'Identified problem and opportunity discovery',
-      '— mapping our users into 6 personas',
+      'To understand where the opportunity was, we mapped users into 6 personas — from data and interviews.',
     ],
-    emphasis: {
-      creator: { mutedMetricRows: [0, 1, 2] },
-      hcpn: {
-        mutedDetailRows: [0, 1, 2, 3],
-        mutedMetricRows: [0, 1, 2],
-      },
-      hcpy: {
-        mutedDetailRows: [0, 1, 2, 3],
-        mutedMetricRows: [0, 1, 2],
-      },
-      lcpy: { mutedMetricRows: [0, 1, 2] },
-      premium: { mutedMetricRows: [0, 1, 2] },
-      review: { mutedMetricRows: [0, 1, 2] },
-    },
   },
   {
     copy: [
-      'Content is the highest lever.',
-      'But only 5% of users ever get there.',
+      'Content is the highest lever. HCPY drives 42.3% of GMV. But only 5.38% of users.',
     ],
-    emphasis: {
-      creator: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-      hcpn: {
-        dimCard: true,
-        mutedDetailRows: [0, 1, 2, 3],
-        mutedMetricRows: [0, 1, 2],
-      },
-      hcpy: { active: true, detailsVisible: true },
-      lcpy: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-      premium: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-      review: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-    },
+    focusCardId: 'hcpy',
   },
   {
     copy: [
-      "But it's also broken.",
-      'HCPN engage with content but never buy.',
-      'Conversion Rate to HCPY is just 15%.',
+      "But it's also broken. HCPN engages just as much — yet never buys. The intent is there, but the action isn't.",
     ],
-    emphasis: {
-      creator: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-      hcpn: { active: true, detailsVisible: true, strongDetailRow: 0 },
-      hcpy: {
-        dimCard: true,
-        mutedDetailRows: [0, 1, 2, 3],
-        mutedMetricRows: [0, 1, 2],
-      },
-      lcpy: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-      premium: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-      review: { dimCard: true, mutedMetricRows: [0, 1, 2] },
-    },
+    focusCardId: 'hcpn',
   },
 ] as const
 
-function PersonaCardView({
-  card,
-  detailsVisible,
-  isActive,
-  isDimmed,
-  mutedDetailRows,
-  mutedMetricRows,
-  step,
-  strongDetailRow,
+function PersonaOverviewList({
+  focusCardId,
+  isEvidenceVisible,
 }: {
-  card: PersonaCard
-  detailsVisible: boolean
-  isActive: boolean
-  isDimmed: boolean
-  mutedDetailRows: Set<number>
-  mutedMetricRows: Set<number>
-  step: number
-  strongDetailRow: number
+  focusCardId?: PersonaCardId
+  isEvidenceVisible: boolean
 }) {
-  const detailRows = [
-    ...(card.detailRows ?? []),
-    ...Array.from({ length: card.fillerDetailRows ?? 0 }, () => ''),
-  ]
+  const [lastFocusCardId, setLastFocusCardId] = useState<PersonaCardId | undefined>(focusCardId)
+  const instantCollapseCardId =
+    lastFocusCardId !== focusCardId ? lastFocusCardId : undefined
+  const shouldStaggerReveal = isEvidenceVisible && focusCardId === undefined
+
+  useEffect(() => {
+    if (lastFocusCardId === focusCardId) {
+      return
+    }
+
+    const animationFrameId = window.requestAnimationFrame(() => {
+      setLastFocusCardId(focusCardId)
+    })
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId)
+    }
+  }, [focusCardId, lastFocusCardId])
 
   return (
-    <section
-      className={`ohouse-persona-slide__card ohouse-persona-slide__card--${card.size} ohouse-persona-slide__card--${card.id}`}
-      data-focus-tone={resolveFocusTone({ active: isActive, dimmed: isDimmed })}
-      data-step={step}
+    <motion.div
+      animate={{ opacity: isEvidenceVisible ? 1 : 0, y: isEvidenceVisible ? 0 : 14 }}
+      className="ohouse-persona-slide__overview-list"
+      data-focus-mode={focusCardId ? 'true' : 'false'}
+      initial={false}
+      layout
+      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="ohouse-persona-slide__card-header">
-        <h3 className="ohouse-persona-slide__card-title">{card.title}</h3>
-        <p className="ohouse-persona-slide__card-description">{card.description}</p>
-        {card.size === 'large' ? (
-          <img
-            alt=""
-            aria-hidden="true"
-            className="ohouse-persona-slide__card-strip"
-            src={PERSONA_STRIP_ASSET}
-          />
-        ) : null}
-      </div>
+      {PERSONA_OVERVIEW_ORDER.map((cardId, index) => {
+        const card = PERSONA_CARDS[cardId]
+        const isFocused = focusCardId === card.id
+        const isDimmed = focusCardId !== undefined && !isFocused
+        const isInstantCollapse = instantCollapseCardId === card.id && !isFocused
 
-      <div className="ohouse-persona-slide__metric-list">
-        {card.metrics.map((metric, index) => (
-          <div
-            className="ohouse-persona-slide__metric-row"
-            data-muted={mutedMetricRows.has(index)}
-            key={`${card.id}-${metric.label}`}
-            style={
-              metric.gap
-                ? ({
-                    '--persona-metric-gap': `${metric.gap}px`,
-                  } as CSSProperties)
-                : undefined
-            }
-          >
-            <span className="ohouse-persona-slide__metric-label">{metric.label}</span>
-            <span className="ohouse-persona-slide__metric-value">{metric.value}</span>
-          </div>
-        ))}
-      </div>
-
-      {card.size === 'large' ? (
-        <AnimatePresence initial={false}>
+        return (
           <motion.div
-            animate={{
-              opacity: detailsVisible ? 1 : 0,
-              y: detailsVisible ? 0 : 6,
-            }}
-            className="ohouse-persona-slide__detail-list"
+            animate={{ y: isEvidenceVisible ? 0 : 12 }}
+            className="ohouse-persona-slide__overview-row"
+            data-collapse-state={isInstantCollapse ? 'instant' : 'default'}
+            data-expandable={card.overviewDetails?.length ? 'true' : 'false'}
+            data-focus-state={isFocused ? 'active' : isDimmed ? 'dim' : 'default'}
             initial={false}
-            transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            key={card.id}
+            layout="position"
+            transition={{
+              delay: shouldStaggerReveal ? index * 0.06 : 0,
+              duration: isInstantCollapse ? 0 : focusCardId ? 0.68 : 0.42,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
-            {detailRows.map((row, index) => (
-              <p
-                className="ohouse-persona-slide__detail-row"
-                data-empty={row.length === 0}
-                data-muted={mutedDetailRows.has(index)}
-                data-strong={index === strongDetailRow}
-                key={`${card.id}-detail-${index}`}
-              >
-                {row}
-              </p>
-            ))}
+            <div className="ohouse-persona-slide__overview-row-main">
+              <div className="ohouse-persona-slide__overview-identity">
+                <motion.h3
+                  className="ohouse-persona-slide__overview-title"
+                >
+                  {card.title}
+                </motion.h3>
+                <motion.p
+                  className="ohouse-persona-slide__overview-description"
+                >
+                  {card.description}
+                </motion.p>
+              </div>
+              <div className="ohouse-persona-slide__overview-data">
+                <div className="ohouse-persona-slide__overview-metrics">
+                  {card.metrics.map((metric) => (
+                    <span className="ohouse-persona-slide__overview-metric" key={metric.label}>
+                      <span className="ohouse-persona-slide__overview-metric-label">
+                        {metric.label}
+                      </span>
+                      <span className="ohouse-persona-slide__overview-metric-value">
+                        {formatOverviewMetricValue(metric)}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+                {card.overviewDetails?.length ? (
+                  <div className="ohouse-persona-slide__overview-detail-shell">
+                    <ul className="ohouse-persona-slide__overview-detail-list">
+                      {card.overviewDetails.map((detail) => (
+                        <li className="ohouse-persona-slide__overview-detail" key={detail}>
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </motion.div>
-        </AnimatePresence>
-      ) : null}
-    </section>
+        )
+      })}
+    </motion.div>
+  )
+}
+
+function PersonaStepStage({
+  currentStep,
+  step,
+}: {
+  currentStep: StepState
+  step: number
+}) {
+  const evidenceTimeoutRef = useRef<number | null>(null)
+  const [isOverviewEvidenceVisible, setIsOverviewEvidenceVisible] = useState(false)
+  const isEvidenceVisible = step !== 0 || isOverviewEvidenceVisible
+
+  useEffect(() => {
+    if (evidenceTimeoutRef.current !== null) {
+      window.clearTimeout(evidenceTimeoutRef.current)
+      evidenceTimeoutRef.current = null
+    }
+  }, [step])
+
+  useEffect(() => {
+    return () => {
+      if (evidenceTimeoutRef.current !== null) {
+        window.clearTimeout(evidenceTimeoutRef.current)
+        evidenceTimeoutRef.current = null
+      }
+    }
+  }, [])
+
+  const handleTextComplete = useCallback(() => {
+    if (step === 0) {
+      if (evidenceTimeoutRef.current !== null) {
+        window.clearTimeout(evidenceTimeoutRef.current)
+      }
+
+      evidenceTimeoutRef.current = window.setTimeout(() => {
+        setIsOverviewEvidenceVisible(true)
+        evidenceTimeoutRef.current = null
+      }, OVERVIEW_EVIDENCE_HOLD_MS)
+    }
+  }, [step])
+
+  return (
+    <>
+      <StepTextTransition
+        animateOnMount
+        className="ohouse-persona-slide__copy"
+        onComplete={handleTextComplete}
+        text={currentStep.copy.join('\n')}
+        variant="erase-type"
+      />
+
+      <PersonaOverviewList
+        focusCardId={currentStep.focusCardId}
+        isEvidenceVisible={isEvidenceVisible}
+      />
+    </>
   )
 }
 
@@ -304,41 +317,7 @@ export function OhousePersonaSlide({ step }: { step: number }) {
       data-node-id="6057:24903"
       data-persona-step={step === 0 ? 'overview' : 'focus'}
     >
-      <StepTextTransition
-        className="ohouse-persona-slide__copy"
-        text={currentStep.copy.join('\n')}
-        variant="erase-type"
-      />
-
-      <div className="ohouse-persona-slide__columns">
-        {PERSONA_COLUMNS.map((column) => (
-          <div className="ohouse-persona-slide__column" key={column.id}>
-            {column.cards.map(({ cardId, height }) => {
-              const card = PERSONA_CARDS[cardId]
-              const emphasis = currentStep.emphasis[card.id] ?? {}
-
-              return (
-                <div
-                  className="ohouse-persona-slide__slot"
-                  key={card.id}
-                  style={{ height: `${height}px` }}
-                >
-                  <PersonaCardView
-                    card={card}
-                    detailsVisible={emphasis.detailsVisible === true}
-                    isActive={emphasis.active === true}
-                    isDimmed={emphasis.dimCard === true}
-                    mutedDetailRows={new Set(emphasis.mutedDetailRows ?? [])}
-                    mutedMetricRows={new Set(emphasis.mutedMetricRows ?? [])}
-                    step={step}
-                    strongDetailRow={emphasis.strongDetailRow ?? -1}
-                  />
-                </div>
-              )
-            })}
-          </div>
-        ))}
-      </div>
+      <PersonaStepStage currentStep={currentStep} step={step} />
     </article>
   )
 }

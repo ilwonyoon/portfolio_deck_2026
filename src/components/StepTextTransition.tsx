@@ -4,21 +4,31 @@ import { useEffect, useRef, useState } from 'react'
 import { INTERACTION_SYSTEM, type TextVariant } from '../lib/interactionSystem'
 
 type StepTextTransitionProps = {
+  animateOnMount?: boolean
   className?: string
+  onComplete?: () => void
   text: string
   variant?: TextVariant
 }
 
 function EraseTypeText({
+  animateOnMount = false,
   className,
+  onComplete,
   text,
-}: Pick<StepTextTransitionProps, 'className' | 'text'>) {
+}: Pick<StepTextTransitionProps, 'animateOnMount' | 'className' | 'onComplete' | 'text'>) {
   const config = INTERACTION_SYSTEM.text.variants['erase-type']
   const { blankPauseMs, eraseMode, typeCharMs } = config
-  const [displayText, setDisplayText] = useState(text)
+  const [displayText, setDisplayText] = useState(animateOnMount ? '' : text)
+  const displayTextRef = useRef(animateOnMount ? '' : text)
+  const onCompleteRef = useRef(onComplete)
   const timeoutsRef = useRef<number[]>([])
   const previousTextRef = useRef(text)
   const isFirstRenderRef = useRef(true)
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   useEffect(() => {
     timeoutsRef.current.forEach((timeoutId) => {
@@ -26,15 +36,20 @@ function EraseTypeText({
     })
     timeoutsRef.current = []
 
+    const shouldAnimateMount = isFirstRenderRef.current && animateOnMount
+
     if (isFirstRenderRef.current) {
       isFirstRenderRef.current = false
       previousTextRef.current = text
-      return
+
+      if (!shouldAnimateMount) {
+        return
+      }
     }
 
     const previousText = previousTextRef.current
 
-    if (previousText === text) {
+    if (previousText === text && !shouldAnimateMount && displayTextRef.current === text) {
       return
     }
 
@@ -45,6 +60,7 @@ function EraseTypeText({
 
     if (eraseMode === 'instant') {
       schedule(() => {
+        displayTextRef.current = ''
         setDisplayText('')
       }, 0)
     }
@@ -54,9 +70,15 @@ function EraseTypeText({
     for (let index = 1; index <= text.length; index += 1) {
       const delay = typeStart + index * typeCharMs
       schedule(() => {
-        setDisplayText(text.slice(0, index))
+        const nextText = text.slice(0, index)
+        displayTextRef.current = nextText
+        setDisplayText(nextText)
       }, delay)
     }
+
+    schedule(() => {
+      onCompleteRef.current?.()
+    }, typeStart + text.length * typeCharMs + 16)
 
     previousTextRef.current = text
 
@@ -66,7 +88,7 @@ function EraseTypeText({
       })
       timeoutsRef.current = []
     }
-  }, [blankPauseMs, eraseMode, text, typeCharMs])
+  }, [animateOnMount, blankPauseMs, eraseMode, text, typeCharMs])
 
   return (
     <div className={className}>
@@ -109,12 +131,21 @@ function MotionText({
 }
 
 export function StepTextTransition({
+  animateOnMount = false,
   className = '',
+  onComplete,
   text,
   variant = INTERACTION_SYSTEM.text.defaultVariant,
 }: StepTextTransitionProps) {
   if (variant === 'erase-type') {
-    return <EraseTypeText className={className} text={text} />
+    return (
+      <EraseTypeText
+        animateOnMount={animateOnMount}
+        className={className}
+        onComplete={onComplete}
+        text={text}
+      />
+    )
   }
 
   return <MotionText className={className} text={text} variant={variant} />

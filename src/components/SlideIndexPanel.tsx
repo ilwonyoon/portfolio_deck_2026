@@ -1,9 +1,10 @@
 import { FileText, GripVertical, PanelLeftClose, PanelLeftOpen, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import type { SlideDefinition } from '../types/presentation'
 
-const THUMBNAIL_WIDTH = 204
-const THUMBNAIL_SCALE = THUMBNAIL_WIDTH / 1920
+const DESIGN_WIDTH = 1920
+const DESIGN_HEIGHT = 1080
 
 type SlideIndexPanelProps = {
   collapsed: boolean
@@ -14,6 +15,60 @@ type SlideIndexPanelProps = {
   onSelect: (slideIndex: number) => void
   onToggleCollapse: () => void
   slides: SlideDefinition[]
+}
+
+function SlideThumbnail({ children }: { children: ReactNode }) {
+  const frameRef = useRef<HTMLDivElement>(null)
+  const [frameWidth, setFrameWidth] = useState(204)
+
+  useEffect(() => {
+    const frame = frameRef.current
+
+    if (!frame) {
+      return
+    }
+
+    function updateFrameWidth() {
+      const nextFrame = frameRef.current
+      setFrameWidth(nextFrame?.clientWidth || 204)
+    }
+
+    updateFrameWidth()
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(updateFrameWidth)
+      resizeObserver.observe(frame)
+
+      return () => {
+        resizeObserver.disconnect()
+      }
+    }
+
+    window.addEventListener('resize', updateFrameWidth)
+
+    return () => {
+      window.removeEventListener('resize', updateFrameWidth)
+    }
+  }, [])
+
+  const scale = frameWidth / DESIGN_WIDTH
+
+  return (
+    <div aria-hidden="true" className="slide-index__thumbnail">
+      <div className="slide-index__thumbnail-frame" ref={frameRef}>
+        <div
+          className="slide-index__thumbnail-canvas"
+          style={{
+            height: `${DESIGN_HEIGHT}px`,
+            transform: `scale(${scale})`,
+            width: `${DESIGN_WIDTH}px`,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export function SlideIndexPanel({
@@ -28,6 +83,43 @@ export function SlideIndexPanel({
 }: SlideIndexPanelProps) {
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
   const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null)
+  const bodyRef = useRef<HTMLDivElement>(null)
+  const activeShellRef = useRef<HTMLDivElement | null>(null)
+  const activeItemRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (collapsed) {
+      return
+    }
+
+    const body = bodyRef.current
+    const activeShell = activeShellRef.current
+    const activeItem = activeItemRef.current
+
+    if (!body || !activeShell || !activeItem) {
+      return
+    }
+
+    const activeElement = document.activeElement
+    const shouldSyncFocus =
+      activeElement instanceof HTMLElement && body.contains(activeElement)
+
+    const bodyRect = body.getBoundingClientRect()
+    const activeRect = activeShell.getBoundingClientRect()
+    const isAboveViewport = activeRect.top < bodyRect.top
+    const isBelowViewport = activeRect.bottom > bodyRect.bottom
+
+    if (isAboveViewport || isBelowViewport) {
+      activeShell.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+      })
+    }
+
+    if (shouldSyncFocus && activeElement !== activeItem) {
+      activeItem.focus()
+    }
+  }, [collapsed, currentSlideId])
 
   function handleSelect(index: number) {
     onSelect(index)
@@ -67,7 +159,7 @@ export function SlideIndexPanel({
         </button>
       </div>
 
-      <div className="editor-sidebar__body">
+      <div className="editor-sidebar__body" ref={bodyRef}>
         <div className="slide-index">
           {slides.map((slide, index) => {
             const isActive = slide.id === currentSlideId
@@ -87,6 +179,11 @@ export function SlideIndexPanel({
                 data-drop-target={isDropTarget}
                 draggable={canReorder}
                 key={slide.id}
+                ref={(node) => {
+                  if (isActive) {
+                    activeShellRef.current = node
+                  }
+                }}
                 onDragEnd={() => {
                   setDraggedIndex(null)
                   setDropTargetIndex(null)
@@ -140,21 +237,17 @@ export function SlideIndexPanel({
                     }
                   }}
                   role="button"
-                  tabIndex={0}
+                  ref={(node) => {
+                    if (isActive) {
+                      activeItemRef.current = node
+                    }
+                  }}
+                  tabIndex={isActive ? 0 : -1}
                 >
                   <span className="slide-index__number">{formattedIndex}</span>
 
                   {collapsed ? null : (
-                    <span aria-hidden="true" className="slide-index__thumbnail">
-                      <span className="slide-index__thumbnail-frame">
-                        <span
-                          className="slide-index__thumbnail-canvas"
-                          style={{
-                            width: '1920px',
-                            height: '1080px',
-                            transform: `scale(${THUMBNAIL_SCALE})`,
-                          }}
-                        >
+                    <SlideThumbnail>
                           {slide.render({
                             advanceStep: () => undefined,
                             advanceSlide: () => undefined,
@@ -163,20 +256,7 @@ export function SlideIndexPanel({
                             slideIndex: index,
                             totalSlides: slides.length,
                           })}
-                        </span>
-                        {showStepDots ? (
-                          <span className="slide-index__step-dots" aria-hidden="true">
-                            {stepDots.map((stepIndex) => (
-                              <span
-                                className="slide-index__step-dot"
-                                data-active={stepIndex === 0}
-                                key={stepIndex}
-                              />
-                            ))}
-                          </span>
-                        ) : null}
-                      </span>
-                    </span>
+                    </SlideThumbnail>
                   )}
                 </div>
 
@@ -198,6 +278,18 @@ export function SlideIndexPanel({
                         <Trash2 aria-hidden="true" size={14} strokeWidth={2} />
                       </button>
                     ) : null}
+                  </div>
+                ) : null}
+
+                {!collapsed && showStepDots ? (
+                  <div className="slide-index__step-dots" aria-hidden="true">
+                    {stepDots.map((stepIndex) => (
+                      <span
+                        className="slide-index__step-dot"
+                        data-active={stepIndex === 0}
+                        key={stepIndex}
+                      />
+                    ))}
                   </div>
                 ) : null}
               </div>
