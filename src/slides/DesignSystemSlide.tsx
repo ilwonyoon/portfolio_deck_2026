@@ -167,7 +167,7 @@ function LayoutSlide() {
       <header className="design-system-slide__header">
         <span className="design-system-slide__brand">Ilwon Yoon</span>
         <span className="design-system-slide__context">Design System / Layout</span>
-        <span className="design-system-slide__utility">12 columns / 8 rows / 20 gutter</span>
+        <span className="design-system-slide__utility">12 columns / 12 rows / 20 gutter</span>
       </header>
 
       <div className="design-system-slide__grid">

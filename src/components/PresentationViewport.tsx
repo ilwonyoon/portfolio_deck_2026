@@ -5,7 +5,7 @@ import type { CanvasSelection } from '../types/inspector'
 const DESIGN_WIDTH = 1920
 const DESIGN_HEIGHT = 1080
 const GRID_COLUMNS = Array.from({ length: 12 }, (_, index) => index)
-const GRID_ROWS = Array.from({ length: 8 }, (_, index) => index)
+const GRID_ROWS = Array.from({ length: 12 }, (_, index) => index)
 
 function readFrameSize(element: HTMLDivElement | null) {
   if (!element) {

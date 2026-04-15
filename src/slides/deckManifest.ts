@@ -18,10 +18,10 @@ export const deckManifest = [
   'contribution-story',
   'gsap-split',
   'gsap-morph',
-  'pattern-poster',
   'pattern-offset',
   'pattern-ledger',
   'pattern-stage',
   'pattern-essay',
   'pattern-metric',
+  'pattern-poster',
 ] as const
