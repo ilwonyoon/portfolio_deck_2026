@@ -55,32 +55,203 @@
     'Instrument Sans', 'General Sans', 'Inter', 'Segoe UI', sans-serif;
   --font-mono:
     'SFMono-Regular', 'SF Mono', ui-monospace, 'JetBrains Mono', monospace;
-  --type-standard-line-height: 1.4;
-  --type-standard-letter-spacing: 0.15px;
-  --type-utility-size: 14px;
-  --type-utility-line-height: var(--type-standard-line-height);
-  --type-utility-letter-spacing: var(--type-standard-letter-spacing);
-  --type-overline-size: 14px;
-  --type-overline-line-height: var(--type-standard-line-height);
+
+  /* Primitive typography */
+  --font-weight-book: 420;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-medium-strong: 540;
+  --font-weight-semibold: 560;
+  --font-weight-bold: 600;
+
+  --type-scale-12-size: 12px;
+  --type-scale-12-line-height: 1.2;
+  --type-scale-12-letter-spacing: 0.08em;
+
+  --type-scale-14-size: 14px;
+  --type-scale-14-line-height: 1.4;
+  --type-scale-14-letter-spacing: 0.15px;
+
+  --type-scale-22-size: 22px;
+  --type-scale-22-line-height: 1.4;
+  --type-scale-22-letter-spacing: 0.15px;
+
+  --type-scale-28-size: 28px;
+  --type-scale-28-line-height: 1.3;
+  --type-scale-28-letter-spacing: 0.1px;
+
+  --type-scale-36-size: 36px;
+  --type-scale-36-line-height: 1.2;
+  --type-scale-36-letter-spacing: 0;
+
+  --type-scale-48-size: 48px;
+  --type-scale-48-line-height: 1.2;
+  --type-scale-48-letter-spacing: -0.01em;
+
+  --type-scale-72-size: 72px;
+  --type-scale-72-line-height: 1.08;
+  --type-scale-72-letter-spacing: -0.03em;
+
+  --type-scale-88-size: 88px;
+  --type-scale-88-line-height: 0.96;
+  --type-scale-88-letter-spacing: -0.046em;
+
+  --type-scale-114-size: 114px;
+  --type-scale-114-line-height: 0.94;
+  --type-scale-114-letter-spacing: -0.045em;
+
+  --type-scale-122-size: 122px;
+  --type-scale-122-line-height: 0.92;
+  --type-scale-122-letter-spacing: -0.05em;
+
+  /* Semantic typography */
+  --type-meta-size: var(--type-scale-14-size);
+  --type-meta-weight: var(--font-weight-medium);
+  --type-meta-line-height: var(--type-scale-14-line-height);
+  --type-meta-letter-spacing: var(--type-scale-14-letter-spacing);
+
+  --type-overline-size: var(--type-scale-14-size);
+  --type-overline-weight: 520;
+  --type-overline-line-height: var(--type-scale-14-line-height);
   --type-overline-letter-spacing: 0.08em;
-  --type-support-size: 22px;
-  --type-support-line-height: var(--type-standard-line-height);
-  --type-support-letter-spacing: var(--type-standard-letter-spacing);
+
+  --type-body-sm-size: var(--type-scale-22-size);
+  --type-body-sm-weight: var(--font-weight-book);
+  --type-body-sm-line-height: var(--type-scale-22-line-height);
+  --type-body-sm-letter-spacing: var(--type-scale-22-letter-spacing);
+
+  --type-body-md-size: var(--type-scale-28-size);
+  --type-body-md-weight: var(--font-weight-medium);
+  --type-body-md-line-height: var(--type-scale-28-line-height);
+  --type-body-md-letter-spacing: var(--type-scale-28-letter-spacing);
+
+  --type-body-lg-size: var(--type-scale-36-size);
+  --type-body-lg-weight: var(--font-weight-medium);
+  --type-body-lg-line-height: var(--type-scale-36-line-height);
+  --type-body-lg-letter-spacing: var(--type-scale-36-letter-spacing);
+
+  --type-ordinal-size: 24px;
+  --type-ordinal-weight: 520;
+  --type-ordinal-line-height: 1.15;
+  --type-ordinal-letter-spacing: 0.12px;
+
+  --type-lead-size: var(--type-scale-48-size);
+  --type-lead-weight: 550;
+  --type-lead-line-height: var(--type-scale-48-line-height);
+  --type-lead-letter-spacing: var(--type-scale-48-letter-spacing);
+
+  --type-case-intro-size: var(--type-scale-72-size);
+  --type-case-intro-weight: var(--font-weight-medium);
+  --type-case-intro-line-height: var(--type-scale-72-line-height);
+  --type-case-intro-letter-spacing: var(--type-scale-72-letter-spacing);
+
+  --type-agenda-size: var(--type-scale-88-size);
+  --type-agenda-weight: var(--font-weight-medium);
+  --type-agenda-line-height: var(--type-scale-88-line-height);
+  --type-agenda-letter-spacing: var(--type-scale-88-letter-spacing);
+
+  --type-poster-size: var(--type-scale-114-size);
+  --type-poster-weight: var(--font-weight-semibold);
+  --type-poster-line-height: var(--type-scale-114-line-height);
+  --type-poster-letter-spacing: var(--type-scale-114-letter-spacing);
+
+  --type-metric-label-size: var(--type-scale-88-size);
+  --type-metric-label-weight: var(--font-weight-bold);
+  --type-metric-label-line-height: var(--type-scale-88-line-height);
+  --type-metric-label-letter-spacing: -0.042em;
+
+  --type-metric-display-size: var(--type-scale-122-size);
+  --type-metric-display-weight: var(--font-weight-bold);
+  --type-metric-display-line-height: var(--type-scale-122-line-height);
+  --type-metric-display-letter-spacing: var(--type-scale-122-letter-spacing);
+
+  --type-dense-ui-size: 20px;
+  --type-dense-ui-weight: var(--font-weight-medium);
+  --type-dense-ui-line-height: 1.2;
+  --type-dense-ui-letter-spacing: -0.03em;
+
+  --type-dense-caption-size: 17px;
+  --type-dense-caption-weight: var(--font-weight-bold);
+  --type-dense-caption-line-height: 1.2;
+  --type-dense-caption-letter-spacing: 0.12em;
+
+  --type-dense-card-overview-size: 22px;
+  --type-dense-card-overview-weight: var(--font-weight-medium-strong);
+  --type-dense-card-overview-line-height: 1.25;
+  --type-dense-card-overview-letter-spacing: 0.0908px;
+
+  --type-dense-card-caption-size: 17px;
+  --type-dense-card-caption-weight: var(--font-weight-regular);
+  --type-dense-card-caption-line-height: 1.25;
+  --type-dense-card-caption-letter-spacing: 0.0908px;
+
+  --type-dense-card-inline-size: 18px;
+  --type-dense-card-inline-weight: var(--font-weight-medium);
+  --type-dense-card-inline-line-height: 1.25;
+  --type-dense-card-inline-letter-spacing: 0.08px;
+
+  --type-dense-card-emphasis-size: 38px;
+  --type-dense-card-emphasis-weight: var(--font-weight-semibold);
+  --type-dense-card-emphasis-line-height: 0.98;
+  --type-dense-card-emphasis-letter-spacing: 0.12px;
+
+  --type-dense-card-title-size: 33px;
+  --type-dense-card-title-weight: var(--font-weight-bold);
+  --type-dense-card-title-line-height: 1.25;
+  --type-dense-card-title-letter-spacing: 0.0908px;
+
+  --type-dense-card-body-size: 22px;
+  --type-dense-card-body-weight: var(--font-weight-regular);
+  --type-dense-card-body-line-height: 1.25;
+  --type-dense-card-body-letter-spacing: 0.0908px;
+
+  --type-dense-card-body-lg-size: 25px;
+  --type-dense-card-body-lg-weight: var(--font-weight-medium);
+  --type-dense-card-body-lg-line-height: 1.25;
+  --type-dense-card-body-lg-letter-spacing: 0.0908px;
+
+  --type-dense-card-detail-size: 18px;
+  --type-dense-card-detail-weight: var(--font-weight-regular);
+  --type-dense-card-detail-line-height: 1.32;
+  --type-dense-card-detail-letter-spacing: 0.04px;
+
+  /* Hierarchical aliases */
+  --type-h1-size: var(--type-agenda-size);
+  --type-h1-weight: var(--font-weight-semibold);
+  --type-h1-line-height: var(--type-agenda-line-height);
+  --type-h1-letter-spacing: var(--type-agenda-letter-spacing);
+
+  --type-h2-size: var(--type-poster-size);
+  --type-h2-weight: var(--type-poster-weight);
+  --type-h2-line-height: var(--type-poster-line-height);
+  --type-h2-letter-spacing: var(--type-poster-letter-spacing);
+
+  --type-h3-size: var(--type-lead-size);
+  --type-h3-weight: var(--type-lead-weight);
+  --type-h3-line-height: var(--type-lead-line-height);
+  --type-h3-letter-spacing: var(--type-lead-letter-spacing);
+
+  /* Legacy / compatibility aliases */
+  --type-standard-line-height: var(--type-scale-14-line-height);
+  --type-standard-letter-spacing: var(--type-scale-14-letter-spacing);
+  --type-utility-size: var(--type-meta-size);
+  --type-utility-line-height: var(--type-meta-line-height);
+  --type-utility-letter-spacing: var(--type-meta-letter-spacing);
+  --type-support-size: var(--type-body-sm-size);
+  --type-support-line-height: var(--type-body-sm-line-height);
+  --type-support-letter-spacing: var(--type-body-sm-letter-spacing);
   --type-essay-size: 34px;
   --type-essay-line-height: 1.28;
   --type-essay-letter-spacing: 0.1px;
-  --type-bridge-size: 48px;
-  --type-bridge-line-height: var(--type-standard-line-height);
-  --type-bridge-letter-spacing: -0.01em;
+  --type-bridge-size: var(--type-lead-size);
+  --type-bridge-line-height: var(--type-lead-line-height);
+  --type-bridge-letter-spacing: var(--type-lead-letter-spacing);
   --type-feature-size: 64px;
   --type-feature-line-height: 0.96;
   --type-feature-letter-spacing: -0.04em;
-  --type-display-size: 88px;
-  --type-display-line-height: 0.96;
-  --type-display-letter-spacing: -0.046em;
-  --type-poster-size: 114px;
-  --type-poster-line-height: 0.94;
-  --type-poster-letter-spacing: -0.045em;
+  --type-display-size: var(--type-agenda-size);
+  --type-display-line-height: var(--type-agenda-line-height);
+  --type-display-letter-spacing: var(--type-agenda-letter-spacing);
   --type-stage-size: 78px;
   --type-stage-line-height: 0.96;
   --type-stage-letter-spacing: -0.042em;
@@ -90,37 +261,27 @@
   --type-statement-size: var(--type-poster-size);
   --type-statement-line-height: var(--type-poster-line-height);
   --type-statement-letter-spacing: var(--type-poster-letter-spacing);
-  --type-index-size: var(--type-ledger-size);
-  --type-index-line-height: var(--type-ledger-line-height);
-  --type-index-letter-spacing: var(--type-ledger-letter-spacing);
-  --type-metric-display-size: 122px;
-  --type-metric-display-line-height: 0.92;
-  --type-metric-display-letter-spacing: -0.05em;
-  --type-metric-label-size: 78px;
-  --type-metric-label-line-height: 0.94;
-  --type-metric-label-letter-spacing: -0.042em;
-  --type-micro-size: 12px;
+  --type-index-size: var(--type-agenda-size);
+  --type-index-line-height: var(--type-agenda-line-height);
+  --type-index-letter-spacing: var(--type-agenda-letter-spacing);
+  --type-micro-size: var(--type-scale-12-size);
   --type-micro-line-height: 1.2;
   --type-micro-letter-spacing: 0.06em;
-  --type-note-size: var(--type-utility-size);
-  --type-note-line-height: var(--type-utility-line-height);
-  --type-note-letter-spacing: var(--type-utility-letter-spacing);
-  --type-label-size: var(--type-utility-size);
-  --type-label-line-height: var(--type-utility-line-height);
-  --type-label-letter-spacing: var(--type-utility-letter-spacing);
-  --type-eyebrow-size: var(--type-utility-size);
-  --type-eyebrow-line-height: var(--type-utility-line-height);
-  --type-eyebrow-letter-spacing: var(--type-utility-letter-spacing);
-  --type-body-size: var(--type-support-size);
-  --type-body-line-height: var(--type-support-line-height);
-  --type-body-letter-spacing: var(--type-support-letter-spacing);
-  --type-body-sm-size: 28px;
-  --type-body-sm-weight: 500;
-  --type-body-sm-line-height: 1.3;
-  --type-body-sm-letter-spacing: 0.1px;
-  --type-summary-size: var(--type-support-size);
-  --type-summary-line-height: var(--type-support-line-height);
-  --type-summary-letter-spacing: var(--type-support-letter-spacing);
+  --type-note-size: var(--type-meta-size);
+  --type-note-line-height: var(--type-meta-line-height);
+  --type-note-letter-spacing: var(--type-meta-letter-spacing);
+  --type-label-size: var(--type-meta-size);
+  --type-label-line-height: var(--type-meta-line-height);
+  --type-label-letter-spacing: var(--type-meta-letter-spacing);
+  --type-eyebrow-size: var(--type-meta-size);
+  --type-eyebrow-line-height: var(--type-meta-line-height);
+  --type-eyebrow-letter-spacing: var(--type-meta-letter-spacing);
+  --type-body-size: var(--type-body-sm-size);
+  --type-body-line-height: var(--type-body-sm-line-height);
+  --type-body-letter-spacing: var(--type-body-sm-letter-spacing);
+  --type-summary-size: var(--type-body-sm-size);
+  --type-summary-line-height: var(--type-body-sm-line-height);
+  --type-summary-letter-spacing: var(--type-body-sm-letter-spacing);
   --type-card-title-size: 30px;
   --type-card-title-line-height: 1.18;
   --type-card-title-letter-spacing: -0.008em;
@@ -836,10 +997,10 @@ h3 {
 .ohouse-intro-slide__eyebrow {
   width: 100%;
   color: rgba(255, 255, 255, 0.5);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-intro-slide__headline {
@@ -848,10 +1009,10 @@ h3 {
   width: 100%;
   margin-top: 0;
   color: #fafafa;
-  font-size: 88px;
-  font-weight: 550;
-  line-height: 1.1;
-  letter-spacing: -2.992px;
+  font-size: var(--type-case-intro-size);
+  font-weight: var(--type-case-intro-weight);
+  line-height: var(--type-case-intro-line-height);
+  letter-spacing: var(--type-case-intro-letter-spacing);
 }
 
 .ohouse-intro-slide__headline span {
@@ -874,10 +1035,10 @@ h3 {
   height: 86px;
   color: #ffffff;
   font-family: var(--font-sans);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-content-slide__copy p {
@@ -930,10 +1091,10 @@ h3 {
   height: 172px;
   color: #ffffff;
   font-family: var(--font-sans);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-confidence-slide__copy p {
@@ -988,10 +1149,10 @@ h3 {
   height: 43px;
   margin: 0;
   color: rgba(255, 255, 255, 0.5);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-metrics-slide__list {
@@ -1016,10 +1177,10 @@ h3 {
   height: 122px;
   align-items: flex-end;
   margin: 0;
-  font-size: 122px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -4px;
+  font-size: var(--type-metric-display-size);
+  font-weight: var(--type-metric-display-weight);
+  line-height: var(--type-metric-display-line-height);
+  letter-spacing: var(--type-metric-display-letter-spacing);
 }
 
 .ohouse-metrics-slide__metric[data-counting='true'] .ohouse-metrics-slide__metric-number {
@@ -1041,10 +1202,10 @@ h3 {
   margin: 0;
   padding-bottom: 0;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 88px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -2px;
+  font-size: var(--type-metric-label-size);
+  font-weight: var(--type-metric-label-weight);
+  line-height: var(--type-metric-label-line-height);
+  letter-spacing: var(--type-metric-label-letter-spacing);
   text-align: left;
   white-space: nowrap;
 }
@@ -1159,10 +1320,10 @@ h3 {
   flex-direction: column;
   gap: 43px;
   color: rgba(255, 255, 255, 0.2);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-journey-slide__copy-block {
@@ -1217,10 +1378,10 @@ h3 {
 .ohouse-journey-slide__eyebrow {
   margin: 0;
   color: rgba(255, 255, 255, 0.2);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-journey-slide__journey-row {
@@ -1292,10 +1453,10 @@ h3 {
   max-width: 510px;
   margin: 0;
   color: rgba(255, 255, 255, 0.5);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-content-statement-slide__challenge-list {
@@ -1324,10 +1485,10 @@ h3 {
 
 .ohouse-content-statement-slide__index {
   color: rgba(255, 255, 255, 0.24);
-  font-size: 24px;
-  font-weight: 520;
-  line-height: 1.15;
-  letter-spacing: 0.12px;
+  font-size: var(--type-ordinal-size);
+  font-weight: var(--type-ordinal-weight);
+  line-height: var(--type-ordinal-line-height);
+  letter-spacing: var(--type-ordinal-letter-spacing);
 }
 
 .ohouse-content-statement-slide__challenge-copy {
@@ -1337,20 +1498,20 @@ h3 {
 .ohouse-content-statement-slide__title {
   margin: 0;
   color: rgba(255, 255, 255, 0.94);
-  font-size: 42px;
-  font-weight: 560;
-  line-height: 1.08;
-  letter-spacing: 0.08px;
+  font-size: var(--type-body-lg-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--type-body-lg-line-height);
+  letter-spacing: var(--type-body-lg-letter-spacing);
 }
 
 .ohouse-content-statement-slide__body {
   max-width: 560px;
   margin: 22px 0 0;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 1.35;
-  letter-spacing: 0.08px;
+  font-size: var(--type-body-md-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-role-slide {
@@ -1376,10 +1537,10 @@ h3 {
   position: absolute;
   top: 51px;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 28px;
-  font-weight: 500;
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
   line-height: 1;
-  letter-spacing: 0.1545px;
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-role-slide__header-brand {
@@ -1393,10 +1554,10 @@ h3 {
 .ohouse-role-slide__label {
   margin: 0;
   color: rgba(255, 255, 255, 0.5);
-  font-size: var(--type-body-sm-size);
-  font-weight: var(--type-body-sm-weight);
-  line-height: var(--type-body-sm-line-height);
-  letter-spacing: var(--type-body-sm-letter-spacing);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-role-slide__stack {
@@ -1420,10 +1581,10 @@ h3 {
 .ohouse-role-slide__body,
 .ohouse-role-slide__goal {
   margin: 0;
-  font-size: 44px;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: 0.1px;
+  font-size: var(--type-body-lg-size);
+  font-weight: var(--type-body-lg-weight);
+  line-height: var(--type-body-lg-line-height);
+  letter-spacing: var(--type-body-lg-letter-spacing);
 }
 
 .ohouse-role-slide__goal {
@@ -1452,10 +1613,10 @@ h3 {
   flex-direction: column;
   justify-content: center;
   gap: 0;
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0.1px;
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
 }
 
 .ohouse-persona-slide__copy p {
@@ -1565,30 +1726,30 @@ h3 {
 
 .ohouse-persona-slide__overview-title {
   margin: 0;
-  font-size: 22px;
-  font-weight: 540;
-  line-height: 1.25;
-  letter-spacing: 0.0908px;
+  font-size: var(--type-dense-card-overview-size);
+  font-weight: var(--type-dense-card-overview-weight);
+  line-height: var(--type-dense-card-overview-line-height);
+  letter-spacing: var(--type-dense-card-overview-letter-spacing);
   white-space: nowrap;
 }
 
 .ohouse-persona-slide__overview-description {
   margin: 0;
   color: rgba(255, 255, 255, 0.42);
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.25;
-  letter-spacing: 0.0908px;
+  font-size: var(--type-dense-card-caption-size);
+  font-weight: var(--type-dense-card-caption-weight);
+  line-height: var(--type-dense-card-caption-line-height);
+  letter-spacing: var(--type-dense-card-caption-letter-spacing);
 }
 
 .ohouse-persona-slide__overview-metric {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: 0.08px;
+  font-size: var(--type-dense-card-inline-size);
+  font-weight: var(--type-dense-card-inline-weight);
+  line-height: var(--type-dense-card-inline-line-height);
+  letter-spacing: var(--type-dense-card-inline-letter-spacing);
   white-space: nowrap;
 }
 
@@ -1601,25 +1762,25 @@ h3 {
 
 .ohouse-persona-slide__overview-metric-label {
   color: rgba(255, 255, 255, 0.36);
-  font-size: 22px;
-  font-weight: 500;
+  font-size: var(--type-dense-card-overview-size);
+  font-weight: var(--font-weight-medium);
   line-height: 1;
 }
 
 .ohouse-persona-slide__overview-metric-value {
   color: rgba(255, 255, 255, 0.96);
-  font-size: 22px;
-  font-weight: 540;
-  letter-spacing: 0.0908px;
+  font-size: var(--type-dense-card-overview-size);
+  font-weight: var(--type-dense-card-overview-weight);
+  letter-spacing: var(--type-dense-card-overview-letter-spacing);
   line-height: 1.05;
 }
 
 .ohouse-persona-slide__overview-row[data-focus-state='active']
   .ohouse-persona-slide__overview-metric-value {
-  font-size: 38px;
-  font-weight: 560;
-  letter-spacing: 0.12px;
-  line-height: 0.98;
+  font-size: var(--type-dense-card-emphasis-size);
+  font-weight: var(--type-dense-card-emphasis-weight);
+  letter-spacing: var(--type-dense-card-emphasis-letter-spacing);
+  line-height: var(--type-dense-card-emphasis-line-height);
 }
 
 .ohouse-persona-slide__overview-detail-shell {
@@ -1659,10 +1820,10 @@ h3 {
   margin: 0;
   padding-left: 16px;
   color: rgba(255, 255, 255, 0.92);
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 0.04px;
-  line-height: 1.32;
+  font-size: var(--type-dense-card-detail-size);
+  font-weight: var(--type-dense-card-detail-weight);
+  letter-spacing: var(--type-dense-card-detail-letter-spacing);
+  line-height: var(--type-dense-card-detail-line-height);
   white-space: nowrap;
 }
 
@@ -1740,19 +1901,19 @@ h3 {
 
 .ohouse-persona-slide__card-title {
   margin: 0;
-  font-size: 32.686px;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.0908px;
+  font-size: var(--type-dense-card-title-size);
+  font-weight: var(--type-dense-card-title-weight);
+  line-height: var(--type-dense-card-title-line-height);
+  letter-spacing: var(--type-dense-card-title-letter-spacing);
 }
 
 .ohouse-persona-slide__card-description {
   margin: 0;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 21.791px;
-  font-weight: 400;
-  line-height: 1.25;
-  letter-spacing: 0.0908px;
+  font-size: var(--type-dense-card-body-size);
+  font-weight: var(--type-dense-card-body-weight);
+  line-height: var(--type-dense-card-body-line-height);
+  letter-spacing: var(--type-dense-card-body-letter-spacing);
 }
 
 .ohouse-persona-slide__card-strip {
@@ -1787,15 +1948,18 @@ h3 {
   grid-template-columns: 84.44px minmax(0, max-content);
   align-items: center;
   column-gap: var(--persona-metric-gap);
-  font-size: 21.791px;
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: 0.0908px;
+  font-size: var(--type-dense-card-body-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--type-dense-card-body-line-height);
+  letter-spacing: var(--type-dense-card-body-letter-spacing);
   transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ohouse-persona-slide__card--large .ohouse-persona-slide__metric-row {
-  font-size: 25.423px;
+  font-size: var(--type-dense-card-body-lg-size);
+  font-weight: var(--type-dense-card-body-lg-weight);
+  line-height: var(--type-dense-card-body-lg-line-height);
+  letter-spacing: var(--type-dense-card-body-lg-letter-spacing);
 }
 
 .ohouse-persona-slide__metric-row[data-muted='true'] {
@@ -1822,10 +1986,10 @@ h3 {
   margin: 0;
   width: 319.6px;
   color: rgba(255, 255, 255, 0.3);
-  font-size: 21.791px;
-  font-weight: 400;
+  font-size: var(--type-dense-card-body-size);
+  font-weight: var(--type-dense-card-body-weight);
   line-height: 1.1;
-  letter-spacing: 0.0908px;
+  letter-spacing: var(--type-dense-card-body-letter-spacing);
   transition:
     color 320ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -1944,10 +2108,10 @@ h3 {
   margin: 0;
   opacity: 0.5;
   font-family: var(--font-sans);
-  font-size: 36px;
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: 0.004em;
+  font-size: var(--type-body-lg-size);
+  font-weight: var(--type-body-lg-weight);
+  line-height: var(--type-body-lg-line-height);
+  letter-spacing: var(--type-body-lg-letter-spacing);
 }
 
 .belief-statement-slide__headline {
@@ -1956,10 +2120,10 @@ h3 {
   width: 1024px;
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 72px;
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: 0.002em;
+  font-size: var(--type-case-intro-size);
+  font-weight: var(--type-case-intro-weight);
+  line-height: var(--type-case-intro-line-height);
+  letter-spacing: var(--type-case-intro-letter-spacing);
   white-space: pre-wrap;
 }
 
@@ -1991,20 +2155,20 @@ h3 {
   margin: 0;
   opacity: 0.5;
   font-family: var(--font-sans);
-  font-size: 36px;
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: 0.15px;
+  font-size: var(--type-body-lg-size);
+  font-weight: var(--type-body-lg-weight);
+  line-height: var(--type-body-lg-line-height);
+  letter-spacing: var(--type-body-lg-letter-spacing);
 }
 
 .winning-statement-slide__headline {
   margin: 0;
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 72px;
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: 0.15px;
+  font-size: var(--type-case-intro-size);
+  font-weight: var(--type-case-intro-weight);
+  line-height: var(--type-case-intro-line-height);
+  letter-spacing: var(--type-case-intro-letter-spacing);
 }
 
 .winning-statement-slide__underline {
@@ -2031,10 +2195,10 @@ h3 {
 .poster-profile-slide__body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 48px;
-  font-weight: 550;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: var(--type-body-lg-size);
+  font-weight: var(--type-body-lg-weight);
+  line-height: var(--type-body-lg-line-height);
+  letter-spacing: var(--type-body-lg-letter-spacing);
   white-space: pre-line;
 }
 
@@ -2071,10 +2235,10 @@ h3 {
   margin: 0;
   color: rgba(255, 255, 255, 0.96);
   font-family: var(--font-sans);
-  font-size: 48px;
-  font-weight: 550;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: var(--type-lead-size);
+  font-weight: var(--type-lead-weight);
+  line-height: var(--type-lead-line-height);
+  letter-spacing: var(--type-lead-letter-spacing);
 }
 
 .contribution-story-slide__panel {
@@ -5908,8 +6072,9 @@ h3 {
 
 .ohouse-actionability-study__eyebrow {
   color: rgba(17, 17, 17, 0.52);
-  font-size: 24px;
-  font-weight: 500;
+  font-size: var(--type-ordinal-size);
+  font-weight: var(--type-ordinal-weight);
+  line-height: var(--type-ordinal-line-height);
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
@@ -5918,9 +6083,9 @@ h3 {
   width: 420px;
   margin: 0;
   color: rgba(17, 17, 17, 0.68);
-  font-size: 28px;
-  font-weight: 450;
-  line-height: 1.24;
+  font-size: var(--type-body-md-size);
+  font-weight: var(--font-weight-book);
+  line-height: var(--type-body-md-line-height);
   letter-spacing: -0.03em;
 }
 
@@ -5938,10 +6103,10 @@ h3 {
 
 .ohouse-actionability-study__title-block h2 {
   margin: 0;
-  font-size: 66px;
-  font-weight: 560;
-  line-height: 0.96;
-  letter-spacing: -0.065em;
+  font-size: var(--type-case-intro-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--type-case-intro-line-height);
+  letter-spacing: var(--type-case-intro-letter-spacing);
 }
 
 .ohouse-actionability-study__glass-query {
@@ -5981,9 +6146,9 @@ h3 {
 .ohouse-actionability-study__glass-query p {
   position: relative;
   margin: 0;
-  font-size: 34px;
+  font-size: var(--type-body-lg-size);
   font-weight: 470;
-  line-height: 1.16;
+  line-height: var(--type-body-lg-line-height);
   letter-spacing: -0.05em;
 }
 
@@ -6004,9 +6169,10 @@ h3 {
   display: inline-flex;
   margin-bottom: 14px;
   color: rgba(17, 17, 17, 0.54);
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: var(--type-dense-caption-size);
+  font-weight: var(--type-dense-caption-weight);
+  line-height: var(--type-dense-caption-line-height);
+  letter-spacing: var(--type-dense-caption-letter-spacing);
   text-transform: uppercase;
 }
 
@@ -6114,28 +6280,29 @@ h3 {
 
 .ohouse-actionability-study__scope-label {
   color: rgba(17, 17, 17, 0.52);
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: var(--type-dense-caption-size);
+  font-weight: var(--type-dense-caption-weight);
+  line-height: var(--type-dense-caption-line-height);
+  letter-spacing: var(--type-dense-caption-letter-spacing);
   text-transform: uppercase;
 }
 
 .ohouse-actionability-study__scope-panel h2 {
   margin: 0;
-  font-size: 60px;
-  font-weight: 560;
-  line-height: 0.94;
-  letter-spacing: -0.07em;
+  font-size: var(--type-case-intro-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--type-case-intro-line-height);
+  letter-spacing: var(--type-case-intro-letter-spacing);
 }
 
 .ohouse-actionability-study__scope-panel p {
   width: 280px;
   margin: 0;
   color: rgba(17, 17, 17, 0.74);
-  font-size: 29px;
-  font-weight: 450;
-  line-height: 1.1;
-  letter-spacing: -0.05em;
+  font-size: var(--type-body-md-size);
+  font-weight: var(--font-weight-book);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: -0.03em;
 }
 
 .ohouse-actionability-study__scope-tags {
@@ -6154,9 +6321,10 @@ h3 {
   border-radius: 999px;
   background: rgba(17, 17, 17, 0.86);
   color: #f3ede1;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-size: var(--type-dense-ui-size);
+  font-weight: var(--type-dense-ui-weight);
+  line-height: var(--type-dense-ui-line-height);
+  letter-spacing: var(--type-dense-ui-letter-spacing);
 }
 
 .ohouse-actionability-study__buried-field {
