@@ -4,6 +4,7 @@ export const deckManifest = [
   'belief-statement',
   'winning-statement',
   'poster-profile',
+  'contribution-story',
   'section-index-02',
   'case-study-02b',
   'case-study-02c',
@@ -15,7 +16,6 @@ export const deckManifest = [
   'case-study-02g',
   'section-index-03',
   'section-index-04',
-  'contribution-story',
   'gsap-split',
   'gsap-morph',
   'pattern-offset',
@@ -23,5 +23,7 @@ export const deckManifest = [
   'pattern-stage',
   'pattern-essay',
   'pattern-metric',
+  'pattern-screen-1',
+  'pattern-screen-4',
   'pattern-poster',
 ] as const

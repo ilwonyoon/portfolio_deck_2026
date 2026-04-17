@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react'
+import { resolveMediaUrl } from '../lib/media'
+
 type PatternTemplateMode =
   | 'poster'
   | 'offset'
@@ -477,6 +480,34 @@ function MetricInterruptPattern() {
 }
 
 function SingleScreenPattern() {
+  const prototypeSrc = resolveMediaUrl('interest-profiling-prototype.m4v')
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const element = videoRef.current
+
+    if (!element) {
+      return
+    }
+
+    const video = element
+
+    function restartPlayback() {
+      video.currentTime = 0
+      void video.play().catch(() => {})
+    }
+
+    if (video.readyState >= 1) {
+      restartPlayback()
+      return
+    }
+
+    video.addEventListener('loadedmetadata', restartPlayback, { once: true })
+    return () => {
+      video.removeEventListener('loadedmetadata', restartPlayback)
+    }
+  }, [])
+
   return (
     <article className="pattern-template pattern-template--screen-one">
       <PatternHeader
@@ -485,21 +516,23 @@ function SingleScreenPattern() {
       />
 
       <div className="pattern-template__grid">
-        <div className="pattern-template__screen-copy">
-          <span className="pattern-template__eyebrow">For one dominant proof point</span>
-          <h1 className="pattern-template__screen-title">
-            One screen can
-            <br />
-            carry the whole slide.
-          </h1>
-          <p className="pattern-template__body">
-            Use this when a single interface state already communicates the
-            product, the behavior, and the polish.
-          </p>
+        <div className="pattern-template__screen-single-copy">
+          <p className="pattern-template__screen-single-label">Interest profiling</p>
         </div>
 
-        <div className="pattern-template__screen-stage pattern-template__screen-stage--one">
-          <ScreenMock label="Hero state" variant="detail" />
+        <div className="pattern-template__screen-stage pattern-template__screen-stage--figma-single">
+          <div className="pattern-template__screen-shell pattern-template__screen-shell--single">
+            <video
+              autoPlay
+              className="pattern-template__screen-video"
+              loop
+              muted
+              ref={videoRef}
+              playsInline
+              preload="metadata"
+              src={prototypeSrc}
+            />
+          </div>
         </div>
       </div>
     </article>
@@ -568,19 +601,11 @@ function FourScreenPattern() {
       />
 
       <div className="pattern-template__grid">
-        <div className="pattern-template__screen-copy pattern-template__screen-copy--compact">
-          <span className="pattern-template__eyebrow">For multi-state evidence</span>
-          <p className="pattern-template__body">
-            Use four captures when the point is coverage. Keep every frame on
-            one baseline so the spread reads like a composed set.
-          </p>
-        </div>
-
-        <div className="pattern-template__screen-stage pattern-template__screen-stage--four">
-          <ScreenMock label="Profile" variant="profile" />
-          <ScreenMock label="Feed" variant="feed" />
-          <ScreenMock label="Detail" variant="detail" />
-          <ScreenMock label="Library" variant="grid" />
+        <div className="pattern-template__screen-stage pattern-template__screen-stage--figma-four">
+          <div className="pattern-template__screen-shell pattern-template__screen-shell--quad" />
+          <div className="pattern-template__screen-shell pattern-template__screen-shell--quad" />
+          <div className="pattern-template__screen-shell pattern-template__screen-shell--quad" />
+          <div className="pattern-template__screen-shell pattern-template__screen-shell--quad" />
         </div>
       </div>
     </article>

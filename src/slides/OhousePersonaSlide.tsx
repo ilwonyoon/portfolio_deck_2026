@@ -179,7 +179,6 @@ function PersonaOverviewList({
       className="ohouse-persona-slide__overview-list"
       data-focus-mode={focusCardId ? 'true' : 'false'}
       initial={false}
-      layout
       transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
     >
       {PERSONA_OVERVIEW_ORDER.map((cardId, index) => {
@@ -187,6 +186,7 @@ function PersonaOverviewList({
         const isFocused = focusCardId === card.id
         const isDimmed = focusCardId !== undefined && !isFocused
         const isInstantCollapse = instantCollapseCardId === card.id && !isFocused
+        const layoutDuration = isInstantCollapse ? 0 : isFocused ? 0.54 : isDimmed ? 0.18 : 0.36
 
         return (
           <motion.div
@@ -197,10 +197,10 @@ function PersonaOverviewList({
             data-focus-state={isFocused ? 'active' : isDimmed ? 'dim' : 'default'}
             initial={false}
             key={card.id}
-            layout="position"
+            layout
             transition={{
               delay: shouldStaggerReveal ? index * 0.06 : 0,
-              duration: isInstantCollapse ? 0 : focusCardId ? 0.68 : 0.42,
+              duration: layoutDuration,
               ease: [0.22, 1, 0.36, 1],
             }}
           >
