@@ -186,6 +186,7 @@ function App() {
                 handleGoToSlide(currentSlideIndex + 1, 0)
               },
               autoPlay: presentationMode === 'present',
+              isThumbnail: false,
               step: currentStep,
               slideIndex: currentSlideIndex,
               totalSlides: activeSlides.length,

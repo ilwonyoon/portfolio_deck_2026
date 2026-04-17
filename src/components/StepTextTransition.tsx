@@ -99,9 +99,12 @@ function EraseTypeText({
 
 function MotionText({
   className,
+  onComplete,
   text,
   variant,
-}: Required<Pick<StepTextTransitionProps, 'className' | 'text' | 'variant'>>) {
+}: Required<
+  Pick<StepTextTransitionProps, 'className' | 'onComplete' | 'text' | 'variant'>
+>) {
   const config = INTERACTION_SYSTEM.text.variants[variant]
 
   if (variant === 'instant') {
@@ -122,6 +125,9 @@ function MotionText({
         className={className}
         initial={{ opacity: 0, y }}
         key={text}
+        onAnimationComplete={() => {
+          onComplete()
+        }}
         transition={{ duration, ease: [0.22, 1, 0.36, 1] }}
       >
         <p style={{ margin: 0, whiteSpace: 'pre-line' }}>{text}</p>
@@ -133,7 +139,7 @@ function MotionText({
 export function StepTextTransition({
   animateOnMount = false,
   className = '',
-  onComplete,
+  onComplete = () => undefined,
   text,
   variant = INTERACTION_SYSTEM.text.defaultVariant,
 }: StepTextTransitionProps) {
@@ -148,5 +154,12 @@ export function StepTextTransition({
     )
   }
 
-  return <MotionText className={className} text={text} variant={variant} />
+  return (
+    <MotionText
+      className={className}
+      onComplete={onComplete}
+      text={text}
+      variant={variant}
+    />
+  )
 }

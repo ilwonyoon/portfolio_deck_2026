@@ -297,7 +297,7 @@ function PersonaStepStage({
         className="ohouse-persona-slide__copy"
         onComplete={handleTextComplete}
         text={currentStep.copy.join('\n')}
-        variant="erase-type"
+        variant="crossfade"
       />
 
       <PersonaOverviewList

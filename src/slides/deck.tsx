@@ -17,6 +17,7 @@ import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
 import { OhouseJourneySlide } from './OhouseJourneySlide'
 import { OhouseMetricsSlide } from './OhouseMetricsSlide'
+import { OhouseMetricsEditorialSlide } from './OhouseMetricsEditorialSlide'
 import { OhouseNeedleGridSlide } from './OhouseNeedleGridSlide'
 import { OhousePersonaSlide } from './OhousePersonaSlide'
 import { OhouseRoleSlide } from './OhouseRoleSlide'
@@ -90,31 +91,64 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     id: 'section-index-01',
     navLabel: 'Overview 1',
     steps: 1,
-    render: () => <SectionIndexSlide activeIndex={0} />,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlide activeIndex={0} isThumbnail={Boolean(isThumbnail)} />
+    ),
+  },
+  'section-index-01-settle': {
+    id: 'section-index-01-settle',
+    navLabel: 'Overview Settle',
+    steps: 1,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlide
+        activeIndex={0}
+        isThumbnail={Boolean(isThumbnail)}
+        motionVariant="settle"
+      />
+    ),
+  },
+  'section-index-01-marker': {
+    id: 'section-index-01-marker',
+    navLabel: 'Overview Marker',
+    steps: 1,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlide
+        activeIndex={0}
+        isThumbnail={Boolean(isThumbnail)}
+        motionVariant="marker-resolve"
+      />
+    ),
   },
   'section-index-02': {
     id: 'section-index-02',
     navLabel: 'Overview 2',
     steps: 1,
-    render: () => <SectionIndexSlide activeIndex={1} />,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlide activeIndex={1} isThumbnail={Boolean(isThumbnail)} />
+    ),
   },
   'section-index-03': {
     id: 'section-index-03',
     navLabel: 'Overview 3',
     steps: 1,
-    render: () => <SectionIndexSlide activeIndex={2} />,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlide activeIndex={2} isThumbnail={Boolean(isThumbnail)} />
+    ),
   },
   'section-index-04': {
     id: 'section-index-04',
     navLabel: 'Overview 4',
     steps: 1,
-    render: () => <SectionIndexSlide activeIndex={3} />,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlide activeIndex={3} isThumbnail={Boolean(isThumbnail)} />
+    ),
   },
   'belief-statement': {
     id: 'belief-statement',
     navLabel: 'Belief',
-    steps: 1,
-    render: () => <BeliefStatementSlide />,
+    steps: 2,
+    stepDisplay: 'none',
+    render: ({ step }) => <BeliefStatementSlide step={step} />,
   },
   'winning-statement': {
     id: 'winning-statement',
@@ -126,7 +160,31 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     id: 'poster-profile',
     navLabel: 'Profile',
     steps: 1,
-    render: () => <PosterProfileSlide />,
+    render: ({ isThumbnail }) => (
+      <PosterProfileSlide isThumbnail={Boolean(isThumbnail)} />
+    ),
+  },
+  'poster-profile-line': {
+    id: 'poster-profile-line',
+    navLabel: 'Profile Line',
+    steps: 1,
+    render: ({ isThumbnail }) => (
+      <PosterProfileSlide
+        isThumbnail={Boolean(isThumbnail)}
+        textAnimation="line-reveal"
+      />
+    ),
+  },
+  'poster-profile-fade': {
+    id: 'poster-profile-fade',
+    navLabel: 'Profile Fade',
+    steps: 1,
+    render: ({ isThumbnail }) => (
+      <PosterProfileSlide
+        isThumbnail={Boolean(isThumbnail)}
+        textAnimation="fade-up"
+      />
+    ),
   },
   'contribution-story': {
     id: 'contribution-story',
@@ -189,6 +247,21 @@ export const slideRegistry: Record<string, SlideDefinition> = {
         advanceSlide={advanceSlide}
         advanceStep={advanceStep}
         autoPlay={autoPlay}
+        step={step}
+      />
+    ),
+  },
+  'case-study-02e-alt': {
+    id: 'case-study-02e-alt',
+    navLabel: 'Ohouse Metrics 2',
+    steps: 2,
+    stepDisplay: 'none',
+    render: ({ advanceSlide, advanceStep, autoPlay, isThumbnail, step }) => (
+      <OhouseMetricsEditorialSlide
+        advanceSlide={advanceSlide}
+        advanceStep={advanceStep}
+        autoPlay={autoPlay}
+        isThumbnail={Boolean(isThumbnail)}
         step={step}
       />
     ),

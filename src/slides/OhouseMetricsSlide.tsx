@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react'
 
 import { MetricCounter } from '../components/MetricCounter'
 
@@ -30,10 +31,8 @@ const METRICS: MetricCounter[] = [
 ] as const
 
 const autoAdvanceMs = [950, 3400] as const
-const eraseCharMs = 34
-const blankPauseMs = 180
-const typeCharMs = 26
-const counterStartPauseMs = 160
+const eyebrowTransitionMs = 280
+const counterStartPauseMs = 120
 
 export function OhouseMetricsSlide({
   advanceSlide,
@@ -68,74 +67,31 @@ export function OhouseMetricsSlide({
   return (
     <OhouseMetricsTransitionView
       active={step >= 1}
-      key={step}
     />
   )
 }
 
 function OhouseMetricsTransitionView({ active }: { active: boolean }) {
-  const [eyebrowText, setEyebrowText] = useState<string>(EYEBROWS.from)
-
-  const timeoutIdsRef = useRef<number[]>([])
-
-  useEffect(() => {
-    timeoutIdsRef.current.forEach((timeoutId) => {
-      window.clearTimeout(timeoutId)
-    })
-    timeoutIdsRef.current = []
-
-    if (!active) {
-      return
-    }
-
-    const schedule = (callback: () => void, delay: number) => {
-      const timeoutId = window.setTimeout(callback, delay)
-      timeoutIdsRef.current.push(timeoutId)
-    }
-
-    for (let index = EYEBROWS.from.length - 1; index >= 0; index -= 1) {
-      const delay = (EYEBROWS.from.length - index) * eraseCharMs
-      schedule(() => {
-        setEyebrowText(EYEBROWS.from.slice(0, index))
-      }, delay)
-    }
-
-    const eraseDuration = EYEBROWS.from.length * eraseCharMs
-    const typeStart = eraseDuration + blankPauseMs
-
-    schedule(() => {
-      setEyebrowText('')
-    }, eraseDuration)
-
-    for (let index = 1; index <= EYEBROWS.to.length; index += 1) {
-      const delay = typeStart + index * typeCharMs
-      schedule(() => {
-        setEyebrowText(EYEBROWS.to.slice(0, index))
-      }, delay)
-    }
-
-    return () => {
-      timeoutIdsRef.current.forEach((timeoutId) => {
-        window.clearTimeout(timeoutId)
-      })
-      timeoutIdsRef.current = []
-    }
-  }, [active])
-
-  const counterStart =
-    EYEBROWS.from.length * eraseCharMs +
-    blankPauseMs +
-    EYEBROWS.to.length * typeCharMs +
-    counterStartPauseMs
+  const eyebrowText = active ? EYEBROWS.to : EYEBROWS.from
+  const counterStart = active ? eyebrowTransitionMs + counterStartPauseMs : 0
 
   return (
     <article className="ohouse-metrics-slide" data-node-id="6022:27285">
       <p className="ohouse-metrics-slide__eyebrow" data-node-id="6022:28854">
-        <span className="ohouse-metrics-slide__eyebrow-text">{eyebrowText}</span>
-        <span
-          aria-hidden="true"
-          className="ohouse-metrics-slide__eyebrow-caret"
-        />
+        <AnimatePresence mode="wait">
+          <motion.span
+            animate={{ opacity: 1, y: 0 }}
+            className="ohouse-metrics-slide__eyebrow-text"
+            initial={{ opacity: 0, y: 8 }}
+            key={eyebrowText}
+            transition={{
+              duration: eyebrowTransitionMs / 1000,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {eyebrowText}
+          </motion.span>
+        </AnimatePresence>
       </p>
 
       <div className="ohouse-metrics-slide__list" data-node-id="6022:28853">

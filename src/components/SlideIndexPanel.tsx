@@ -252,6 +252,7 @@ export function SlideIndexPanel({
                             advanceStep: () => undefined,
                             advanceSlide: () => undefined,
                             autoPlay: false,
+                            isThumbnail: true,
                             step: 0,
                             slideIndex: index,
                             totalSlides: slides.length,
