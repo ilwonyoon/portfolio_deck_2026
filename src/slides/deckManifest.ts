@@ -24,6 +24,7 @@ export const deckManifest = [
   'pattern-essay',
   'pattern-metric',
   'pattern-screen-1',
+  'pattern-screen-3',
   'pattern-screen-4',
   'pattern-poster',
 ] as const

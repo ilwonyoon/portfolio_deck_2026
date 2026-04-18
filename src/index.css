@@ -6001,6 +6001,17 @@ h3 {
   padding-bottom: 14px;
 }
 
+.pattern-template__screen-headline {
+  grid-column: 3 / span 8;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.98);
+  font-size: var(--type-body-lg-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--type-body-lg-line-height);
+  letter-spacing: var(--type-body-lg-letter-spacing);
+  text-align: center;
+}
+
 .pattern-template__screen-single-copy {
   grid-column: 2 / span 3;
   display: flex;
@@ -6072,6 +6083,39 @@ h3 {
   width: 198px;
 }
 
+.pattern-template__screen-triad {
+  grid-column: 2 / -2;
+  display: flex;
+  width: max-content;
+  margin: 0 auto;
+  gap: 100px;
+  align-items: start;
+  padding-top: 84px;
+}
+
+.pattern-template__screen-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 29px;
+}
+
+.pattern-template__screen-column-label {
+  margin: 0;
+  max-width: 320px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: var(--type-body-sm-size);
+  font-weight: var(--type-body-sm-weight);
+  line-height: var(--type-body-sm-line-height);
+  letter-spacing: var(--type-body-sm-letter-spacing);
+  text-align: center;
+}
+
+.pattern-template__screen-column .pattern-screen,
+.pattern-template__screen-shell--triad {
+  width: 375px;
+}
+
 .pattern-template__screen-stage--figma-single {
   grid-column: 4 / span 6;
   justify-content: center;
@@ -6102,11 +6146,16 @@ h3 {
   width: 375px;
 }
 
+.pattern-template__screen-shell--triad {
+  border-radius: 40px;
+}
+
 .pattern-template__screen-shell--quad {
   width: 337.5px;
   border-radius: 36px;
 }
 
+.pattern-template__screen-export,
 .pattern-template__screen-video {
   display: block;
   width: 100%;

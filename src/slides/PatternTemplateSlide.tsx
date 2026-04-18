@@ -566,6 +566,10 @@ function TwoScreenPattern() {
 }
 
 function ThreeScreenPattern() {
+  const introScreenSrc = resolveMediaUrl('discovery-foundation-intro.png')
+  const browseScreenSrc = resolveMediaUrl('discovery-foundation-browse.png')
+  const discoverScreenSrc = resolveMediaUrl('discovery-foundation-discover.png')
+
   return (
     <article className="pattern-template pattern-template--screen-three">
       <PatternHeader
@@ -574,18 +578,55 @@ function ThreeScreenPattern() {
       />
 
       <div className="pattern-template__grid">
-        <div className="pattern-template__screen-copy pattern-template__screen-copy--compact">
-          <span className="pattern-template__eyebrow">For system breadth</span>
-          <p className="pattern-template__body">
-            Make the center screen the anchor, then use the flanking states to
-            show variation or progression.
-          </p>
-        </div>
+        <h1 className="pattern-template__screen-headline">
+          Set the foundation for personalized discovery
+        </h1>
 
-        <div className="pattern-template__screen-stage pattern-template__screen-stage--three">
-          <ScreenMock label="Entry" variant="profile" />
-          <ScreenMock label="Primary" variant="detail" />
-          <ScreenMock label="Depth" variant="feed" />
+        <div className="pattern-template__screen-triad">
+          <section className="pattern-template__screen-column">
+            <p className="pattern-template__screen-column-label">
+              Get to know what changes
+              <br />
+              you&apos;re about to make
+            </p>
+            <div className="pattern-template__screen-shell pattern-template__screen-shell--triad">
+              <img
+                alt="Interest profiling onboarding screen"
+                className="pattern-template__screen-export"
+                src={introScreenSrc}
+              />
+            </div>
+          </section>
+
+          <section className="pattern-template__screen-column">
+            <p className="pattern-template__screen-column-label">
+              Browse content built
+              <br />
+              around your space
+            </p>
+            <div className="pattern-template__screen-shell pattern-template__screen-shell--triad">
+              <img
+                alt="Personalized browse feed"
+                className="pattern-template__screen-export"
+                src={browseScreenSrc}
+              />
+            </div>
+          </section>
+
+          <section className="pattern-template__screen-column">
+            <p className="pattern-template__screen-column-label">
+              Discover what others
+              <br />
+              like you are changing
+            </p>
+            <div className="pattern-template__screen-shell pattern-template__screen-shell--triad">
+              <img
+                alt="Discovery feed tailored to similar users"
+                className="pattern-template__screen-export"
+                src={discoverScreenSrc}
+              />
+            </div>
+          </section>
         </div>
       </div>
     </article>
