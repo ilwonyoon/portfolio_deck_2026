@@ -29,7 +29,16 @@ import { OhouseRoleSlide } from './OhouseRoleSlide'
 import { OhouseRoleSlideV2 } from './OhouseRoleSlideV2'
 import { OhouseSlide } from './OhouseSlide'
 import { ContributionStoryMonoSlide } from './ContributionStoryMonoSlide'
+import { ContentGrowthSlide } from './ContentGrowthSlide'
+import { CreatorDashboardSlide } from './CreatorDashboardSlide'
+import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
+import { CreatorProgramsGsapSlide } from './CreatorProgramsGsapSlide'
+import { CreatorProgramsSlide } from './CreatorProgramsSlide'
+import { DiscoverIntroSlide } from './DiscoverIntroSlide'
+import { FeedResultsSlide } from './FeedResultsSlide'
+import { FeedStructureSlide } from './FeedStructureSlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
+import { PersonalizedFeedIntroSlide } from './PersonalizedFeedIntroSlide'
 import { PosterProfileSlide } from './PosterProfileSlide'
 import { PatternTemplateSlide } from './PatternTemplateSlide'
 import { ProfileStatementSlideV2 } from './ProfileStatementSlideV2'
@@ -525,6 +534,67 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Pattern 12',
     steps: 1,
     render: () => <PatternTemplateSlide mode="screen-4up" />,
+  },
+  'personalized-feed-intro': {
+    id: 'personalized-feed-intro',
+    navLabel: 'Personalized Feed',
+    steps: 1,
+    render: () => <PersonalizedFeedIntroSlide />,
+  },
+  'feed-structure': {
+    id: 'feed-structure',
+    navLabel: 'Feed Structure',
+    steps: 3,
+    stepDisplay: 'none',
+    render: ({ step }) => <FeedStructureSlide step={step} />,
+  },
+  'discover-intro': {
+    id: 'discover-intro',
+    navLabel: 'Discover',
+    steps: 1,
+    render: () => <DiscoverIntroSlide />,
+  },
+  'feed-results': {
+    id: 'feed-results',
+    navLabel: 'Feed Results',
+    steps: 1,
+    render: () => <FeedResultsSlide />,
+  },
+  'content-growth': {
+    id: 'content-growth',
+    navLabel: 'Content Growth',
+    steps: 1,
+    render: () => <ContentGrowthSlide />,
+  },
+  'creator-onboarding': {
+    id: 'creator-onboarding',
+    navLabel: 'Creator Onboarding',
+    steps: 1,
+    render: () => <CreatorOnboardingSlide />,
+  },
+  'creator-dashboard': {
+    id: 'creator-dashboard',
+    navLabel: 'Creator Dashboard',
+    steps: 1,
+    render: () => <CreatorDashboardSlide />,
+  },
+  'creator-programs': {
+    id: 'creator-programs',
+    navLabel: 'Creator Programs',
+    steps: 1,
+    render: ({ autoPlay, isThumbnail }) => (
+      <CreatorProgramsSlide
+        autoPlay={Boolean(autoPlay)}
+        isThumbnail={Boolean(isThumbnail)}
+      />
+    ),
+  },
+  'creator-programs-gsap': {
+    id: 'creator-programs-gsap',
+    navLabel: 'Creator Programs GSAP',
+    steps: 4,
+    stepDisplay: 'none',
+    render: ({ step }) => <CreatorProgramsGsapSlide step={step} />,
   },
   'work-like-ai-native': {
     id: 'work-like-ai-native',
