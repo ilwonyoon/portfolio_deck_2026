@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ilwon Yoon Portfolio Deck — DESIGN.md Preview</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #000000;
+        --surface: #000000;
+        --surface-soft: rgba(255, 255, 255, 0.025);
+        --surface-soft-strong: rgba(255, 255, 255, 0.04);
+        --surface-line: rgba(255, 255, 255, 0.08);
+        --surface-line-strong: rgba(255, 255, 255, 0.14);
+        --text-primary: rgba(255, 255, 255, 0.96);
+        --text-secondary: rgba(255, 255, 255, 0.78);
+        --text-tertiary: rgba(255, 255, 255, 0.42);
+        --text-quaternary: rgba(255, 255, 255, 0.24);
+        --accent: rgba(255, 255, 255, 0.96);
+        --accent-soft: rgba(255, 255, 255, 0.06);
+        --shadow-strong: 0 24px 64px rgba(0, 0, 0, 0.3);
+        --radius-xl: 28px;
+        --radius-lg: 22px;
+        --radius-md: 16px;
+        --radius-sm: 10px;
+        --font-sans:
+          'General Sans', 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont,
+          sans-serif;
+        --font-display:
+          'Instrument Sans', 'General Sans', 'Inter', 'Segoe UI', sans-serif;
+        --font-ui:
+          'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+          'Segoe UI', sans-serif;
+        --font-mono:
+          'SFMono-Regular', 'SF Mono', ui-monospace, 'JetBrains Mono', monospace;
+        --deck-poster-background:
+          radial-gradient(circle at 14% 14%, rgba(255, 255, 255, 0.05), transparent 32%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+          #020202;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--text-primary);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        padding: 80px 96px 160px;
+        max-width: 1792px;
+        margin: 0 auto;
+      }
+
+      a { color: var(--text-primary); text-decoration: none; }
+
+      header.page {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--surface-line);
+        color: var(--text-tertiary);
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        font-weight: 500;
+      }
+
+      header.page span:nth-child(2) { text-align: center; }
+      header.page span:nth-child(3) { text-align: right; }
+
+      .hero {
+        padding: 160px 0 120px;
+        border-bottom: 1px solid var(--surface-line);
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: 114px;
+        line-height: 0.94;
+        letter-spacing: -0.045em;
+        font-weight: 560;
+        max-width: 1400px;
+      }
+
+      .hero p {
+        margin: 40px 0 0;
+        max-width: 860px;
+        color: var(--text-secondary);
+        font-size: 28px;
+        line-height: 1.3;
+        letter-spacing: 0.1px;
+        font-weight: 500;
+      }
+
+      section {
+        padding: 120px 0;
+        border-bottom: 1px solid var(--surface-line);
+      }
+
+      section:last-of-type { border-bottom: 0; }
+
+      h2.section-title {
+        margin: 0 0 8px;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-tertiary);
+        font-weight: 520;
+      }
+
+      h3.section-lead {
+        margin: 0 0 64px;
+        font-size: 48px;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        font-weight: 550;
+        max-width: 1100px;
+      }
+
+      /* ===== color ===== */
+      .swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      .swatch {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 28px;
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius-lg);
+        min-height: 220px;
+      }
+
+      .swatch__chip {
+        flex: 1;
+        border-radius: var(--radius-md);
+        min-height: 120px;
+        border: 1px solid var(--surface-line);
+      }
+
+      .swatch__meta { display: flex; flex-direction: column; gap: 4px; }
+      .swatch__name {
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+      .swatch__token {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        color: var(--text-tertiary);
+      }
+      .swatch__value {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        color: var(--text-secondary);
+      }
+
+      /* checker background for transparency demo */
+      .swatch--alpha .swatch__chip {
+        background-image:
+          linear-gradient(45deg, #1a1a1a 25%, transparent 25%),
+          linear-gradient(-45deg, #1a1a1a 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, #1a1a1a 75%),
+          linear-gradient(-45deg, transparent 75%, #1a1a1a 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+      }
+
+      .swatch--alpha .swatch__chip > span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+      }
+
+      /* ===== typography ===== */
+      .type-row {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 60px;
+        padding: 40px 0;
+        align-items: baseline;
+        border-top: 1px solid var(--surface-line);
+      }
+
+      .type-row:last-child { border-bottom: 1px solid var(--surface-line); }
+
+      .type-row__meta { color: var(--text-tertiary); }
+      .type-row__meta strong {
+        display: block;
+        font-weight: 500;
+        color: var(--text-primary);
+        font-size: 14px;
+        letter-spacing: 0.15px;
+        margin-bottom: 8px;
+      }
+      .type-row__meta span {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+      }
+
+      .type-row__sample { color: var(--text-primary); }
+
+      .display-114 { font-size: 114px; line-height: 0.94; letter-spacing: -0.045em; font-weight: 560; }
+      .display-88 { font-size: 88px; line-height: 0.96; letter-spacing: -0.046em; font-weight: 500; }
+      .display-72 { font-size: 72px; line-height: 1.08; letter-spacing: -0.03em; font-weight: 500; }
+      .display-48 { font-size: 48px; line-height: 1.2; letter-spacing: -0.01em; font-weight: 550; }
+      .display-36 { font-size: 36px; line-height: 1.2; letter-spacing: 0; font-weight: 500; }
+      .display-28 { font-size: 28px; line-height: 1.3; letter-spacing: 0.1px; font-weight: 500; }
+      .display-22 { font-size: 22px; line-height: 1.4; letter-spacing: 0.15px; font-weight: 420; }
+      .display-14 { font-size: 14px; line-height: 1.4; letter-spacing: 0.15px; font-weight: 500; }
+      .display-12 {
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 520;
+      }
+
+      .display-metric {
+        font-size: 122px;
+        line-height: 0.92;
+        letter-spacing: -0.05em;
+        font-weight: 600;
+      }
+
+      /* ===== pattern thumbnails ===== */
+      .pattern-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .pattern {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .pattern__label {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-tertiary);
+        font-weight: 520;
+      }
+
+      .pattern__chrome {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        color: var(--text-tertiary);
+        font-size: 11px;
+        letter-spacing: 0.15px;
+      }
+      .pattern__chrome span:nth-child(2) { text-align: center; }
+      .pattern__chrome span:nth-child(3) { text-align: right; }
+
+      .pattern__body {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: var(--text-primary);
+      }
+
+      .pattern--poster .pattern__body {
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        text-align: center;
+      }
+      .pattern--poster .pattern__body > span {
+        font-size: 42px;
+        line-height: 0.94;
+        letter-spacing: -0.045em;
+        font-weight: 560;
+      }
+
+      .pattern--offset .pattern__body {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 16px;
+        align-items: end;
+        flex: 1;
+      }
+      .pattern--offset .pattern__body > span:first-child {
+        font-size: 28px;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        font-weight: 550;
+      }
+      .pattern--offset .pattern__body > span:last-child {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        line-height: 1.4;
+      }
+
+      .pattern--ledger .pattern__body { gap: 4px; flex: 1; justify-content: center; }
+      .pattern--ledger .pattern__body > div {
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-secondary);
+        padding: 4px 0;
+        border-bottom: 1px solid var(--surface-line);
+      }
+
+      .pattern--stage .pattern__body {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+      }
+      .pattern--stage .pattern__body > div {
+        width: 70%;
+        aspect-ratio: 4 / 3;
+        border-radius: var(--radius-md);
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255,255,255,0.08), transparent 50%),
+          linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+        border: 1px solid var(--surface-line-strong);
+      }
+
+      .pattern--essay .pattern__body { flex: 1; justify-content: center; }
+      .pattern--essay .pattern__body > span {
+        max-width: 85%;
+        font-size: 14px;
+        line-height: 1.28;
+        letter-spacing: 0.04px;
+        color: var(--text-secondary);
+      }
+
+      .pattern--rail .pattern__body { flex: 1; justify-content: flex-end; }
+      .pattern--rail .pattern__rail {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .pattern--rail .pattern__rail > div {
+        aspect-ratio: 3 / 4;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--surface-line);
+        background: var(--surface-soft);
+      }
+
+      .pattern--before-after .pattern__body {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 12px;
+        align-items: stretch;
+      }
+      .pattern--before-after .pattern__body > div:nth-child(1),
+      .pattern--before-after .pattern__body > div:nth-child(3) {
+        border-radius: var(--radius-sm);
+        background: var(--surface-soft);
+        border: 1px solid var(--surface-line);
+      }
+      .pattern--before-after .pattern__body > div:nth-child(2) {
+        background: var(--surface-line-strong);
+      }
+
+      .pattern--metric .pattern__body {
+        flex: 1;
+        justify-content: center;
+      }
+      .pattern--metric .pattern__body > span:first-child {
+        font-size: 64px;
+        line-height: 0.92;
+        letter-spacing: -0.05em;
+        font-weight: 600;
+      }
+      .pattern--metric .pattern__body > span:last-child {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 520;
+      }
+
+      .pattern--screen-1up .pattern__body,
+      .pattern--screen-2up .pattern__body,
+      .pattern--screen-3up .pattern__body {
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pattern__screens {
+        display: grid;
+        gap: 10px;
+      }
+      .pattern--screen-1up .pattern__screens { grid-template-columns: 1fr; }
+      .pattern--screen-2up .pattern__screens { grid-template-columns: 1fr 1fr; }
+      .pattern--screen-3up .pattern__screens { grid-template-columns: 1fr 1fr 1fr; }
+
+      .pattern__screens > div {
+        aspect-ratio: 9 / 16;
+        width: 90px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--surface-line-strong);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01)),
+          var(--surface);
+      }
+
+      /* ===== radii / easing ===== */
+      .radii-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .radius-card {
+        padding: 40px;
+        border: 1px solid var(--surface-line);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .radius-card__box {
+        width: 80px;
+        height: 80px;
+        background: var(--accent-soft);
+        border: 1px solid var(--surface-line-strong);
+      }
+      .radius-card--sm .radius-card__box { border-radius: 10px; }
+      .radius-card--md .radius-card__box { border-radius: 16px; }
+      .radius-card--lg .radius-card__box { border-radius: 22px; }
+      .radius-card--xl .radius-card__box { border-radius: 28px; }
+
+      .radius-card__label {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-tertiary);
+      }
+      .radius-card__value {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.15px;
+      }
+
+      .easing-strip {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .easing-card {
+        flex: 1;
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius-md);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .easing-card svg { width: 100%; height: 80px; }
+      .easing-card path { fill: none; stroke: var(--text-primary); stroke-width: 1.5; }
+      .easing-card__label {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-tertiary);
+      }
+      .easing-card__title {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.15px;
+      }
+
+      /* ===== principles ===== */
+      .principles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .principle {
+        border: 1px solid var(--surface-line);
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-height: 240px;
+      }
+      .principle__no {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-tertiary);
+      }
+      .principle__title {
+        font-size: 36px;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        font-weight: 550;
+      }
+      .principle__body {
+        margin-top: auto;
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.1px;
+      }
+
+      footer.page {
+        padding-top: 64px;
+        color: var(--text-tertiary);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      code.inline {
+        font-family: var(--font-mono);
+        font-size: 0.9em;
+        color: var(--text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page">
+      <span>Ilwon Yoon</span>
+      <span>DESIGN.md Preview</span>
+      <span>Portfolio Deck 2026</span>
+    </header>
+
+    <div class="hero">
+      <h1>Cinematic editorial<br />on a void-black stage.</h1>
+      <p>
+        A monochromatic presentation system. Black canvas, opacity-layered
+        white, one tight-tracked display family, hairline borders, one easing
+        curve. Built to be read by humans on a 1920×1080 projector and by
+        coding agents working from this DESIGN.md.
+      </p>
+    </div>
+
+    <!-- ========== COLOR ========== -->
+    <section>
+      <h2 class="section-title">01 · Color &amp; Surface</h2>
+      <h3 class="section-lead">
+        No brand hue. Hierarchy is opacity-layered white on pure black.
+      </h3>
+
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch__chip" style="background: #000000"></div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Background / Surface</span>
+            <span class="swatch__token">--bg · --surface</span>
+            <span class="swatch__value">#000000</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.025)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Surface Soft</span>
+            <span class="swatch__token">--surface-soft</span>
+            <span class="swatch__value">rgba(255,255,255,0.025)</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.04)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Surface Soft Strong</span>
+            <span class="swatch__token">--surface-soft-strong</span>
+            <span class="swatch__value">rgba(255,255,255,0.04)</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.08)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Surface Line</span>
+            <span class="swatch__token">--surface-line</span>
+            <span class="swatch__value">rgba(255,255,255,0.08)</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.14)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Surface Line Strong</span>
+            <span class="swatch__token">--surface-line-strong</span>
+            <span class="swatch__value">rgba(255,255,255,0.14)</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.96)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Text Primary / Accent</span>
+            <span class="swatch__token">--text-primary · --accent</span>
+            <span class="swatch__value">rgba(255,255,255,0.96)</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.78)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Text Secondary</span>
+            <span class="swatch__token">--text-secondary</span>
+            <span class="swatch__value">rgba(255,255,255,0.78)</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.42)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Text Tertiary</span>
+            <span class="swatch__token">--text-tertiary</span>
+            <span class="swatch__value">rgba(255,255,255,0.42)</span>
+          </div>
+        </div>
+
+        <div class="swatch swatch--alpha">
+          <div class="swatch__chip">
+            <span style="background: rgba(255, 255, 255, 0.24)"></span>
+          </div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Text Quaternary</span>
+            <span class="swatch__token">--text-quaternary</span>
+            <span class="swatch__value">rgba(255,255,255,0.24)</span>
+          </div>
+        </div>
+
+        <div class="swatch" style="grid-column: span 3">
+          <div
+            class="swatch__chip"
+            style="background: var(--deck-poster-background); min-height: 200px"
+          ></div>
+          <div class="swatch__meta">
+            <span class="swatch__name">Deck Poster Background</span>
+            <span class="swatch__token">--deck-poster-background</span>
+            <span class="swatch__value">
+              radial + linear gradient over #020202 · cover / section-index only
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TYPOGRAPHY ========== -->
+    <section>
+      <h2 class="section-title">02 · Typography</h2>
+      <h3 class="section-lead">
+        One family runs the deck. Large type tracks tight, small type tracks
+        loose.
+      </h3>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Poster / H2</strong>
+          <span>--type-poster</span>
+          <span>114 / 0.94 / −0.045em</span>
+          <span>weight 560 · General Sans</span>
+        </div>
+        <div class="type-row__sample display-114">
+          Evidence beats explanation.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Agenda / H1</strong>
+          <span>--type-agenda</span>
+          <span>88 / 0.96 / −0.046em</span>
+          <span>weight 500</span>
+        </div>
+        <div class="type-row__sample display-88">
+          A monograph, projected.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Case Intro</strong>
+          <span>--type-case-intro</span>
+          <span>72 / 1.08 / −0.03em</span>
+          <span>weight 500</span>
+        </div>
+        <div class="type-row__sample display-72">
+          How the deck was built.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Metric Display</strong>
+          <span>--type-metric-display</span>
+          <span>122 / 0.92 / −0.05em</span>
+          <span>weight 600</span>
+        </div>
+        <div class="type-row__sample display-metric">48×</div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Lead / H3</strong>
+          <span>--type-lead</span>
+          <span>48 / 1.2 / −0.01em</span>
+          <span>weight 550</span>
+        </div>
+        <div class="type-row__sample display-48">
+          Every slide does exactly one job.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Body Large</strong>
+          <span>--type-body-lg</span>
+          <span>36 / 1.2 / 0</span>
+          <span>weight 500</span>
+        </div>
+        <div class="type-row__sample display-36">
+          Reuse established patterns to create pacing and recognition across
+          the deck.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Body Medium</strong>
+          <span>--type-body-md</span>
+          <span>28 / 1.3 / 0.1px</span>
+          <span>weight 500</span>
+        </div>
+        <div class="type-row__sample display-28">
+          Hierarchy comes from opacity-layered white on pure black, typography
+          scale, and composition — not from a brand accent.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Body Small</strong>
+          <span>--type-body-sm</span>
+          <span>22 / 1.4 / 0.15px</span>
+          <span>weight 420 (book)</span>
+        </div>
+        <div class="type-row__sample display-22">
+          Every slide should do one job only. When a slide starts doing
+          multiple jobs, cut content before adding layout. Prefer one strong
+          statement or one strong artifact over mixed headline, body, metric,
+          and screenshot on the same slide.
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Meta / Chrome</strong>
+          <span>--type-meta</span>
+          <span>14 / 1.4 / 0.15px</span>
+          <span>weight 500</span>
+        </div>
+        <div class="type-row__sample display-14">
+          Ilwon Yoon · Case Study · 01 / 12
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-row__meta">
+          <strong>Eyebrow / Label</strong>
+          <span>--type-scale-12</span>
+          <span>12 / 1.2 / 0.08em</span>
+          <span>weight 520 · uppercase</span>
+        </div>
+        <div class="type-row__sample display-12">Section · Evidence</div>
+      </div>
+    </section>
+
+    <!-- ========== PATTERN LIBRARY ========== -->
+    <section>
+      <h2 class="section-title">03 · Pattern Library</h2>
+      <h3 class="section-lead">
+        A small set of reusable slide modes. Invent a new pattern only when the
+        message genuinely requires one.
+      </h3>
+
+      <div class="pattern-grid">
+        <div class="pattern pattern--poster">
+          <span class="pattern__label">Poster</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Thesis</span><span>01 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <span>Less is more.</span>
+          </div>
+          <div></div>
+        </div>
+
+        <div class="pattern pattern--offset">
+          <span class="pattern__label">Offset</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Context</span><span>02 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <span>
+              Rhythm is a feature. It helps the viewer understand the story
+              faster.
+            </span>
+            <span>Supporting note in tertiary text.</span>
+          </div>
+        </div>
+
+        <div class="pattern pattern--ledger">
+          <span class="pattern__label">Ledger</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Evidence</span><span>03 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <div><span>2024.03 · Launch</span><span>+0.0k DAU</span></div>
+            <div><span>2024.06 · Retain</span><span>+12.4k DAU</span></div>
+            <div><span>2024.09 · Expand</span><span>+48.1k DAU</span></div>
+            <div><span>2024.12 · Scale</span><span>+112.7k DAU</span></div>
+          </div>
+        </div>
+
+        <div class="pattern pattern--stage">
+          <span class="pattern__label">Stage</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Artifact</span><span>04 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <div></div>
+          </div>
+          <div></div>
+        </div>
+
+        <div class="pattern pattern--essay">
+          <span class="pattern__label">Essay</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Reflection</span><span>05 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <span>
+              The deck is nearly flat. Elevation is expressed by opacity
+              layering of white on black, hairline borders, and the relative
+              scale of type — not by shadow stacks or glassy backdrops.
+            </span>
+          </div>
+        </div>
+
+        <div class="pattern pattern--rail">
+          <span class="pattern__label">Evidence Rail</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Case</span><span>06 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <div class="pattern__rail">
+              <div></div><div></div><div></div><div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern pattern--before-after">
+          <span class="pattern__label">Before / After</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Compare</span><span>07 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <div></div><div></div><div></div>
+          </div>
+        </div>
+
+        <div class="pattern pattern--metric">
+          <span class="pattern__label">Metric</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Impact</span><span>08 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <span>+112k</span>
+            <span>Daily Active Users</span>
+          </div>
+        </div>
+
+        <div class="pattern pattern--screen-1up">
+          <span class="pattern__label">Screen 1-Up</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Product</span><span>09 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <div class="pattern__screens"><div></div></div>
+          </div>
+        </div>
+
+        <div class="pattern pattern--screen-2up">
+          <span class="pattern__label">Screen 2-Up</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Product</span><span>10 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <div class="pattern__screens"><div></div><div></div></div>
+          </div>
+        </div>
+
+        <div class="pattern pattern--screen-3up">
+          <span class="pattern__label">Screen 3-Up</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Product</span><span>11 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <div class="pattern__screens">
+              <div></div><div></div><div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pattern pattern--poster">
+          <span class="pattern__label">Section Index</span>
+          <div class="pattern__chrome">
+            <span>Ilwon Yoon</span><span>Chapter</span><span>12 / 12</span>
+          </div>
+          <div class="pattern__body">
+            <span>Chapter 02<br />Ohouse.</span>
+          </div>
+          <div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RADII + EASING ========== -->
+    <section>
+      <h2 class="section-title">04 · Radii &amp; Motion</h2>
+      <h3 class="section-lead">
+        Four radii, two easing curves. One motion rule: if it doesn&rsquo;t
+        improve comprehension, remove it.
+      </h3>
+
+      <div class="radii-grid" style="margin-bottom: 80px">
+        <div class="radius-card radius-card--sm">
+          <div class="radius-card__box"></div>
+          <div class="radius-card__value">10 px</div>
+          <div class="radius-card__label">--radius-sm</div>
+        </div>
+        <div class="radius-card radius-card--md">
+          <div class="radius-card__box"></div>
+          <div class="radius-card__value">16 px</div>
+          <div class="radius-card__label">--radius-md</div>
+        </div>
+        <div class="radius-card radius-card--lg">
+          <div class="radius-card__box"></div>
+          <div class="radius-card__value">22 px</div>
+          <div class="radius-card__label">--radius-lg</div>
+        </div>
+        <div class="radius-card radius-card--xl">
+          <div class="radius-card__box"></div>
+          <div class="radius-card__value">28 px</div>
+          <div class="radius-card__label">--radius-xl</div>
+        </div>
+      </div>
+
+      <div class="easing-strip">
+        <div class="easing-card">
+          <div class="easing-card__title">Primary</div>
+          <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+            <path d="M 0 50 C 22 50 36 0 100 0" />
+          </svg>
+          <div class="easing-card__label">
+            cubic-bezier(0.22, 1, 0.36, 1) · 260–420ms
+          </div>
+        </div>
+        <div class="easing-card">
+          <div class="easing-card__title">Counter Settle</div>
+          <svg viewBox="0 0 100 50" preserveAspectRatio="none">
+            <path d="M 0 50 C 16 50 22 0 100 0" />
+          </svg>
+          <div class="easing-card__label">
+            cubic-bezier(0.16, 0.84, 0.22, 1) · 760ms
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONSTITUTION ========== -->
+    <section>
+      <h2 class="section-title">05 · Deck Constitution</h2>
+      <h3 class="section-lead">
+        Three operating rules for every slide. Review guardrails, not mood
+        notes.
+      </h3>
+
+      <div class="principles">
+        <div class="principle">
+          <span class="principle__no">01</span>
+          <div class="principle__title">Less is more.</div>
+          <div class="principle__body">
+            Every slide does exactly one job. When a slide starts doing more,
+            cut content before adding layout. When in doubt, cut.
+          </div>
+        </div>
+        <div class="principle">
+          <span class="principle__no">02</span>
+          <div class="principle__title">Rhythm with patterns.</div>
+          <div class="principle__body">
+            Reuse established slide modes. Pattern repetition helps the viewer
+            understand the story faster. New patterns require a genuinely
+            different need.
+          </div>
+        </div>
+        <div class="principle">
+          <span class="principle__no">03</span>
+          <div class="principle__title">Motion with meaning.</div>
+          <div class="principle__body">
+            Motion must improve comprehension, emphasis, sequencing, or
+            emotional timing. If the message is clearer without motion, remove
+            it.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page">
+      <span>DESIGN.md · v1</span>
+      <span>
+        Source of truth: <code class="inline">src/index.css</code>
+      </span>
+    </footer>
+  </body>
+</html>
