@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, type CSSProperties } from 'react'
 import { gsap } from 'gsap'
+import { ProposalBadge } from '../components/ProposalBadge'
 
 const GRID_ROWS = 6
 const GRID_COLUMNS = 20
@@ -21,7 +22,15 @@ const CELL_LEVEL_MATRIX = [
   [0, 0, 0, 0, 2, 1, 0, 0, 0, 1, 1, 1, 2, 2, 3, 2, 2, 2, 2, 1],
 ] as const
 
-export function ContributionStorySlide() {
+const LEVEL_COLOR: Record<0 | 1 | 2 | 3 | 4, string> = {
+  0: 'rgba(255, 255, 255, 0.04)',
+  1: 'rgba(255, 255, 255, 0.14)',
+  2: 'rgba(255, 255, 255, 0.32)',
+  3: 'rgba(255, 255, 255, 0.64)',
+  4: 'rgba(255, 255, 255, 0.96)',
+}
+
+export function ContributionStoryMonoSlide() {
   const isAutoPlaying =
     typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('mode') === 'present'
@@ -60,7 +69,10 @@ export function ContributionStorySlide() {
 
     const orderedCells = fillCellRefs.current
       .map((cell, index) => ({ cell, index }))
-      .filter((entry): entry is { cell: HTMLSpanElement; index: number } => Boolean(entry.cell))
+      .filter(
+        (entry): entry is { cell: HTMLSpanElement; index: number } =>
+          Boolean(entry.cell),
+      )
       .sort((left, right) => {
         const leftRow = Math.floor(left.index / GRID_COLUMNS)
         const rightRow = Math.floor(right.index / GRID_COLUMNS)
@@ -93,7 +105,7 @@ export function ContributionStorySlide() {
 
   return (
     <article
-      className="contribution-story-slide"
+      className="contribution-story-slide contribution-story-slide--mono"
       style={
         {
           '--contrib-cell-size': `${CELL_SIZE}px`,
@@ -103,11 +115,17 @@ export function ContributionStorySlide() {
         } as CSSProperties
       }
     >
+      <ProposalBadge />
       <section className="contribution-story-slide__copy">
-        <p className="contribution-story-slide__headline">1500+ hours of vibe coding.</p>
+        <p className="contribution-story-slide__headline">
+          1500+ hours of vibe coding.
+        </p>
       </section>
 
-      <section className="contribution-story-slide__panel" aria-label="Contribution heatmap">
+      <section
+        className="contribution-story-slide__panel"
+        aria-label="Contribution heatmap"
+      >
         <div className="contribution-story-slide__chart">
           <div className="contribution-story-slide__grid-shell">
             <div
@@ -120,32 +138,27 @@ export function ContributionStorySlide() {
                   data-level={cell.level}
                   key={`base-${cell.row}-${cell.column}`}
                   style={{
-                    backgroundColor: '#1f252d',
+                    backgroundColor: 'rgba(255, 255, 255, 0.025)',
                   }}
                 />
               ))}
             </div>
 
-            <div aria-hidden="true" className="contribution-story-slide__grid contribution-story-slide__grid--fill">
+            <div
+              aria-hidden="true"
+              className="contribution-story-slide__grid contribution-story-slide__grid--fill"
+            >
               {cells.map((cell) => (
                 <span
                   className="contribution-story-slide__cell contribution-story-slide__cell--fill"
                   data-level={cell.level}
                   key={`fill-${cell.row}-${cell.column}`}
                   ref={(node) => {
-                    fillCellRefs.current[cell.row * GRID_COLUMNS + cell.column] = node
+                    fillCellRefs.current[cell.row * GRID_COLUMNS + cell.column] =
+                      node
                   }}
                   style={{
-                    backgroundColor:
-                      cell.level === 0
-                        ? '#161b22'
-                        : cell.level === 1
-                          ? '#0e4429'
-                          : cell.level === 2
-                            ? '#006d32'
-                            : cell.level === 3
-                              ? '#26a641'
-                              : '#39d353',
+                    backgroundColor: LEVEL_COLOR[cell.level],
                     opacity: isAutoPlaying ? 0 : 1,
                     transform: 'scale(1)',
                   }}

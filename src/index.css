@@ -6796,3 +6796,165 @@ h3 {
     transform: scale(1.025);
   }
 }
+
+/* =========================================================
+   Batch 1 proposals — v2 variants
+   ========================================================= */
+
+/* profile-statement-v2 — headline only, aside removed */
+.profile-statement-slide--v2 .profile-statement-slide__grid--v2 {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.profile-statement-slide--v2 .profile-statement-slide__lead {
+  grid-column: 2 / span 10;
+}
+
+/* section-index-01-v2 — single motion, token-aligned tones */
+.section-index-slide--v2 .section-index-slide__line--active {
+  color: var(--text-primary);
+}
+
+.section-index-slide--v2 .section-index-slide__line--muted {
+  color: var(--text-tertiary);
+}
+
+/* poster-profile-identity — portrait + name only */
+.poster-profile-slide--identity .poster-profile-slide__identity-copy {
+  position: absolute;
+  top: 50%;
+  left: 162px;
+  width: 646px;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+}
+
+.poster-profile-slide--identity .poster-profile-slide__identity-name {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-poster-size);
+  font-weight: var(--type-poster-weight);
+  line-height: var(--type-poster-line-height);
+  letter-spacing: var(--type-poster-letter-spacing);
+  color: var(--text-primary);
+}
+
+.poster-profile-slide__content-area--identity {
+  /* reuse default content-area; no overrides needed */
+}
+
+/* poster-profile-career — career copy only, no portrait */
+.poster-profile-slide--career .poster-profile-slide__career-copy {
+  position: absolute;
+  top: 50%;
+  left: 162px;
+  width: 1100px;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  color: var(--text-primary);
+}
+
+.poster-profile-slide--career .poster-profile-slide__career-body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-lead-size);
+  font-weight: var(--type-lead-weight);
+  line-height: var(--type-lead-line-height);
+  letter-spacing: var(--type-lead-letter-spacing);
+  color: var(--text-secondary);
+  text-wrap: balance;
+}
+
+.poster-profile-slide--career .poster-profile-slide__career-body--emphasis {
+  color: var(--text-primary);
+}
+
+/* =========================================================
+   Proposal badge — top-left marker for variant slides
+   ========================================================= */
+.proposal-badge {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px 8px 10px;
+  border: 1px solid var(--surface-line-strong);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.proposal-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+
+.proposal-badge__label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 520;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+/* =========================================================
+   Batch 2 proposals — Ohouse variants
+   ========================================================= */
+
+/* content-statement v2 — left thesis block gets supporting copy */
+.ohouse-content-statement-slide--v2 .ohouse-content-statement-slide__thesis-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ohouse-content-statement-slide--v2 .ohouse-content-statement-slide__thesis-sub {
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
+  max-width: 520px;
+  text-wrap: balance;
+}
+
+/* journey part-a — copy centered, no rail */
+.ohouse-journey-slide--part-a .ohouse-journey-slide__copy--part-a {
+  position: absolute;
+  top: 50%;
+  left: 162px;
+  right: 162px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 900px;
+}
+
+/* journey part-b — emphasis copy + rail */
+.ohouse-journey-slide--part-b .ohouse-journey-slide__copy--part-b {
+  max-width: 720px;
+}
+
+/* persona v2 — inherits base styles, just a marker class */
+.ohouse-persona-slide--v2 {
+  /* no overrides needed; base styles handle the layout */
+}

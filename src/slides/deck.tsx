@@ -6,28 +6,35 @@ import {
   CareerHoverSlideWithIntro,
   CareerHoverSlideWithSpotlight,
 } from './CareerHoverSlide'
-import { BeliefStatementSlide } from './BeliefStatementSlide'
+import { BeliefStatementSlideV2 } from './BeliefStatementSlideV2'
 import { InspirationSlide } from './InspirationSlide'
 import { GsapStudySlide } from './GsapStudySlide'
 import { OhouseChartSlide } from './OhouseChartSlide'
 import { OhouseConfidenceSlide } from './OhouseConfidenceSlide'
+import { OhouseConfidenceSlideV2 } from './OhouseConfidenceSlideV2'
 import { OhouseContentStatementSlide } from './OhouseContentStatementSlide'
+import { OhouseContentStatementSlideV2 } from './OhouseContentStatementSlideV2'
 import { OhouseBrowseMotionSlide } from './OhouseBrowseMotionSlide'
 import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
 import { OhouseJourneySlide } from './OhouseJourneySlide'
+import { OhouseJourneyPartASlide } from './OhouseJourneyPartASlide'
+import { OhouseJourneyPartBSlide } from './OhouseJourneyPartBSlide'
 import { OhouseMetricsSlide } from './OhouseMetricsSlide'
 import { OhouseMetricsEditorialSlide } from './OhouseMetricsEditorialSlide'
 import { OhouseNeedleGridSlide } from './OhouseNeedleGridSlide'
 import { OhousePersonaSlide } from './OhousePersonaSlide'
+import { OhousePersonaSlideV2 } from './OhousePersonaSlideV2'
 import { OhouseRoleSlide } from './OhouseRoleSlide'
+import { OhouseRoleSlideV2 } from './OhouseRoleSlideV2'
 import { OhouseSlide } from './OhouseSlide'
-import { ContributionStorySlide } from './ContributionStorySlide'
+import { ContributionStoryMonoSlide } from './ContributionStoryMonoSlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
 import { PosterProfileSlide } from './PosterProfileSlide'
 import { PatternTemplateSlide } from './PatternTemplateSlide'
-import { ProfileStatementSlide } from './ProfileStatementSlide'
+import { ProfileStatementSlideV2 } from './ProfileStatementSlideV2'
 import { SectionIndexSlide } from './SectionIndexSlide'
+import { SectionIndexSlideV2 } from './SectionIndexSlideV2'
 import { WinningStatementSlide } from './WinningStatementSlide'
 import { TileEntranceStudySlide } from './TileEntranceStudySlide'
 import { deckManifest } from './deckManifest'
@@ -81,11 +88,11 @@ export const slideRegistry: Record<string, SlideDefinition> = {
       return renderIntroHeroSlide()
     },
   },
-  'profile-statement': {
-    id: 'profile-statement',
+  'profile-statement-v2': {
+    id: 'profile-statement-v2',
     navLabel: 'Statement',
     steps: 1,
-    render: () => <ProfileStatementSlide />,
+    render: () => <ProfileStatementSlideV2 />,
   },
   'section-index-01': {
     id: 'section-index-01',
@@ -93,6 +100,14 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: ({ isThumbnail }) => (
       <SectionIndexSlide activeIndex={0} isThumbnail={Boolean(isThumbnail)} />
+    ),
+  },
+  'section-index-01-v2': {
+    id: 'section-index-01-v2',
+    navLabel: 'Overview 1 v2',
+    steps: 1,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlideV2 activeIndex={0} isThumbnail={Boolean(isThumbnail)} />
     ),
   },
   'section-index-01-settle': {
@@ -127,6 +142,14 @@ export const slideRegistry: Record<string, SlideDefinition> = {
       <SectionIndexSlide activeIndex={1} isThumbnail={Boolean(isThumbnail)} />
     ),
   },
+  'section-index-02-v2': {
+    id: 'section-index-02-v2',
+    navLabel: 'Overview 2 v2',
+    steps: 1,
+    render: ({ isThumbnail }) => (
+      <SectionIndexSlideV2 activeIndex={1} isThumbnail={Boolean(isThumbnail)} />
+    ),
+  },
   'section-index-03': {
     id: 'section-index-03',
     navLabel: 'Overview 3',
@@ -143,12 +166,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
       <SectionIndexSlide activeIndex={3} isThumbnail={Boolean(isThumbnail)} />
     ),
   },
-  'belief-statement': {
-    id: 'belief-statement',
+  'belief-statement-v2': {
+    id: 'belief-statement-v2',
     navLabel: 'Belief',
     steps: 2,
     stepDisplay: 'none',
-    render: ({ step }) => <BeliefStatementSlide step={step} />,
+    render: ({ step }) => <BeliefStatementSlideV2 step={step} />,
   },
   'winning-statement': {
     id: 'winning-statement',
@@ -164,33 +187,11 @@ export const slideRegistry: Record<string, SlideDefinition> = {
       <PosterProfileSlide isThumbnail={Boolean(isThumbnail)} />
     ),
   },
-  'poster-profile-line': {
-    id: 'poster-profile-line',
-    navLabel: 'Profile Line',
-    steps: 1,
-    render: ({ isThumbnail }) => (
-      <PosterProfileSlide
-        isThumbnail={Boolean(isThumbnail)}
-        textAnimation="line-reveal"
-      />
-    ),
-  },
-  'poster-profile-fade': {
-    id: 'poster-profile-fade',
-    navLabel: 'Profile Fade',
-    steps: 1,
-    render: ({ isThumbnail }) => (
-      <PosterProfileSlide
-        isThumbnail={Boolean(isThumbnail)}
-        textAnimation="fade-up"
-      />
-    ),
-  },
-  'contribution-story': {
-    id: 'contribution-story',
+  'contribution-story-mono': {
+    id: 'contribution-story-mono',
     navLabel: 'Contrib',
     steps: 1,
-    render: () => <ContributionStorySlide />,
+    render: () => <ContributionStoryMonoSlide />,
   },
   'case-study-01': {
     id: 'case-study-01',
@@ -238,6 +239,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <OhouseConfidenceSlide />,
   },
+  'case-study-02d-v2': {
+    id: 'case-study-02d-v2',
+    navLabel: 'Ohouse Proof v2',
+    steps: 1,
+    render: () => <OhouseConfidenceSlideV2 />,
+  },
   'case-study-02e': {
     id: 'case-study-02e',
     navLabel: 'Ohouse Metrics',
@@ -272,11 +279,29 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <OhouseJourneySlide />,
   },
+  'case-study-02f-part-a': {
+    id: 'case-study-02f-part-a',
+    navLabel: 'Journey A',
+    steps: 1,
+    render: () => <OhouseJourneyPartASlide />,
+  },
+  'case-study-02f-part-b': {
+    id: 'case-study-02f-part-b',
+    navLabel: 'Journey B',
+    steps: 1,
+    render: () => <OhouseJourneyPartBSlide />,
+  },
   'case-study-02g': {
     id: 'case-study-02g',
     navLabel: 'Content 2.0',
     steps: 1,
     render: () => <OhouseContentStatementSlide />,
+  },
+  'case-study-02g-v2': {
+    id: 'case-study-02g-v2',
+    navLabel: 'Content 2.0 v2',
+    steps: 1,
+    render: () => <OhouseContentStatementSlideV2 />,
   },
   'case-study-02g1': {
     id: 'case-study-02g1',
@@ -302,12 +327,25 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <OhouseRoleSlide />,
   },
+  'case-study-02h-v2': {
+    id: 'case-study-02h-v2',
+    navLabel: 'My Role v2',
+    steps: 1,
+    render: () => <OhouseRoleSlideV2 />,
+  },
   'case-study-02i': {
     id: 'case-study-02i',
     navLabel: 'Personas',
     steps: 3,
     stepDisplay: 'none',
     render: ({ step }) => <OhousePersonaSlide step={step} />,
+  },
+  'case-study-02i-v2': {
+    id: 'case-study-02i-v2',
+    navLabel: 'Personas v2',
+    steps: 3,
+    stepDisplay: 'none',
+    render: ({ step }) => <OhousePersonaSlideV2 step={step} />,
   },
   'case-study-02j': {
     id: 'case-study-02j',
