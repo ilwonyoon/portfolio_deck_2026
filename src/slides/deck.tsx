@@ -33,6 +33,7 @@ import { ContentGrowthSlide } from './ContentGrowthSlide'
 import { CreatorDashboardSlide } from './CreatorDashboardSlide'
 import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
 import { CommunityIntroSlide } from './CommunityIntroSlide'
+import { UploadExperienceSlide } from './UploadExperienceSlide'
 import { CreatorProgramsGsapSlide } from './CreatorProgramsGsapSlide'
 import { CreatorProgramsSlide } from './CreatorProgramsSlide'
 import { DiscoverIntroSlide } from './DiscoverIntroSlide'
@@ -609,6 +610,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Community',
     steps: 1,
     render: () => <CommunityIntroSlide />,
+  },
+  'upload-experience': {
+    id: 'upload-experience',
+    navLabel: 'Upload Experience',
+    steps: 1,
+    render: () => <UploadExperienceSlide />,
   },
   'work-like-ai-native': {
     id: 'work-like-ai-native',

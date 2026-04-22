@@ -9,13 +9,17 @@ export function CreatorOnboardingSlide() {
         aria-hidden="true"
       />
 
-      <img
-        alt=""
+      <video
+        autoPlay
         aria-hidden="true"
         className="creator-onboarding-slide__phone"
-        draggable={false}
-        src="/media/creator-onboarding/phone.png"
-      />
+        loop
+        muted
+        playsInline
+      >
+        <source src="/media/creator-onboarding/onboarding.webm" type="video/webm" />
+        <source src="/media/creator-onboarding/onboarding.mp4" type="video/mp4" />
+      </video>
 
       <h2 className="creator-onboarding-slide__headline">
         Creator onboarding
