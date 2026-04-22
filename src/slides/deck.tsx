@@ -32,10 +32,12 @@ import { ContributionStoryMonoSlide } from './ContributionStoryMonoSlide'
 import { ContentGrowthSlide } from './ContentGrowthSlide'
 import { CreatorDashboardSlide } from './CreatorDashboardSlide'
 import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
+import { CommunityIntroSlide } from './CommunityIntroSlide'
 import { CreatorProgramsGsapSlide } from './CreatorProgramsGsapSlide'
 import { CreatorProgramsSlide } from './CreatorProgramsSlide'
 import { DiscoverIntroSlide } from './DiscoverIntroSlide'
 import { FeedResultsSlide } from './FeedResultsSlide'
+import { FeedRestructureSlide } from './FeedRestructureSlide'
 import { FeedStructureSlide } from './FeedStructureSlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
 import { PersonalizedFeedIntroSlide } from './PersonalizedFeedIntroSlide'
@@ -548,6 +550,13 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     stepDisplay: 'none',
     render: ({ step }) => <FeedStructureSlide step={step} />,
   },
+  'feed-restructure': {
+    id: 'feed-restructure',
+    navLabel: 'Feed Restructure',
+    steps: 2,
+    stepDisplay: 'none',
+    render: ({ step }) => <FeedRestructureSlide step={step} />,
+  },
   'discover-intro': {
     id: 'discover-intro',
     navLabel: 'Discover',
@@ -592,9 +601,14 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   'creator-programs-gsap': {
     id: 'creator-programs-gsap',
     navLabel: 'Creator Programs GSAP',
-    steps: 4,
-    stepDisplay: 'none',
-    render: ({ step }) => <CreatorProgramsGsapSlide step={step} />,
+    steps: 1,
+    render: () => <CreatorProgramsGsapSlide />,
+  },
+  'community-intro': {
+    id: 'community-intro',
+    navLabel: 'Community',
+    steps: 1,
+    render: () => <CommunityIntroSlide />,
   },
   'work-like-ai-native': {
     id: 'work-like-ai-native',
