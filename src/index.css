@@ -7794,3 +7794,51 @@ h3 {
   display: block;
 }
 
+/* =========================================================
+   Community story 2 — Figma node 6350:142977
+   ========================================================= */
+.community-story-2-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
+.community-story-2-slide__headline {
+  position: absolute;
+  left: calc(8.33% + 2px);
+  top: calc(50% - 48px);
+  width: 520px;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #ffffff;
+}
+
+.community-story-2-slide__screens {
+  position: absolute;
+  left: calc(33.33% + 130px);
+  top: 142px;
+  width: 830px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.community-story-2-slide__screen {
+  width: 375px;
+  height: 812px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.community-story-2-slide__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
