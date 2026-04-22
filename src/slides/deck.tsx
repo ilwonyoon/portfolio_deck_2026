@@ -516,9 +516,9 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   },
   'pattern-screen-1': {
     id: 'pattern-screen-1',
-    navLabel: 'Pattern 09',
+    navLabel: 'Personalized Feed',
     steps: 1,
-    render: () => <PatternTemplateSlide mode="screen-1up" />,
+    render: () => <PersonalizedFeedIntroSlide />,
   },
   'pattern-screen-2': {
     id: 'pattern-screen-2',

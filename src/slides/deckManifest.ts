@@ -24,7 +24,6 @@ export const deckManifest = [
   'section-index-03',
   'pattern-screen-3',
   'pattern-screen-1',
-  'personalized-feed-intro',
   'feed-structure',
   'feed-restructure',
   'discover-intro',
