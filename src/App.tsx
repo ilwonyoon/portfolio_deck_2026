@@ -156,26 +156,30 @@ function App() {
     }
   }, [presentationMode])
 
+  const isPresenting = presentationMode === 'present'
+
   return (
     <div className="app-shell">
       <div className={shellClassName}>
-        <SlideIndexPanel
-          collapsed={isSlideIndexCollapsed}
-          currentSlideId={currentSlide.id}
-          editingEnabled={deckEditingEnabled}
-          onDelete={handleDeleteSlide}
-          onReorder={handleReorderSlides}
-          onSelect={handleGoToSlide}
-          onToggleCollapse={() => {
-            setIsSlideIndexCollapsed((current) => !current)
-          }}
-          slides={activeSlides}
-        />
+        {!isPresenting && (
+          <SlideIndexPanel
+            collapsed={isSlideIndexCollapsed}
+            currentSlideId={currentSlide.id}
+            editingEnabled={deckEditingEnabled}
+            onDelete={handleDeleteSlide}
+            onReorder={handleReorderSlides}
+            onSelect={handleGoToSlide}
+            onToggleCollapse={() => {
+              setIsSlideIndexCollapsed((current) => !current)
+            }}
+            slides={activeSlides}
+          />
+        )}
 
         <main className="editor-workspace">
           <PresentationViewport
-            onSelectionChange={setSelection}
-            selection={selection}
+            onSelectionChange={isPresenting ? undefined : setSelection}
+            selection={isPresenting ? null : selection}
             showGrid={showGrid}
           >
             {currentSlide.render({
@@ -185,31 +189,43 @@ function App() {
               advanceSlide: () => {
                 handleGoToSlide(currentSlideIndex + 1, 0)
               },
-              autoPlay: presentationMode === 'present',
+              autoPlay: isPresenting,
               isThumbnail: false,
               step: currentStep,
               slideIndex: currentSlideIndex,
               totalSlides: activeSlides.length,
             })}
           </PresentationViewport>
+
+          {isPresenting && (
+            <button
+              className="present-exit-btn"
+              onClick={() => handleModeSelect('edit')}
+              type="button"
+            >
+              Exit
+            </button>
+          )}
         </main>
 
-        <DeckInspectorPanel
-          collapsed={isInspectorCollapsed}
-          onTogglePresentationMode={() => {
-            handleModeSelect(presentationMode === 'present' ? 'edit' : 'present')
-          }}
-          onToggleCollapse={() => {
-            setIsInspectorCollapsed((current) => !current)
-          }}
-          onToggleGrid={() => {
-            setShowGrid((current) => !current)
-          }}
-          presentationMode={presentationMode}
-          selection={selection}
-          showGrid={showGrid}
-          slides={activeSlides}
-        />
+        {!isPresenting && (
+          <DeckInspectorPanel
+            collapsed={isInspectorCollapsed}
+            onTogglePresentationMode={() => {
+              handleModeSelect('present')
+            }}
+            onToggleCollapse={() => {
+              setIsInspectorCollapsed((current) => !current)
+            }}
+            onToggleGrid={() => {
+              setShowGrid((current) => !current)
+            }}
+            presentationMode={presentationMode}
+            selection={selection}
+            showGrid={showGrid}
+            slides={activeSlides}
+          />
+        )}
       </div>
     </div>
   )

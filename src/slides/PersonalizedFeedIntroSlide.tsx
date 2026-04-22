@@ -26,9 +26,9 @@ export function PersonalizedFeedIntroSlide() {
         >
           <div className="context-drawer__content">
             <ul>
-              <li>Feed ranked by recency only — no personalization, high irrelevance</li>
-              <li>Interest graph built from saves, views, and search signals</li>
-              <li>Fresh signals weighted more to prevent taste lock-in</li>
+              <li>Onboarding collects explicit interest picks to solve cold-start</li>
+              <li>Interest graph continuously updated from saves, views, and search signals</li>
+              <li>Recent signals weighted higher to prevent taste lock-in</li>
             </ul>
           </div>
         </ContextDrawer>
