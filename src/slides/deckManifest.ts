@@ -36,4 +36,5 @@ export const deckManifest = [
   'community-intro',
   'community-story',
   'community-story-2',
+  'community-story-3',
 ] as const

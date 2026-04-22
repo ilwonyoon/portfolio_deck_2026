@@ -35,6 +35,7 @@ import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
 import { CommunityIntroSlide } from './CommunityIntroSlide'
 import { CommunityStorySlide } from './CommunityStorySlide'
 import { CommunityStory2Slide } from './CommunityStory2Slide'
+import { CommunityStory3Slide } from './CommunityStory3Slide'
 import { UploadExperienceSlide } from './UploadExperienceSlide'
 import { CreatorProgramsGsapSlide } from './CreatorProgramsGsapSlide'
 import { CreatorProgramsSlide } from './CreatorProgramsSlide'
@@ -624,6 +625,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Community Story 2',
     steps: 1,
     render: () => <CommunityStory2Slide />,
+  },
+  'community-story-3': {
+    id: 'community-story-3',
+    navLabel: 'Community Story 3',
+    steps: 1,
+    render: () => <CommunityStory3Slide />,
   },
   'upload-experience': {
     id: 'upload-experience',
