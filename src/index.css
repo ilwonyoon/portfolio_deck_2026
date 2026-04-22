@@ -7719,7 +7719,7 @@ h3 {
 }
 
 .context-drawer__content {
-  padding-top: 16px;
+  padding-top: 24px;
   font-family: var(--font-sans);
   font-size: var(--type-body-sm-size);
   font-weight: 400;
@@ -7745,5 +7745,52 @@ h3 {
 
 .context-drawer__content li::marker {
   color: rgba(255, 255, 255, 0.24);
+}
+
+/* =========================================================
+   Community story — Figma node 6041:51068
+   ========================================================= */
+.community-story-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
+.community-story-slide__headline {
+  position: absolute;
+  left: calc(8.33% + 17px);
+  top: calc(50% - 24px);
+  width: 520px;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  color: #ffffff;
+}
+
+.community-story-slide__screens {
+  position: absolute;
+  left: calc(33.33% + 133px);
+  top: 127px;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.community-story-slide__screen {
+  width: 375px;
+  height: 826px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.community-story-slide__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 

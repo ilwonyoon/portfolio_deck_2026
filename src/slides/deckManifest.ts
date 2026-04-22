@@ -34,4 +34,5 @@ export const deckManifest = [
   'creator-programs-gsap',
   'upload-experience',
   'community-intro',
+  'community-story',
 ] as const
