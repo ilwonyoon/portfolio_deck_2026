@@ -187,6 +187,44 @@ Pick the largest radius that fits the element. Inconsistent radii across a slide
 
 There are no traditional CTAs. Navigation is keyboard-driven (Arrow / Space / PageUp / PageDown). Any in-canvas "button" exists inside a Figma-exported mockup and follows that mockup's spec — not this deck's tokens.
 
+### Context Drawer
+
+`ContextDrawer` is the only approved way to hide secondary rationale behind a primary slide title. It is not a tooltip, footnote, caption, or separate "learn more" row.
+
+**Single job:** keep the slide clean while allowing optional context for the presenter or reviewer. The closed state must still communicate the slide's core message.
+
+**Approved pattern:**
+
+```tsx
+<ContextDrawer
+  variant="dot"
+  title={<h2 className="example-slide__headline">Interest profiling</h2>}
+>
+  <div className="context-drawer__content">
+    <ul>
+      <li>Secondary rationale only.</li>
+    </ul>
+  </div>
+</ContextDrawer>
+```
+
+**Usage rules:**
+
+- The drawer trigger is always the primary title itself. Do not create a separate trigger such as "Why it mattered", "Context", or "Read more".
+- The dot appears to the right of the title via `variant="dot"`. Do not use the `line` or `cursor` variants in deck slides unless a new pattern is explicitly approved.
+- The title must use the exact typography of the slide pattern it belongs to. For screen intro slides, match `personalized-feed-intro-slide__headline`: 44px / 500 / 1.25 / 0.1px.
+- Opening the drawer must not move the title. Do not vertically center a wrapper whose height changes when the drawer opens. Anchor the title group with fixed `top` / `left` coordinates, then let drawer content expand below.
+- Drawer content must use `.context-drawer__content` unless the slide has a documented pattern-specific reason. Keep content to 1–3 short bullets or one short paragraph.
+- Drawer copy is secondary. It should explain rationale, constraints, or implementation thinking. It should not contain the slide's main claim.
+- Use `showHint={false}` on slides where the dot is already a learned deck pattern or where the hint would add visual noise.
+
+**Failure cases:**
+
+- A dot beside a separate label below the title.
+- Title shifting when the drawer opens.
+- Drawer content replacing necessary on-slide explanation.
+- Long body copy hidden in a drawer because the slide is overfilled.
+
 ### Device mockups
 
 Built from `<div>`s inside `PatternTemplateSlide`, not real screenshots. Variants: `profile`, `feed`, `detail`, `grid`. They use `--font-ui` (SF Pro) and `--radius-lg`. Never replace with real app screenshots unless the slide's single job is "show the real product" — in which case use the `stage` pattern with a full-bleed poster export.

@@ -15,7 +15,7 @@ export function DiscoverIntroSlide() {
         className="discover-intro-slide__headline"
         data-node-id="6133:104069"
       >
-        Discover what you didn&apos;t know you&apos;d love
+        Discovery Feed
       </h2>
     </article>
   )

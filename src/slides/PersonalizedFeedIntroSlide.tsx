@@ -1,6 +1,12 @@
 import { ContextDrawer } from '../components/ContextDrawer'
 
-export function PersonalizedFeedIntroSlide() {
+type PersonalizedFeedIntroSlideProps = {
+  headline?: string
+}
+
+export function PersonalizedFeedIntroSlide({
+  headline = 'Interest profiling',
+}: PersonalizedFeedIntroSlideProps) {
   return (
     <article className="personalized-feed-intro-slide" data-node-id="6133:90440">
       <div className="personalized-feed-intro-slide__phone" data-node-id="6133:90657">
@@ -20,7 +26,7 @@ export function PersonalizedFeedIntroSlide() {
           variant="dot"
           title={
             <h2 className="personalized-feed-intro-slide__headline">
-              Interest profiling
+              {headline}
             </h2>
           }
         >

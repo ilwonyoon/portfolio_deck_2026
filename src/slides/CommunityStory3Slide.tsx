@@ -17,11 +17,7 @@ export function CommunityStory3Slide() {
           />
         </div>
       </div>
-      <p className="community-story-3-slide__headline">
-        You don&rsquo;t have to ask.<br />
-        Follow the questions<br />
-        that feel like yours.
-      </p>
+      <p className="community-story-3-slide__headline">Community feed</p>
     </article>
   )
 }

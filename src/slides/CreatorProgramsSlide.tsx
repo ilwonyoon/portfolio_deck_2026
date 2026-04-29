@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { SlideRenderContext } from '../types/presentation'
 
 const CANVAS_WIDTH = 1920
@@ -86,8 +86,10 @@ export function CreatorProgramsSlide({
   autoPlay = false,
   isThumbnail = false,
 }: CreatorProgramsSlideProps) {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const previousActiveIndexRef = useRef(0)
+  const [{ activeIndex, previousActiveIndex }, setProgramState] = useState({
+    activeIndex: 0,
+    previousActiveIndex: 0,
+  })
   const shouldRoll = autoPlay && !isThumbnail
 
   useEffect(() => {
@@ -96,18 +98,16 @@ export function CreatorProgramsSlide({
     }
 
     const intervalId = window.setInterval(() => {
-      setActiveIndex((current) => {
-        previousActiveIndexRef.current = current
-        return (current + 1) % PROGRAMS.length
-      })
+      setProgramState((current) => ({
+        activeIndex: (current.activeIndex + 1) % PROGRAMS.length,
+        previousActiveIndex: current.activeIndex,
+      }))
     }, CYCLE_MS)
 
     return () => {
       window.clearInterval(intervalId)
     }
   }, [shouldRoll])
-
-  const previousActiveIndex = previousActiveIndexRef.current
 
   return (
     <article className="creator-programs-slide" data-node-id="6381:247420">

@@ -28,7 +28,7 @@ const DATA: ChartPoint[] = [
 
 const REVENUE_BARS = [
   { label: '2020→21', value: 55 },
-  { label: '2021→22', value: 55 },
+  { label: '2021→22', value: 59 },
   { label: '2022→23', value: 31 },
   { label: '2023→24', value: 20 },
 ]

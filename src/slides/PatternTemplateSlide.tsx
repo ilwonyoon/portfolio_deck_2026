@@ -571,64 +571,42 @@ function ThreeScreenPattern() {
   const discoverScreenSrc = resolveMediaUrl('discovery-foundation-discover.png')
 
   return (
-    <article className="pattern-template pattern-template--screen-three">
-      <PatternHeader
-        context="Template 11 / Three Screen Spread"
-        utility="General Sans • 140% • 0.15px"
-      />
-
-      <div className="pattern-template__grid">
-        <h1 className="pattern-template__screen-headline">
-          Set the foundation for personalized discovery
-        </h1>
-
-        <div className="pattern-template__screen-triad">
-          <section className="pattern-template__screen-column">
-            <p className="pattern-template__screen-column-label">
-              Get to know what changes
-              <br />
-              you&apos;re about to make
-            </p>
-            <div className="pattern-template__screen-shell pattern-template__screen-shell--triad">
-              <img
-                alt="Interest profiling onboarding screen"
-                className="pattern-template__screen-export"
-                src={introScreenSrc}
-              />
-            </div>
-          </section>
-
-          <section className="pattern-template__screen-column">
-            <p className="pattern-template__screen-column-label">
-              Browse content built
-              <br />
-              around your space
-            </p>
-            <div className="pattern-template__screen-shell pattern-template__screen-shell--triad">
-              <img
-                alt="Personalized browse feed"
-                className="pattern-template__screen-export"
-                src={browseScreenSrc}
-              />
-            </div>
-          </section>
-
-          <section className="pattern-template__screen-column">
-            <p className="pattern-template__screen-column-label">
-              Discover what others
-              <br />
-              like you are changing
-            </p>
-            <div className="pattern-template__screen-shell pattern-template__screen-shell--triad">
-              <img
-                alt="Discovery feed tailored to similar users"
-                className="pattern-template__screen-export"
-                src={discoverScreenSrc}
-              />
-            </div>
-          </section>
+    <article
+      className="pattern-template pattern-template--screen-three pattern-template--screen-three-figma"
+      data-node-id="6041:24913"
+    >
+      <figure className="pattern-template__figma-phone pattern-template__figma-phone--interest">
+        <div className="pattern-template__screen-shell pattern-template__screen-shell--figma-triad">
+          <img
+            alt="Interest profiling onboarding screen"
+            className="pattern-template__screen-export"
+            src={introScreenSrc}
+          />
         </div>
-      </div>
+        <figcaption>Interest profiling</figcaption>
+      </figure>
+
+      <figure className="pattern-template__figma-phone pattern-template__figma-phone--for-you">
+        <div className="pattern-template__screen-shell pattern-template__screen-shell--figma-triad">
+          <img
+            alt="Personalized For You feed"
+            className="pattern-template__screen-export"
+            src={browseScreenSrc}
+          />
+        </div>
+        <figcaption>For You</figcaption>
+      </figure>
+
+      <figure className="pattern-template__figma-phone pattern-template__figma-phone--discover">
+        <div className="pattern-template__screen-shell pattern-template__screen-shell--figma-triad">
+          <img
+            alt="Discover feed tailored to similar users"
+            className="pattern-template__screen-export"
+            src={discoverScreenSrc}
+          />
+        </div>
+        <figcaption>Discover</figcaption>
+      </figure>
     </article>
   )
 }

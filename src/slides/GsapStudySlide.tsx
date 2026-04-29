@@ -222,7 +222,7 @@ const CHART_POINTS: ChartPoint[] = [
 
 const BAR_DATA = [
   { label: '20→21', value: 55 },
-  { label: '21→22', value: 55 },
+  { label: '21→22', value: 59 },
   { label: '22→23', value: 31 },
   { label: '23→24', value: 20 },
 ] as const

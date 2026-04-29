@@ -50,10 +50,7 @@ export function FeedStructureSlide({ step = 0 }: FeedStructureSlideProps) {
   return (
     <article className="feed-structure-slide" data-node-id="6375:226136">
       <div className="feed-structure-slide__copy">
-        <p className="feed-structure-slide__eyebrow">Feed anatomy</p>
-        <h2 className="feed-structure-slide__headline">
-          How feed is structured
-        </h2>
+        <h2 className="feed-structure-slide__headline">Feed anatomy</h2>
 
         <ol className="feed-structure-slide__list">
           {LIST_ITEMS.map((label, index) => {

@@ -1,5 +1,5 @@
 type Column = {
-  caption: string[]
+  label: string
   image: string
   width: number
   aspect: string
@@ -8,20 +8,20 @@ type Column = {
 const COLUMNS: readonly Column[] = [
   {
     aspect: '750 / 1622',
-    caption: ['Get to know what changes', 'you’re about to make'],
     image: '/media/content-growth/col1.png',
+    label: 'Creator Onboarding',
     width: 375,
   },
   {
     aspect: '750 / 1622',
-    caption: ['Browse content built', 'around your space'],
     image: '/media/content-growth/col2.png',
+    label: 'Creator Dashboard',
     width: 378,
   },
   {
     aspect: '1125 / 2436',
-    caption: ['Discover what others', 'like you are changing'],
     image: '/media/content-growth/col3.png',
+    label: 'Creator Program',
     width: 375,
   },
 ] as const
@@ -29,10 +29,6 @@ const COLUMNS: readonly Column[] = [
 export function ContentGrowthSlide() {
   return (
     <article className="content-growth-slide" data-node-id="6303:69654">
-      <h2 className="content-growth-slide__headline">
-        Grow content supply.
-      </h2>
-
       <div className="content-growth-slide__columns">
         {COLUMNS.map((column, index) => (
           <div
@@ -40,14 +36,6 @@ export function ContentGrowthSlide() {
             key={column.image}
             style={{ width: column.width }}
           >
-            <p className="content-growth-slide__caption">
-              {column.caption.map((line, lineIndex) => (
-                <span key={line}>
-                  {line}
-                  {lineIndex < column.caption.length - 1 ? <br /> : null}
-                </span>
-              ))}
-            </p>
             <div
               className="content-growth-slide__image-wrap"
               style={{ aspectRatio: column.aspect }}
@@ -61,6 +49,7 @@ export function ContentGrowthSlide() {
                 src={column.image}
               />
             </div>
+            <p className="content-growth-slide__caption">{column.label}</p>
           </div>
         ))}
       </div>

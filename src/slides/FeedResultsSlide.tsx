@@ -6,19 +6,19 @@ type Metric = {
 
 const METRICS: readonly Metric[] = [
   {
-    caption: 'Daily active users on Discover',
-    label: 'Engagement',
-    value: '+38%',
+    caption: 'More high-intent users shifted into purchase behavior.',
+    label: 'Win',
+    value: 'HCPY share ↑',
   },
   {
-    caption: 'Week-4 return rate vs. prior feed',
-    label: 'Retention',
-    value: '+12pp',
+    caption: 'Lower-converting users stayed deeper in the feed.',
+    label: 'Win',
+    value: 'LCPN/Y consumption ↑',
   },
   {
-    caption: 'Revenue per active user',
-    label: 'Monetization',
-    value: '+21%',
+    caption: 'The algorithm found relevant content faster, so returning users started seeing repeats.',
+    label: 'Problem revealed',
+    value: 'Right content was running out.',
   },
 ] as const
 
@@ -28,13 +28,14 @@ export function FeedResultsSlide() {
       <header className="feed-results-slide__header">
         <p className="feed-results-slide__eyebrow">Results</p>
         <h2 className="feed-results-slide__headline">
-          Personalization moved the numbers that matter.
+          <span>Personalization worked.</span>
+          <span>And that became the problem.</span>
         </h2>
       </header>
 
       <ul className="feed-results-slide__grid">
         {METRICS.map((metric) => (
-          <li className="feed-results-slide__cell" key={metric.label}>
+          <li className="feed-results-slide__cell" key={metric.value}>
             <p className="feed-results-slide__label">{metric.label}</p>
             <p className="feed-results-slide__value">{metric.value}</p>
             <p className="feed-results-slide__caption">{metric.caption}</p>

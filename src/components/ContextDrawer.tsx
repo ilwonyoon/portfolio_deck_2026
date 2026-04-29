@@ -5,23 +5,30 @@ type Variant = 'dot' | 'line' | 'cursor'
 type Props = {
   title: React.ReactNode
   children: React.ReactNode
+  showHint?: boolean
   variant?: Variant
 }
 
 const STORAGE_KEY = 'deck-context-hint-seen'
 
-export function ContextDrawer({ title, children, variant = 'dot' }: Props) {
+export function ContextDrawer({
+  title,
+  children,
+  showHint = true,
+  variant = 'dot',
+}: Props) {
   const [open, setOpen] = useState(false)
   const [hintVisible, setHintVisible] = useState(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+    if (!showHint) return
     const seen = localStorage.getItem(STORAGE_KEY)
     if (!seen) {
       const timer = setTimeout(() => setHintVisible(true), 600)
       return () => clearTimeout(timer)
     }
-  }, [])
+  }, [showHint])
 
   function handleClick() {
     if (open) return
@@ -53,7 +60,7 @@ export function ContextDrawer({ title, children, variant = 'dot' }: Props) {
         )}
       </button>
 
-      {hintVisible && !open && (
+      {showHint && hintVisible && !open && (
         <div className="context-drawer__hint" onClick={dismissHint}>
           Click to see the thinking behind it
         </div>

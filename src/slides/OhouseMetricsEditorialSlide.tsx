@@ -10,20 +10,32 @@ type OhouseMetricsEditorialSlideProps = {
   step: number
 }
 
+type StepCopy = {
+  bodyLines: string[]
+  drivers?: string[]
+  driversLabel?: string
+  mau: number
+}
+
 const STEP_COPY = [
   {
-    body: 'The loop worked till 2021.',
+    bodyLines: ['The loop worked till 2021.'],
     mau: 590,
-    showYoy: false,
-    yoy: 59,
   },
   {
-    body: 'In 2022, MAU declined sharply with the housing market, and YoY revenue growth dropped to 31%.',
+    bodyLines: [
+      'In 2022, MAU declined sharply.',
+      'Revenue growth dropped from 59% to 31%.',
+    ],
+    driversLabel: 'Not just the market',
+    drivers: [
+      'Housing market -50% YoY',
+      'Instagram & YouTube took over daily interior discovery',
+      'Coupang & Naver entered the category',
+    ],
     mau: 330,
-    showYoy: true,
-    yoy: 31,
   },
-] as const
+] satisfies StepCopy[]
 
 const AUTO_ADVANCE_MS = [1200, 3200] as const
 
@@ -59,7 +71,30 @@ export function OhouseMetricsEditorialSlide({
   return (
     <article className="ohouse-metrics-editorial-slide">
       <div className="ohouse-metrics-editorial-slide__copy">
-        <p className="ohouse-metrics-editorial-slide__body">{currentStep.body}</p>
+        <p className="ohouse-metrics-editorial-slide__body">
+          {currentStep.bodyLines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </p>
+
+        {currentStep.drivers ? (
+          <div className="ohouse-metrics-editorial-slide__drivers">
+            <p className="ohouse-metrics-editorial-slide__drivers-label">
+              {currentStep.driversLabel}
+            </p>
+            <div className="ohouse-metrics-editorial-slide__driver-list">
+              {currentStep.drivers.map((driver, index) => (
+                <div
+                  className="ohouse-metrics-editorial-slide__driver-row"
+                  key={driver}
+                >
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <p>{driver}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className="ohouse-metrics-editorial-slide__metrics">
@@ -97,17 +132,6 @@ export function OhouseMetricsEditorialSlide({
             monthly active users
           </p>
         </div>
-
-        {currentStep.showYoy ? (
-          <div className="ohouse-metrics-editorial-slide__secondary">
-            <p className="ohouse-metrics-editorial-slide__secondary-value">
-              {currentStep.yoy}%
-            </p>
-            <p className="ohouse-metrics-editorial-slide__secondary-label">
-              YoY revenue growth
-            </p>
-          </div>
-        ) : null}
       </div>
     </article>
   )

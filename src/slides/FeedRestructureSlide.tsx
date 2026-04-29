@@ -13,18 +13,19 @@ export function FeedRestructureSlide({ step = 0 }: Props) {
       <div
         style={{
           position: 'absolute',
-          left: 'calc(8.33% + 10px)',
-          top: 488,
+          left: 'calc(8.33% + 2px)',
+          top: 487,
           fontFamily: "'General Sans Variable', sans-serif",
-          fontWeight: 600,
-          fontSize: 40,
-          letterSpacing: '-0.4px',
-          lineHeight: 1.2,
+          fontWeight: 500,
+          fontSize: 44,
+          letterSpacing: '0.1px',
+          lineHeight: 1.25,
           color: '#fff',
+          transform: 'translateY(-50%)',
+          width: 465,
         }}
       >
-        <p style={{ margin: 0 }}>Existing content</p>
-        <p style={{ margin: 0 }}>Re-structure</p>
+        <p style={{ margin: 0 }}>Home Tour restructure</p>
       </div>
     </article>
   )

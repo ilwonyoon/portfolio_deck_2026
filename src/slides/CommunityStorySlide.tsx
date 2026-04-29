@@ -1,9 +1,7 @@
 export function CommunityStorySlide() {
   return (
     <article className="community-story-slide" data-node-id="6041:51068">
-      <p className="community-story-slide__headline">
-        People who&rsquo;ve done it,<br />helping people who want to.
-      </p>
+      <p className="community-story-slide__headline">Interior Q&amp;A</p>
       <div className="community-story-slide__screens">
         <div className="community-story-slide__screen">
           <img

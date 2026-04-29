@@ -1,9 +1,7 @@
 export function CommunityStory2Slide() {
   return (
     <article className="community-story-2-slide" data-node-id="6350:142977">
-      <p className="community-story-2-slide__headline">
-        Helping others is how<br />creators grow here
-      </p>
+      <p className="community-story-2-slide__headline">Matched questions</p>
       <div className="community-story-2-slide__screens">
         <div className="community-story-2-slide__screen">
           <img

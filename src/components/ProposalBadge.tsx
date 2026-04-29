@@ -1,10 +1,16 @@
 type ProposalBadgeProps = {
+  className?: string
   label?: string
 }
 
-export function ProposalBadge({ label = 'Proposal' }: ProposalBadgeProps) {
+export function ProposalBadge({
+  className = '',
+  label = 'Proposal',
+}: ProposalBadgeProps) {
+  const badgeClassName = ['proposal-badge', className].filter(Boolean).join(' ')
+
   return (
-    <div className="proposal-badge" aria-hidden="true">
+    <div className={badgeClassName} aria-hidden="true">
       <span className="proposal-badge__dot" />
       <span className="proposal-badge__label">{label}</span>
     </div>
