@@ -1010,7 +1010,7 @@ h3 {
 .ohouse-intro-slide__copy {
   position: absolute;
   top: 422px;
-  left: 323px;
+  left: var(--layout-grid-left);
   width: 1242px;
   height: 237px;
   display: flex;
@@ -1940,10 +1940,10 @@ h3 {
 .ohouse-content-ecosystem-slide__content {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: var(--layout-grid-left);
   display: flex;
   width: 1284px;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   flex-direction: column;
   align-items: flex-start;
   gap: 15px;
@@ -3421,6 +3421,51 @@ h3 {
 
 .contribution-story-slide__cell[data-level='4'] {
   background: #39d353;
+}
+
+/* 05 — Past works section bridge */
+.past-works-intro-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.past-works-intro-slide__title {
+  position: absolute;
+  top: 444px;
+  left: 162px;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
+}
+
+.side-projects-intro-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.side-projects-intro-slide__title {
+  position: absolute;
+  top: 444px;
+  left: 162px;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
 }
 
 .design-system-slide {
@@ -8079,6 +8124,233 @@ h3 {
 }
 
 /* =========================================================
+   Personalized discovery combined opener
+   ========================================================= */
+.personalized-discovery-combined-slide,
+.creator-economy-combined-slide,
+.community-combined-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.personalized-discovery-combined-slide__copy,
+.creator-economy-combined-slide__copy,
+.community-combined-slide__copy {
+  position: absolute;
+  top: 392px;
+  left: 120px;
+  width: 440px;
+}
+
+.personalized-discovery-combined-slide__eyebrow,
+.creator-economy-combined-slide__eyebrow,
+.community-combined-slide__eyebrow {
+  margin: 0 0 32px;
+  color: rgba(255, 255, 255, 0.36);
+  font-size: var(--type-scale-12-size);
+  font-weight: var(--type-overline-weight);
+  line-height: var(--type-scale-12-line-height);
+  letter-spacing: var(--type-overline-letter-spacing);
+  text-transform: uppercase;
+}
+
+.personalized-discovery-combined-slide__title,
+.creator-economy-combined-slide__title,
+.community-combined-slide__title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0.1px;
+}
+
+.personalized-discovery-combined-slide__subtitle,
+.creator-economy-combined-slide__subtitle,
+.community-combined-slide__subtitle {
+  display: flex;
+  margin: 28px 0 0;
+  flex-direction: column;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.34;
+  letter-spacing: 0;
+}
+
+.personalized-discovery-combined-slide__screens,
+.creator-economy-combined-slide__screens,
+.community-combined-slide__screens {
+  position: absolute;
+  top: 148px;
+  left: 706px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.personalized-discovery-combined-slide__screen-card,
+.creator-economy-combined-slide__screen-card,
+.community-combined-slide__screen-card {
+  display: flex;
+  width: 340px;
+  margin: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 29px;
+}
+
+.personalized-discovery-combined-slide__media,
+.creator-economy-combined-slide__media,
+.community-combined-slide__media {
+  width: 340px;
+  height: 736.213px;
+  overflow: hidden;
+  border-radius: 40px;
+  background: #ffffff;
+  box-shadow: 8px 17px 53px 25px rgba(0, 0, 0, 0.08);
+}
+
+.personalized-discovery-combined-slide__image,
+.creator-economy-combined-slide__image,
+.community-combined-slide__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.personalized-discovery-combined-slide__caption,
+.creator-economy-combined-slide__caption,
+.community-combined-slide__caption {
+  width: 100%;
+  margin: 0;
+  color: rgba(248, 248, 248, 0.5);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 0.15px;
+}
+
+/* =========================================================
+   Instagram Shared Collection — Figma node 6530:73131
+   ========================================================= */
+.instagram-shared-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.instagram-shared-slide__copy {
+  position: absolute;
+  top: 444px;
+  left: 120px;
+  width: 440px;
+}
+
+.instagram-shared-slide__eyebrow {
+  margin: 0 0 12px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.15px;
+}
+
+.instagram-shared-slide__title {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+
+.instagram-shared-slide__drawer-content {
+  max-width: 440px;
+}
+
+.instagram-shared-slide__drawer-content p {
+  margin: 0;
+}
+
+.instagram-shared-slide__screens {
+  position: absolute;
+  top: 148px;
+  left: 706px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.instagram-shared-slide__screen-card {
+  display: flex;
+  width: 340px;
+  margin: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 29px;
+}
+
+.instagram-shared-slide__media {
+  width: 340px;
+  height: 736.213px;
+  overflow: hidden;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 8px 17px 53px 25px rgba(0, 0, 0, 0.08);
+}
+
+.instagram-shared-slide__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.instagram-shared-slide__caption {
+  width: 100%;
+  color: rgba(248, 248, 248, 0.5);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 0.15px;
+}
+
+.instagram-shared-slide__callout {
+  position: absolute;
+  top: 757px;
+  left: 550px;
+  margin: 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.instagram-shared-slide__callout-line {
+  position: absolute;
+  top: 767px;
+  left: 694px;
+  width: 79px;
+  border-top: 2px dashed rgba(248, 248, 248, 0.55);
+}
+
+/* =========================================================
    Messenger Selfie Sticker — Figma node 6510:72926
    ========================================================= */
 .messenger-selfie-slide {
@@ -8167,6 +8439,112 @@ h3 {
   line-height: 1.2;
   text-align: center;
   letter-spacing: 0.15px;
+}
+
+/* =========================================================
+   PromptCue demo — video stage with compact context
+   ========================================================= */
+.promptcue-demo-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.promptcue-demo-slide__copy {
+  position: absolute;
+  top: 444px;
+  left: 120px;
+  width: 440px;
+}
+
+.promptcue-demo-slide__eyebrow {
+  margin: 0 0 12px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.15px;
+}
+
+.promptcue-demo-slide__title {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
+}
+
+.promptcue-demo-slide__body {
+  max-width: 440px;
+  margin: 28px 0 0;
+  color: rgba(248, 248, 248, 0.58);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.1px;
+}
+
+.promptcue-demo-slide__body-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+.promptcue-demo-slide__chips {
+  display: flex;
+  margin-top: 32px;
+  gap: 10px;
+  align-items: center;
+}
+
+.promptcue-demo-slide__chip {
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(248, 248, 248, 0.54);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.promptcue-demo-slide__chip[aria-pressed='true'] {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.promptcue-demo-slide__stage {
+  position: absolute;
+  top: 208px;
+  left: 706px;
+  width: 1114px;
+  height: 626px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(95, 70, 150, 0.22), transparent 32%),
+    radial-gradient(circle at 84% 100%, rgba(24, 84, 170, 0.22), transparent 34%),
+    #08080a;
+  box-shadow: 8px 17px 53px 25px rgba(0, 0, 0, 0.08);
+}
+
+.promptcue-demo-slide__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* section-index-01-v2 — single motion, token-aligned tones */
@@ -9323,6 +9701,31 @@ h3 {
 }
 
 /* =========================================================
+   TBD side-title placeholders
+   ========================================================= */
+.tbd-side-title-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+}
+
+.tbd-side-title-slide__headline {
+  position: absolute;
+  left: calc(8.33% + 2px);
+  top: calc(41.67% + 64.5px);
+  width: 465px;
+  margin: 0;
+  transform: translateY(-50%);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
+}
+
+/* =========================================================
    CS01 close — result summary
    ========================================================= */
 .ohouse-cs01-close-slide {
@@ -9481,6 +9884,223 @@ h3 {
   line-height: var(--type-body-md-line-height);
   letter-spacing: var(--type-body-md-letter-spacing);
   text-wrap: balance;
+}
+
+/* =========================================================
+   Mix or mismatch — simple image question bridge
+   ========================================================= */
+.mix-or-mismatch-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.mix-or-mismatch-slide__image-frame {
+  position: absolute;
+  top: 69px;
+  left: 106px;
+  width: 1672px;
+  height: 941px;
+  overflow: hidden;
+  border-radius: 40px;
+  background: #111111;
+}
+
+.mix-or-mismatch-slide__image,
+.mix-or-mismatch-slide__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.mix-or-mismatch-slide__image {
+  display: block;
+  object-fit: cover;
+}
+
+.mix-or-mismatch-slide__scrim {
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.mix-or-mismatch-slide__title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 73px;
+  font-weight: 560;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+/* =========================================================
+   Interior workflow — 20-style bridge into AI
+   ========================================================= */
+.interior-workflow-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.interior-workflow-slide__copy {
+  position: absolute;
+  top: 454px;
+  left: 162px;
+  width: 626px;
+}
+
+.interior-workflow-slide__copy p {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
+}
+
+.interior-workflow-slide__copy p + p {
+  margin-top: 44px;
+}
+
+.interior-workflow-slide__workflow {
+  position: absolute;
+  top: 0;
+  left: 808px;
+  display: flex;
+  width: 1112px;
+  height: 1080px;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 154px;
+  box-sizing: border-box;
+}
+
+.interior-workflow-slide__eyebrow {
+  margin: 0 0 18px 88px;
+  color: rgba(255, 255, 255, 0.34);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
+}
+
+.interior-workflow-slide__step {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  column-gap: 34px;
+  align-items: baseline;
+  margin: 0;
+}
+
+.interior-workflow-slide__step span,
+.interior-workflow-slide__step p {
+  margin: 0;
+}
+
+.interior-workflow-slide__step span {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.interior-workflow-slide__step p {
+  font-size: 132px;
+  font-weight: 600;
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+.interior-workflow-slide__step[data-state='dim'] {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.interior-workflow-slide__step[data-state='active'] {
+  color: rgba(255, 255, 255, 0.96);
+}
+
+/* =========================================================
+   Room planner proof — 17-style copy + phone artifacts
+   ========================================================= */
+.room-planner-proof-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.room-planner-proof-slide__copy {
+  position: absolute;
+  top: 402px;
+  left: 162px;
+  width: 626px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
+}
+
+.room-planner-proof-slide__copy p {
+  margin: 0;
+}
+
+.room-planner-proof-slide__copy p + p {
+  margin-top: 44px;
+}
+
+.room-planner-proof-slide__copy span {
+  display: block;
+}
+
+.room-planner-proof-slide__images {
+  position: absolute;
+  top: 0;
+  left: 808px;
+  width: 1112px;
+  height: 1080px;
+}
+
+.room-planner-proof-slide__image {
+  position: absolute;
+  top: 134px;
+  display: block;
+  width: 375px;
+  height: 812px;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.room-planner-proof-slide__image--planner {
+  left: 154px;
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+}
+
+.room-planner-proof-slide__image--explore {
+  left: 583px;
 }
 
 /* =========================================================

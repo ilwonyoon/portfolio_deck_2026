@@ -18,6 +18,7 @@ import { OhouseContentStatementBlocksSlide } from './OhouseContentStatementBlock
 import { OhouseContentStatementSlide } from './OhouseContentStatementSlide'
 import { OhouseContentStatementSlideV2 } from './OhouseContentStatementSlideV2'
 import { OhouseBrowseMotionSlide } from './OhouseBrowseMotionSlide'
+import { OhouseAiVisionSlide } from './OhouseAiVisionSlide'
 import { OhouseAiTransitionSlide } from './OhouseAiTransitionSlide'
 import { OhouseCs01ClosingSlide } from './OhouseCs01ClosingSlide'
 import { OhouseContentSlide } from './OhouseContentSlide'
@@ -37,7 +38,9 @@ import { OhouseRoleSlide } from './OhouseRoleSlide'
 import { OhouseRoleSlideV2 } from './OhouseRoleSlideV2'
 import { OhouseSlide } from './OhouseSlide'
 import { ContributionStoryMonoSlide } from './ContributionStoryMonoSlide'
+import { CommunityCombinedSlide } from './CommunityCombinedSlide'
 import { CreatorEconomyResultsSlide } from './CreatorEconomyResultsSlide'
+import { CreatorEconomyCombinedSlide } from './CreatorEconomyCombinedSlide'
 import { ContentGrowthSlide } from './ContentGrowthSlide'
 import { CreatorDashboardSlide } from './CreatorDashboardSlide'
 import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
@@ -58,16 +61,24 @@ import { FeedResultsStatementSlide } from './FeedResultsStatementSlide'
 import { FeedRestructureSlide } from './FeedRestructureSlide'
 import { FeedStructureSlide } from './FeedStructureSlide'
 import { InstagramCommerceSlide } from './InstagramCommerceSlide'
+import { InstagramSharedCollectionSlide } from './InstagramSharedCollectionSlide'
 import { InstagramStoriesAddYoursSlide } from './InstagramStoriesAddYoursSlide'
+import { InteriorWorkflowSlide } from './InteriorWorkflowSlide'
 import { MessengerSelfieStickerSlide } from './MessengerSelfieStickerSlide'
+import { MixOrMismatchSlide } from './MixOrMismatchSlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
+import { PersonalizedDiscoveryCombinedSlide } from './PersonalizedDiscoveryCombinedSlide'
 import { PersonalizedFeedIntroSlide } from './PersonalizedFeedIntroSlide'
 import { PosterProfileSlide } from './PosterProfileSlide'
+import { PromptCueDemoSlide } from './PromptCueDemoSlide'
 import { PatternTemplateSlide } from './PatternTemplateSlide'
 import { ProfileStatementSlideV2 } from './ProfileStatementSlideV2'
 import { ProjectIntroSlide } from './ProjectIntroSlide'
+import { RoomPlannerProofSlide } from './RoomPlannerProofSlide'
 import { SectionIndexSlide } from './SectionIndexSlide'
 import { SectionIndexSlideV2 } from './SectionIndexSlideV2'
+import { SideProjectsIntroSlide } from './SideProjectsIntroSlide'
+import { TbdSideTitleSlide } from './TbdSideTitleSlide'
 import { WinningStatementSlide } from './WinningStatementSlide'
 import { TileEntranceStudySlide } from './TileEntranceStudySlide'
 import { deckManifest } from './deckManifest'
@@ -151,11 +162,29 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <InstagramStoriesAddYoursSlide />,
   },
+  'instagram-shared-collection': {
+    id: 'instagram-shared-collection',
+    navLabel: 'Shared Collection',
+    steps: 1,
+    render: () => <InstagramSharedCollectionSlide />,
+  },
   'messenger-selfie-sticker': {
     id: 'messenger-selfie-sticker',
     navLabel: 'Selfie Sticker',
     steps: 1,
     render: () => <MessengerSelfieStickerSlide />,
+  },
+  'side-projects-intro': {
+    id: 'side-projects-intro',
+    navLabel: 'Side Projects',
+    steps: 1,
+    render: () => <SideProjectsIntroSlide />,
+  },
+  'promptcue-demo': {
+    id: 'promptcue-demo',
+    navLabel: 'PromptCue Demo',
+    steps: 1,
+    render: () => <PromptCueDemoSlide />,
   },
   'section-index-01': {
     id: 'section-index-01',
@@ -225,6 +254,54 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <OhouseAiTransitionSlide />,
   },
+  'ohouse-ai-vision': {
+    id: 'ohouse-ai-vision',
+    navLabel: 'AI Vision',
+    steps: 1,
+    render: () => <OhouseAiVisionSlide />,
+  },
+  'tbd-side-title-1': {
+    id: 'tbd-side-title-1',
+    navLabel: 'TBD 1',
+    steps: 1,
+    render: () => <TbdSideTitleSlide />,
+  },
+  'tbd-side-title-2': {
+    id: 'tbd-side-title-2',
+    navLabel: 'TBD 2',
+    steps: 1,
+    render: () => <TbdSideTitleSlide />,
+  },
+  'tbd-side-title-3': {
+    id: 'tbd-side-title-3',
+    navLabel: 'TBD 3',
+    steps: 1,
+    render: () => <TbdSideTitleSlide />,
+  },
+  'tbd-side-title-4': {
+    id: 'tbd-side-title-4',
+    navLabel: 'TBD 4',
+    steps: 1,
+    render: () => <TbdSideTitleSlide />,
+  },
+  'mix-or-mismatch': {
+    id: 'mix-or-mismatch',
+    navLabel: 'Mix or Mismatch',
+    steps: 1,
+    render: () => <MixOrMismatchSlide />,
+  },
+  'interior-workflow': {
+    id: 'interior-workflow',
+    navLabel: 'Interior Workflow',
+    steps: 1,
+    render: () => <InteriorWorkflowSlide />,
+  },
+  'room-planner-proof': {
+    id: 'room-planner-proof',
+    navLabel: 'Room Planner Proof',
+    steps: 1,
+    render: () => <RoomPlannerProofSlide />,
+  },
   'section-index-03': {
     id: 'section-index-03',
     navLabel: 'Overview 3',
@@ -264,7 +341,7 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   },
   'contribution-story-mono': {
     id: 'contribution-story-mono',
-    navLabel: 'Contrib',
+    navLabel: 'Past Works',
     steps: 1,
     render: () => <ContributionStoryMonoSlide />,
   },
@@ -470,6 +547,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
       />
     ),
   },
+  'personalized-discovery-combined': {
+    id: 'personalized-discovery-combined',
+    navLabel: 'Personalized Discovery Combined',
+    steps: 1,
+    render: () => <PersonalizedDiscoveryCombinedSlide />,
+  },
   'creator-economy-intro': {
     id: 'creator-economy-intro',
     navLabel: 'Creator Economy',
@@ -483,6 +566,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
         total={3}
       />
     ),
+  },
+  'creator-economy-combined': {
+    id: 'creator-economy-combined',
+    navLabel: 'Creator Economy Combined',
+    steps: 1,
+    render: () => <CreatorEconomyCombinedSlide />,
   },
   'case-study-02i-v2': {
     id: 'case-study-02i-v2',
@@ -766,6 +855,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Community',
     steps: 1,
     render: () => <CommunityIntroSlide />,
+  },
+  'community-combined': {
+    id: 'community-combined',
+    navLabel: 'Community Combined',
+    steps: 1,
+    render: () => <CommunityCombinedSlide />,
   },
   'community-story': {
     id: 'community-story',
