@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { ProposalBadge } from '../components/ProposalBadge'
 
 const sections = [
@@ -15,13 +14,9 @@ type SectionIndexSlideV2Props = {
 
 export function SectionIndexSlideV2({
   activeIndex = 0,
-  isThumbnail = false,
 }: SectionIndexSlideV2Props) {
   return (
-    <article
-      className="section-index-slide section-index-slide--v2"
-      data-motion-variant="v2"
-    >
+    <article className="section-index-slide section-index-slide--v2">
       <ProposalBadge />
       <header className="section-index-slide__header">
         <span>Portfolio</span>
@@ -40,30 +35,7 @@ export function SectionIndexSlideV2({
 
           return (
             <div className={rowClass} key={section}>
-              {isThumbnail ? (
-                <p className={lineClass}>{section}</p>
-              ) : (
-                <motion.p
-                  animate={{
-                    color: isActive
-                      ? 'rgba(255, 255, 255, 0.96)'
-                      : 'rgba(255, 255, 255, 0.42)',
-                    opacity: 1,
-                  }}
-                  className={lineClass}
-                  initial={{
-                    color: 'rgba(255, 255, 255, 0.24)',
-                    opacity: 0,
-                  }}
-                  transition={{
-                    delay: 0.12 + index * 0.08,
-                    duration: 0.56,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {section}
-                </motion.p>
-              )}
+              <p className={lineClass}>{section}</p>
             </div>
           )
         })}

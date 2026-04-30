@@ -3057,26 +3057,14 @@ h3 {
 
 .section-index-slide__line {
   margin: 0;
-  will-change: transform, opacity, filter;
 }
 
 .section-index-slide__line--muted {
-  color: rgba(250, 250, 250, 0.3);
+  color: rgba(250, 250, 250, 0.22);
 }
 
 .section-index-slide__line--active {
   color: rgba(250, 250, 250, 0.98);
-}
-
-.section-index-slide__marker {
-  position: absolute;
-  top: 16px;
-  left: -28px;
-  width: 10px;
-  height: 66px;
-  border-radius: 999px;
-  background: rgba(250, 250, 250, 0.9);
-  transform-origin: center top;
 }
 
 .belief-statement-slide {
@@ -8518,10 +8506,10 @@ h3 {
 
 .saveback-demo-slide__stage {
   position: absolute;
-  top: 148px;
+  top: 134px;
   left: 706px;
-  width: 340px;
-  height: 736.213px;
+  width: 375px;
+  height: 812px;
   overflow: hidden;
   box-sizing: border-box;
   border: 0.5px solid rgba(255, 255, 255, 0.25);
@@ -8739,13 +8727,13 @@ h3 {
   object-fit: contain;
 }
 
-/* section-index-01-v2 — single motion, token-aligned tones */
+/* section-index-01-v2 — static, token-aligned tones */
 .section-index-slide--v2 .section-index-slide__line--active {
   color: var(--text-primary);
 }
 
 .section-index-slide--v2 .section-index-slide__line--muted {
-  color: var(--text-tertiary);
+  color: rgba(255, 255, 255, 0.26);
 }
 
 /* poster-profile-identity — portrait + name only */

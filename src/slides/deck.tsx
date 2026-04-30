@@ -216,30 +216,6 @@ export const slideRegistry: Record<string, SlideDefinition> = {
       <SectionIndexSlideV2 activeIndex={0} isThumbnail={Boolean(isThumbnail)} />
     ),
   },
-  'section-index-01-settle': {
-    id: 'section-index-01-settle',
-    navLabel: 'Overview Settle',
-    steps: 1,
-    render: ({ isThumbnail }) => (
-      <SectionIndexSlide
-        activeIndex={0}
-        isThumbnail={Boolean(isThumbnail)}
-        motionVariant="settle"
-      />
-    ),
-  },
-  'section-index-01-marker': {
-    id: 'section-index-01-marker',
-    navLabel: 'Overview Marker',
-    steps: 1,
-    render: ({ isThumbnail }) => (
-      <SectionIndexSlide
-        activeIndex={0}
-        isThumbnail={Boolean(isThumbnail)}
-        motionVariant="marker-resolve"
-      />
-    ),
-  },
   'section-index-02': {
     id: 'section-index-02',
     navLabel: 'Overview 2',
