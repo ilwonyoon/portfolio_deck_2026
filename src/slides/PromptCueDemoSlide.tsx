@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { ContextDrawer } from '../components/ContextDrawer'
 
 const DEMOS = [
   {
     id: 'memory',
     eyebrow: 'Backtick',
-    label: 'Thought staging app for Mac',
-    title: 'Thought staging app for Mac',
-    body: 'Capture thoughts while AI works. Stage what matters, then carry decisions across every AI tool — via MCP.',
+    label: 'Thought staging app',
+    title: 'Shared memory for AI agents',
+    body: 'Backtick turns scattered thoughts and decisions into reusable context your AI tools can read through MCP.',
     linkLabel: 'Available for MacOS',
     linkUrl: 'https://github.com/ilwonyoon/Backtick',
     video: '/media/promptcue/universal-memory.mp4',
@@ -39,18 +40,23 @@ export function PromptCueDemoSlide() {
     <article className="promptcue-demo-slide">
       <section className="promptcue-demo-slide__copy">
         <p className="promptcue-demo-slide__eyebrow">{activeDemo.eyebrow}</p>
-        <h1 className="promptcue-demo-slide__title">{activeDemo.title}</h1>
-        <p className="promptcue-demo-slide__body">
-          {activeDemo.body}{' '}
-          <a
-            className="promptcue-demo-slide__body-link"
-            href={activeDemo.linkUrl}
-            rel="noreferrer"
-            target="_blank"
-          >
-            {activeDemo.linkLabel}
-          </a>
-        </p>
+        <ContextDrawer
+          showHint={false}
+          title={<h1 className="promptcue-demo-slide__title">{activeDemo.title}</h1>}
+          variant="dot"
+        >
+          <div className="context-drawer__content promptcue-demo-slide__drawer-content">
+            <p>{activeDemo.body}</p>
+          </div>
+        </ContextDrawer>
+        <a
+          className="promptcue-demo-slide__body-link"
+          href={activeDemo.linkUrl}
+          rel="noreferrer"
+          target="_blank"
+        >
+          {activeDemo.linkLabel}
+        </a>
 
         {DEMOS.length > 1 && (
           <div className="promptcue-demo-slide__chips" aria-label="Backtick demos">

@@ -1,5 +1,6 @@
 import { SlideShell } from '../components/SlideShell'
 import type { SlideDefinition } from '../types/presentation'
+import { AidoDemoSlide } from './AidoDemoSlide'
 import { FigmaExportSlide } from './FigmaExportSlide'
 import {
   CareerHoverSlide,
@@ -75,6 +76,7 @@ import { PatternTemplateSlide } from './PatternTemplateSlide'
 import { ProfileStatementSlideV2 } from './ProfileStatementSlideV2'
 import { ProjectIntroSlide } from './ProjectIntroSlide'
 import { RoomPlannerProofSlide } from './RoomPlannerProofSlide'
+import { SaveBackDemoSlide } from './SaveBackDemoSlide'
 import { SectionIndexSlide } from './SectionIndexSlide'
 import { SectionIndexSlideV2 } from './SectionIndexSlideV2'
 import { SideProjectsIntroSlide } from './SideProjectsIntroSlide'
@@ -177,8 +179,20 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   'side-projects-intro': {
     id: 'side-projects-intro',
     navLabel: 'Side Projects',
+    steps: 2,
+    render: ({ step }) => <SideProjectsIntroSlide step={step} />,
+  },
+  'side-projects-intro-copy': {
+    id: 'side-projects-intro-copy',
+    navLabel: 'AIDO',
     steps: 1,
-    render: () => <SideProjectsIntroSlide />,
+    render: () => <AidoDemoSlide />,
+  },
+  'saveback-demo': {
+    id: 'saveback-demo',
+    navLabel: 'SaveBack',
+    steps: 1,
+    render: () => <SaveBackDemoSlide />,
   },
   'promptcue-demo': {
     id: 'promptcue-demo',
@@ -376,8 +390,8 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   'case-study-02b': {
     id: 'case-study-02b',
     navLabel: 'Ohouse Intro',
-    steps: 1,
-    render: () => <OhouseIntroSlide />,
+    steps: 2,
+    render: ({ step }) => <OhouseIntroSlide step={step} />,
   },
   'case-study-02c': {
     id: 'case-study-02c',
