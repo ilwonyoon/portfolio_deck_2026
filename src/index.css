@@ -3425,7 +3425,7 @@ h3 {
 .past-works-intro-slide__title {
   position: absolute;
   top: 488px;
-  left: 120px;
+  left: var(--layout-grid-left);
   margin: 0;
   color: var(--text-primary);
   font-size: 36px;
