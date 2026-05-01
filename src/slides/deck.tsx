@@ -753,6 +753,7 @@ export const slideRegistry: Record<string, SlideDefinition> = {
       <PersonalizedFeedIntroSlide
         headline="For You feed"
         videoMp4="/media/personalized-feed.mp4"
+        videoPoster="/media/personalized-feed-poster.jpg"
         videoWebm="/media/personalized-feed.webm"
       />
     ),
