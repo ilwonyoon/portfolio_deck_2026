@@ -136,10 +136,15 @@ export function LandingPage() {
                   {statement.index}
                 </span>
                 <span className="landing__statement-text">
-                  {isVisible ? displayText : ''}
-                  {isVisible && charCounts[i] < statement.text.length && (
-                    <span className="landing__cursor" aria-hidden="true" />
-                  )}
+                  <span className="landing__statement-measure" aria-hidden="true">
+                    {statement.text}
+                  </span>
+                  <span className="landing__statement-typed">
+                    {isVisible ? displayText : ''}
+                    {isVisible && charCounts[i] < statement.text.length && (
+                      <span className="landing__cursor" aria-hidden="true" />
+                    )}
+                  </span>
                 </span>
               </li>
             )
@@ -147,8 +152,11 @@ export function LandingPage() {
         </ol>
 
         <div className="landing__cta" data-visible={ctaVisible}>
-          <a className="landing__cta-link" href="/portfolio">
-            View portfolio
+          <a className="landing__cta-link landing__cta-link--primary" href="/portfolio">
+            View work
+          </a>
+          <a className="landing__cta-link" href="mailto:ilwon@ilwonyoon.com">
+            Contact
           </a>
         </div>
       </div>

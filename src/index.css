@@ -10513,11 +10513,22 @@ h3 {
 }
 
 .landing__statement-text {
+  position: relative;
+  display: inline-block;
   font-size: 22px;
   font-weight: var(--font-weight-medium);
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--text-primary);
+}
+
+.landing__statement-measure {
+  visibility: hidden;
+}
+
+.landing__statement-typed {
+  position: absolute;
+  inset: 0;
 }
 
 .landing__cursor {
@@ -10536,6 +10547,9 @@ h3 {
 }
 
 .landing__cta {
+  display: flex;
+  align-items: center;
+  gap: 22px;
   opacity: 0;
   transform: translateY(4px);
   transition:
@@ -10551,20 +10565,37 @@ h3 {
 .landing__cta-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   font-size: var(--type-scale-14-size);
   font-weight: var(--font-weight-medium);
   letter-spacing: 0.04em;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.46);
   text-decoration: none;
-  border-bottom: 1px solid var(--surface-line);
-  padding-bottom: 3px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.22s ease;
+}
+
+.landing__cta-link--primary {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.landing__cta-link::after {
+  content: '↗';
+  display: inline-block;
+  font-size: 0.9em;
+  opacity: 0.52;
+  transform: translateY(-0.06em);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
 }
 
 .landing__cta-link:hover {
   color: var(--text-primary);
-  border-color: var(--surface-line-strong);
+}
+
+.landing__cta-link:hover::after {
+  opacity: 1;
+  transform: translate(3px, -3px);
 }
 
 @media (prefers-reduced-motion: reduce) {
