@@ -54,9 +54,9 @@ export function ContextDrawer({
         type="button"
         aria-expanded={open}
       >
-        {title}
+        <span className="context-drawer__title-wrap">{title}</span>
         {variant === 'dot' && !open && (
-          <span className="context-drawer__dot" aria-hidden="true" />
+          <span aria-hidden="true" className="context-drawer__dot" />
         )}
       </button>
 

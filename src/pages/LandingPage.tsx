@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const STATEMENTS = [
-  { index: '01', text: 'Product designer with a systems lens.' },
-  { index: '02', text: 'From zero-to-one product to scaled platform.' },
-  { index: '03', text: 'Design-engineering boundary as a creative edge.' },
-  { index: '04', text: 'Making complex products feel inevitable.' },
+  { index: '01', text: 'Led a 40+ person design org at Ohouse.' },
+  { index: '02', text: 'Worked at Google, Amaze VR, Meta.' },
+  { index: '03', text: 'Now shipping iOS & macOS apps — 1,500+ hours vibe coding.' },
+  {
+    index: '04',
+    text: 'Looking to build AI-native products — and work AI-natively.',
+  },
 ]
 
 const REVEAL_DELAY_MS = 320

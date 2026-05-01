@@ -21,6 +21,7 @@ import { OhouseContentStatementSlideV2 } from './OhouseContentStatementSlideV2'
 import { OhouseBrowseMotionSlide } from './OhouseBrowseMotionSlide'
 import { OhouseAiVisionSlide } from './OhouseAiVisionSlide'
 import { OhouseAiTransitionSlide } from './OhouseAiTransitionSlide'
+import { OhouseAiRoleShiftSlide } from './OhouseAiRoleShiftSlide'
 import { OhouseCs01ClosingSlide } from './OhouseCs01ClosingSlide'
 import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
@@ -62,6 +63,7 @@ import { FeedResultsStatementSlide } from './FeedResultsStatementSlide'
 import { FeedRestructureSlide } from './FeedRestructureSlide'
 import { FeedStructureSlide } from './FeedStructureSlide'
 import { InstagramCommerceSlide } from './InstagramCommerceSlide'
+import { InstagramCommerceSlideV2 } from './InstagramCommerceSlideV2'
 import { InstagramSharedCollectionSlide } from './InstagramSharedCollectionSlide'
 import { InstagramStoriesAddYoursSlide } from './InstagramStoriesAddYoursSlide'
 import { InteriorWorkflowSlide } from './InteriorWorkflowSlide'
@@ -139,6 +141,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Statement',
     steps: 1,
     render: () => <ProfileStatementSlideV2 />,
+  },
+  'instagram-commerce-v2': {
+    id: 'instagram-commerce-v2',
+    navLabel: 'Instagram Commerce v2',
+    steps: 1,
+    render: () => <InstagramCommerceSlideV2 />,
   },
   'instagram-commerce': {
     id: 'instagram-commerce',
@@ -243,6 +251,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'AI Transition',
     steps: 1,
     render: () => <OhouseAiTransitionSlide />,
+  },
+  'ohouse-ai-role-shift': {
+    id: 'ohouse-ai-role-shift',
+    navLabel: 'AI Role Shift',
+    steps: 1,
+    render: () => <OhouseAiRoleShiftSlide />,
   },
   'ohouse-ai-vision': {
     id: 'ohouse-ai-vision',

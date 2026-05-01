@@ -47,6 +47,7 @@ export const deckManifest = [
   'community-results',
   'ohouse-cs01-close',
   'ohouse-ai-transition',
+  'ohouse-ai-role-shift',
   'section-index-03',
   'mix-or-mismatch',
   'room-planner-proof',

@@ -23,9 +23,7 @@ export function SaveBackDemoSlide() {
             </p>
           </div>
         </ContextDrawer>
-        <p className="saveback-demo-slide__link">
-          Available for iOS TestFlight
-        </p>
+        <p className="saveback-demo-slide__link">Available on App Store</p>
       </section>
 
       <section
