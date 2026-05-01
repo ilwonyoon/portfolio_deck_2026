@@ -2,10 +2,14 @@ import { ContextDrawer } from '../components/ContextDrawer'
 
 type PersonalizedFeedIntroSlideProps = {
   headline?: string
+  videoMp4?: string
+  videoWebm?: string
 }
 
 export function PersonalizedFeedIntroSlide({
   headline = 'Interest profiling',
+  videoMp4 = '/media/interest-profiling.mp4',
+  videoWebm = '/media/interest-profiling.webm',
 }: PersonalizedFeedIntroSlideProps) {
   return (
     <article className="personalized-feed-intro-slide" data-node-id="6133:90440">
@@ -17,8 +21,8 @@ export function PersonalizedFeedIntroSlide({
           muted
           playsInline
         >
-          <source src="/media/interest-profiling.webm" type="video/webm" />
-          <source src="/media/interest-profiling.mp4" type="video/mp4" />
+          <source src={videoWebm} type="video/webm" />
+          <source src={videoMp4} type="video/mp4" />
         </video>
       </div>
       <div className="personalized-feed-intro-slide__text-group">

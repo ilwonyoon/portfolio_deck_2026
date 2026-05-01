@@ -743,7 +743,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     id: 'pattern-screen-1',
     navLabel: 'Personalized Feed',
     steps: 1,
-    render: () => <PersonalizedFeedIntroSlide />,
+    render: () => (
+      <PersonalizedFeedIntroSlide
+        videoMp4="/media/personalized-feed.mp4"
+        videoWebm="/media/personalized-feed.webm"
+      />
+    ),
   },
   'pattern-screen-1-copy': {
     id: 'pattern-screen-1-copy',
