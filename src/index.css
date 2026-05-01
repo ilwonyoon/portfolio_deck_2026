@@ -10551,15 +10551,24 @@ h3 {
   align-items: center;
   gap: 22px;
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transform: translateY(4px);
   transition:
     opacity 0.4s ease,
-    transform 0.4s ease;
+    transform 0.4s ease,
+    visibility 0s linear 0.4s;
 }
 
 .landing__cta[data-visible='true'] {
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
   transform: translateY(0);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    visibility 0s;
 }
 
 .landing__cta-link {

@@ -112,6 +112,7 @@ function PageBackground() {
 
 export function LandingPage() {
   const { revealed, charCounts, ctaVisible } = useTypingSequence(STATEMENTS)
+  const introComplete = charCounts.every((count, i) => count >= STATEMENTS[i].text.length)
 
   return (
     <div className="landing">
@@ -151,7 +152,7 @@ export function LandingPage() {
           })}
         </ol>
 
-        <div className="landing__cta" data-visible={ctaVisible}>
+        <div className="landing__cta" data-visible={ctaVisible && introComplete}>
           <a className="landing__cta-link landing__cta-link--primary" href="/portfolio">
             View work
           </a>
