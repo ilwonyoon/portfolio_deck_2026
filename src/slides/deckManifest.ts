@@ -50,6 +50,7 @@ export const deckManifest = [
   'ohouse-ai-role-shift',
   'section-index-03',
   'mix-or-mismatch',
+  'space-ai-role',
   'room-planner-proof',
   'interior-workflow',
   'ohouse-ai-vision',

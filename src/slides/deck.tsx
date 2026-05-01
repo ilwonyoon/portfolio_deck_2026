@@ -82,6 +82,7 @@ import { SaveBackDemoSlide } from './SaveBackDemoSlide'
 import { SectionIndexSlide } from './SectionIndexSlide'
 import { SectionIndexSlideV2 } from './SectionIndexSlideV2'
 import { SideProjectsIntroSlide } from './SideProjectsIntroSlide'
+import { SpaceAiRoleSlide } from './SpaceAiRoleSlide'
 import { TbdSideTitleSlide } from './TbdSideTitleSlide'
 import { WinningStatementSlide } from './WinningStatementSlide'
 import { TileEntranceStudySlide } from './TileEntranceStudySlide'
@@ -263,6 +264,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'AI Vision',
     steps: 1,
     render: () => <OhouseAiVisionSlide />,
+  },
+  'space-ai-role': {
+    id: 'space-ai-role',
+    navLabel: 'Space AI Role',
+    steps: 1,
+    render: () => <SpaceAiRoleSlide />,
   },
   'tbd-side-title-1': {
     id: 'tbd-side-title-1',
