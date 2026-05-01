@@ -24,9 +24,7 @@ export function CreatorEconomyCombinedSlide() {
           Project 02 / 03
         </p>
         <h1 className="creator-economy-combined-slide__title">
-          Creator
-          <br />
-          Economy
+          Creator Economy
         </h1>
         <p className="creator-economy-combined-slide__subtitle">
           <span>You don't need a new home</span>
