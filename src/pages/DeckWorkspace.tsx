@@ -4,9 +4,15 @@ import { PresentationViewport } from '../components/PresentationViewport'
 import { SlideIndexPanel } from '../components/SlideIndexPanel'
 import { useDeckState } from '../hooks/useDeckState'
 import { deleteSlideFromDeck, reorderDeckSlides } from '../lib/deckEditor'
+import {
+  publishDeckLocation,
+  publishDeckOrder,
+  subscribeDeckSync,
+} from '../lib/deckSync'
 import { deckSlides as initialDeckSlides } from '../slides/deck'
 import { designSystemSlides } from '../slides/systemDeck'
 import type { CanvasSelection } from '../types/inspector'
+import type { SlideDefinition } from '../types/presentation'
 
 export type DeckWorkspaceMode = 'viewer' | 'admin'
 
@@ -20,6 +26,19 @@ function readDeckCollection(): DeckCollection {
 
 type Props = {
   mode: DeckWorkspaceMode
+}
+
+function orderSlidesById(slides: SlideDefinition[], orderedIds: string[]) {
+  const slideMap = new Map(slides.map((slide) => [slide.id, slide]))
+  const nextSlides = orderedIds
+    .map((slideId) => slideMap.get(slideId))
+    .filter((slide): slide is SlideDefinition => Boolean(slide))
+
+  if (nextSlides.length === 0) {
+    return slides
+  }
+
+  return nextSlides
 }
 
 export function DeckWorkspace({ mode }: Props) {
@@ -70,6 +89,7 @@ export function DeckWorkspace({ mode }: Props) {
 
     try {
       await deleteSlideFromDeck(slideId)
+      publishDeckOrder({ orderedIds: nextSlides.map((slide) => slide.id) })
     } catch (error) {
       console.error(error)
       setSlides(previousSlides)
@@ -89,11 +109,47 @@ export function DeckWorkspace({ mode }: Props) {
 
     try {
       await reorderDeckSlides(nextSlides.map((slide) => slide.id))
+      publishDeckOrder({ orderedIds: nextSlides.map((slide) => slide.id) })
     } catch (error) {
       console.error(error)
       setSlides(previousSlides)
     }
   }
+
+  useEffect(() => {
+    if (!isAdmin || deckCollection !== 'portfolio') {
+      return
+    }
+
+    publishDeckLocation({
+      slideId: currentSlide.id,
+      step: currentStep,
+    })
+  }, [currentSlide.id, currentStep, deckCollection, isAdmin])
+
+  useEffect(() => {
+    if (isAdmin || deckCollection !== 'portfolio') {
+      return
+    }
+
+    return subscribeDeckSync((message) => {
+      if (message.type === 'location') {
+        const slideIndex = activeSlides.findIndex(
+          (slide) => slide.id === message.payload.slideId,
+        )
+
+        if (slideIndex >= 0) {
+          goToSlide(slideIndex, message.payload.step)
+        }
+
+        return
+      }
+
+      setSlides((currentSlides) =>
+        orderSlidesById(currentSlides, message.payload.orderedIds),
+      )
+    })
+  }, [activeSlides, deckCollection, goToSlide, isAdmin])
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
