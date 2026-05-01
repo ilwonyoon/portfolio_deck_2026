@@ -8597,9 +8597,9 @@ h3 {
 .messenger-selfie-slide__eyebrow {
   margin: 0 0 12px;
   color: rgba(255, 255, 255, 0.92);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1.5;
   letter-spacing: 0.15px;
 }
 
@@ -8607,10 +8607,10 @@ h3 {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-sans);
-  font-size: 44px;
+  font-size: 36px;
   font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: 0.1px;
+  line-height: 1.2;
+  letter-spacing: 0.08px;
 }
 
 .messenger-selfie-slide__drawer-content {
