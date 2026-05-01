@@ -56,6 +56,7 @@ export const deckManifest = [
   'ohouse-ai-vision',
   'tbd-side-title-1',
   'tbd-side-title-2',
+  'space-ai-results',
   'tbd-side-title-3',
   'tbd-side-title-4',
 ] as const
