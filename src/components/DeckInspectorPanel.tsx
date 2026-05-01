@@ -3,8 +3,6 @@ import {
   Grid3X3,
   SlidersHorizontal,
   Type,
-  Play,
-  X,
   PanelRightClose,
   PanelRightOpen,
 } from 'lucide-react'
@@ -48,8 +46,6 @@ type DeckInspectorPanelProps = {
   collapsed: boolean
   onToggleCollapse: () => void
   onToggleGrid: () => void
-  onTogglePresentationMode: () => void
-  presentationMode: 'edit' | 'present'
   selection: CanvasSelection | null
   showGrid: boolean
   slides: SlideDefinition[]
@@ -59,8 +55,6 @@ export function DeckInspectorPanel({
   collapsed,
   onToggleCollapse,
   onToggleGrid,
-  onTogglePresentationMode,
-  presentationMode,
   selection,
   showGrid,
   slides,
@@ -70,19 +64,13 @@ export function DeckInspectorPanel({
   }
 
   function formatPercent(value: number | null, base: number | null) {
-    if (value === null || base === null || base === 0) {
-      return '-'
-    }
-
+    if (value === null || base === null || base === 0) return '-'
     const ratio = Math.round((value / base) * 1000) / 10
     return `${Number.isInteger(ratio) ? ratio.toFixed(0) : ratio}%`
   }
 
   function formatFontWeight(weight: number | null) {
-    if (weight === null) {
-      return '-'
-    }
-
+    if (weight === null) return '-'
     if (weight < 150) return 'Thin'
     if (weight < 250) return 'Extra Light'
     if (weight < 350) return 'Light'
@@ -128,37 +116,18 @@ export function DeckInspectorPanel({
           </div>
         )}
 
-        <div className="editor-sidebar__header-actions">
-          <button
-            aria-label={
-              presentationMode === 'present'
-                ? 'Exit presentation mode'
-                : 'Enter presentation mode'
-            }
-            className="editor-sidebar__toggle editor-sidebar__toggle--mode"
-            onClick={onTogglePresentationMode}
-            type="button"
-          >
-            {presentationMode === 'present' ? (
-              <X aria-hidden="true" size={16} strokeWidth={2} />
-            ) : (
-              <Play aria-hidden="true" size={16} strokeWidth={2} />
-            )}
-          </button>
-
-          <button
-            aria-label={collapsed ? 'Expand tools panel' : 'Collapse tools panel'}
-            className="editor-sidebar__toggle"
-            onClick={onToggleCollapse}
-            type="button"
-          >
-            {collapsed ? (
-              <PanelRightOpen aria-hidden="true" size={16} strokeWidth={2} />
-            ) : (
-              <PanelRightClose aria-hidden="true" size={16} strokeWidth={2} />
-            )}
-          </button>
-        </div>
+        <button
+          aria-label={collapsed ? 'Expand tools panel' : 'Collapse tools panel'}
+          className="editor-sidebar__toggle"
+          onClick={onToggleCollapse}
+          type="button"
+        >
+          {collapsed ? (
+            <PanelRightOpen aria-hidden="true" size={16} strokeWidth={2} />
+          ) : (
+            <PanelRightClose aria-hidden="true" size={16} strokeWidth={2} />
+          )}
+        </button>
       </div>
 
       {collapsed ? null : (
@@ -178,7 +147,6 @@ export function DeckInspectorPanel({
               <>
                 <div className="inspector-subsection">
                   <span className="inspector-subsection__title">Position</span>
-
                   <div className="inspector-field-grid">
                     <MetricField label="X" value={formatPixels(selection.x)} />
                     <MetricField label="Y" value={formatPixels(selection.y)} />
@@ -194,7 +162,6 @@ export function DeckInspectorPanel({
                         <Type aria-hidden="true" size={12} strokeWidth={2} />
                         <span>Typography</span>
                       </span>
-
                       <div className="inspector-field-grid">
                         <MetricField
                           label="Font"
@@ -211,10 +178,7 @@ export function DeckInspectorPanel({
                         />
                         <MetricField
                           label="Line height"
-                          value={formatPercent(
-                            selection.lineHeight,
-                            selection.fontSize,
-                          )}
+                          value={formatPercent(selection.lineHeight, selection.fontSize)}
                         />
                         <MetricField
                           label="Letter spacing"
@@ -270,7 +234,6 @@ export function DeckInspectorPanel({
                   Show the 12-column overlay on the slide canvas.
                 </span>
               </span>
-
               <span className="inspector-switch" aria-hidden="true">
                 <span className="inspector-switch__thumb" />
               </span>

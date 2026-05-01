@@ -1,4 +1,4 @@
-import { FileText, GripVertical, PanelLeftClose, PanelLeftOpen, Trash2 } from 'lucide-react'
+import { GripVertical, Maximize2, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { SlideDefinition } from '../types/presentation'
@@ -7,13 +7,12 @@ const DESIGN_WIDTH = 1920
 const DESIGN_HEIGHT = 1080
 
 type SlideIndexPanelProps = {
-  collapsed: boolean
   currentSlideId: string
   editingEnabled?: boolean
   onDelete?: (slideId: string) => void
+  onEnterPresent: () => void
   onReorder?: (fromIndex: number, toIndex: number) => void
   onSelect: (slideIndex: number) => void
-  onToggleCollapse: () => void
   slides: SlideDefinition[]
 }
 
@@ -23,10 +22,7 @@ function SlideThumbnail({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const frame = frameRef.current
-
-    if (!frame) {
-      return
-    }
+    if (!frame) return
 
     function updateFrameWidth() {
       const nextFrame = frameRef.current
@@ -38,17 +34,11 @@ function SlideThumbnail({ children }: { children: ReactNode }) {
     if (typeof ResizeObserver !== 'undefined') {
       const resizeObserver = new ResizeObserver(updateFrameWidth)
       resizeObserver.observe(frame)
-
-      return () => {
-        resizeObserver.disconnect()
-      }
+      return () => resizeObserver.disconnect()
     }
 
     window.addEventListener('resize', updateFrameWidth)
-
-    return () => {
-      window.removeEventListener('resize', updateFrameWidth)
-    }
+    return () => window.removeEventListener('resize', updateFrameWidth)
   }, [])
 
   const scale = frameWidth / DESIGN_WIDTH
@@ -72,13 +62,12 @@ function SlideThumbnail({ children }: { children: ReactNode }) {
 }
 
 export function SlideIndexPanel({
-  collapsed,
   currentSlideId,
   editingEnabled = false,
   onDelete,
+  onEnterPresent,
   onReorder,
   onSelect,
-  onToggleCollapse,
   slides,
 }: SlideIndexPanelProps) {
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
@@ -88,17 +77,11 @@ export function SlideIndexPanel({
   const activeItemRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (collapsed) {
-      return
-    }
-
     const body = bodyRef.current
     const activeShell = activeShellRef.current
     const activeItem = activeItemRef.current
 
-    if (!body || !activeShell || !activeItem) {
-      return
-    }
+    if (!body || !activeShell || !activeItem) return
 
     const activeElement = document.activeElement
     const shouldSyncFocus =
@@ -110,52 +93,31 @@ export function SlideIndexPanel({
     const isBelowViewport = activeRect.bottom > bodyRect.bottom
 
     if (isAboveViewport || isBelowViewport) {
-      activeShell.scrollIntoView({
-        block: 'nearest',
-        inline: 'nearest',
-      })
+      activeShell.scrollIntoView({ block: 'nearest', inline: 'nearest' })
     }
 
     if (shouldSyncFocus && activeElement !== activeItem) {
       activeItem.focus()
     }
-  }, [collapsed, currentSlideId])
-
-  function handleSelect(index: number) {
-    onSelect(index)
-  }
+  }, [currentSlideId])
 
   return (
-    <aside
-      className="editor-sidebar editor-sidebar--left"
-      data-collapsed={collapsed}
-    >
+    <aside className="editor-sidebar editor-sidebar--left">
       <div className="editor-sidebar__header">
-        {collapsed ? (
-          <span className="editor-sidebar__eyebrow">
-            <FileText aria-hidden="true" size={14} strokeWidth={2} />
-          </span>
-        ) : (
-          <div>
-            <p className="editor-sidebar__title">
-              <FileText aria-hidden="true" size={14} strokeWidth={2} />
-              <span>Slides</span>
-            </p>
-            <span className="editor-sidebar__subtitle">{slides.length} frames</span>
-          </div>
-        )}
+        <div>
+          <p className="editor-sidebar__title">
+            <span>ilwonyoon portfolio</span>
+          </p>
+          <span className="editor-sidebar__subtitle">{slides.length} frames</span>
+        </div>
 
         <button
-          aria-label={collapsed ? 'Expand slide index' : 'Collapse slide index'}
+          aria-label="Enter full screen"
           className="editor-sidebar__toggle"
-          onClick={onToggleCollapse}
+          onClick={onEnterPresent}
           type="button"
         >
-          {collapsed ? (
-            <PanelLeftOpen aria-hidden="true" size={16} strokeWidth={2} />
-          ) : (
-            <PanelLeftClose aria-hidden="true" size={16} strokeWidth={2} />
-          )}
+          <Maximize2 aria-hidden="true" size={16} strokeWidth={2} />
         </button>
       </div>
 
@@ -166,9 +128,9 @@ export function SlideIndexPanel({
             const formattedIndex = String(index + 1).padStart(2, '0')
             const showStepDots = slide.stepDisplay !== 'none' && slide.steps > 1
             const totalSteps = Math.max(slide.steps, 1)
-            const stepDots = Array.from({ length: totalSteps }, (_, stepIndex) => stepIndex)
+            const stepDots = Array.from({ length: totalSteps }, (_, i) => i)
             const canDelete = editingEnabled && slides.length > 1 && onDelete
-            const canReorder = editingEnabled && !collapsed && Boolean(onReorder)
+            const canReorder = editingEnabled && Boolean(onReorder)
             const isDropTarget =
               dropTargetIndex === index && draggedIndex !== null && draggedIndex !== index
 
@@ -180,45 +142,31 @@ export function SlideIndexPanel({
                 draggable={canReorder}
                 key={slide.id}
                 ref={(node) => {
-                  if (isActive) {
-                    activeShellRef.current = node
-                  }
+                  if (isActive) activeShellRef.current = node
                 }}
                 onDragEnd={() => {
                   setDraggedIndex(null)
                   setDropTargetIndex(null)
                 }}
                 onDragOver={(event) => {
-                  if (!canReorder) {
-                    return
-                  }
-
+                  if (!canReorder) return
                   event.preventDefault()
-                  if (dropTargetIndex !== index) {
-                    setDropTargetIndex(index)
-                  }
+                  if (dropTargetIndex !== index) setDropTargetIndex(index)
                 }}
                 onDragStart={(event) => {
-                  if (!canReorder) {
-                    return
-                  }
-
+                  if (!canReorder) return
                   setDraggedIndex(index)
                   event.dataTransfer.effectAllowed = 'move'
                   event.dataTransfer.setData('text/plain', slide.id)
                 }}
                 onDrop={(event) => {
-                  if (!canReorder) {
-                    return
-                  }
-
+                  if (!canReorder) return
                   event.preventDefault()
                   if (draggedIndex === null || draggedIndex === index) {
                     setDraggedIndex(null)
                     setDropTargetIndex(null)
                     return
                   }
-
                   onReorder?.(draggedIndex, index)
                   setDraggedIndex(null)
                   setDropTargetIndex(null)
@@ -227,41 +175,35 @@ export function SlideIndexPanel({
                 <div
                   aria-current={isActive ? 'true' : undefined}
                   className="slide-index__item"
-                  onClick={() => {
-                    handleSelect(index)
-                  }}
+                  onClick={() => onSelect(index)}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault()
-                      handleSelect(index)
+                      onSelect(index)
                     }
                   }}
                   role="button"
                   ref={(node) => {
-                    if (isActive) {
-                      activeItemRef.current = node
-                    }
+                    if (isActive) activeItemRef.current = node
                   }}
                   tabIndex={isActive ? 0 : -1}
                 >
                   <span className="slide-index__number">{formattedIndex}</span>
 
-                  {collapsed ? null : (
-                    <SlideThumbnail>
-                          {slide.render({
-                            advanceStep: () => undefined,
-                            advanceSlide: () => undefined,
-                            autoPlay: false,
-                            isThumbnail: true,
-                            step: 0,
-                            slideIndex: index,
-                            totalSlides: slides.length,
-                          })}
-                    </SlideThumbnail>
-                  )}
+                  <SlideThumbnail>
+                    {slide.render({
+                      advanceStep: () => undefined,
+                      advanceSlide: () => undefined,
+                      autoPlay: false,
+                      isThumbnail: true,
+                      step: 0,
+                      slideIndex: index,
+                      totalSlides: slides.length,
+                    })}
+                  </SlideThumbnail>
                 </div>
 
-                {!collapsed && editingEnabled ? (
+                {editingEnabled ? (
                   <div className="slide-index__item-actions">
                     <span className="slide-index__drag-handle" title="Drag to reorder">
                       <GripVertical aria-hidden="true" size={14} strokeWidth={2} />
@@ -282,7 +224,7 @@ export function SlideIndexPanel({
                   </div>
                 ) : null}
 
-                {!collapsed && showStepDots ? (
+                {showStepDots ? (
                   <div className="slide-index__step-dots" aria-hidden="true">
                     {stepDots.map((stepIndex) => (
                       <span
