@@ -26,6 +26,7 @@ import { OhouseCs01ClosingSlide } from './OhouseCs01ClosingSlide'
 import { OhouseContentSlide } from './OhouseContentSlide'
 import { OhouseIntroSlide } from './OhouseIntroSlide'
 import { OhouseJourneyFocusSlide } from './OhouseJourneyFocusSlide'
+import { OhouseJourneyPosterSlide } from './OhouseJourneyPosterSlide'
 import { OhouseJourneySlide } from './OhouseJourneySlide'
 import { OhouseJourneyPartASlide } from './OhouseJourneyPartASlide'
 import { OhouseJourneyPartBSlide } from './OhouseJourneyPartBSlide'
@@ -455,6 +456,13 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 2,
     stepDisplay: 'none',
     render: ({ step }) => <OhouseJourneyFocusSlide step={step} />,
+  },
+  'case-study-02f-poster': {
+    id: 'case-study-02f-poster',
+    navLabel: 'Journey Poster',
+    steps: 2,
+    stepDisplay: 'none',
+    render: ({ step }) => <OhouseJourneyPosterSlide step={step} />,
   },
   'case-study-02f-part-a': {
     id: 'case-study-02f-part-a',

@@ -1746,6 +1746,186 @@ h3 {
   transform: translateY(-50%) scale(1.28);
 }
 
+.ohouse-journey-poster-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.ohouse-journey-poster-slide__copy {
+  position: absolute;
+  top: 50%;
+  left: var(--layout-grid-left);
+  z-index: 2;
+  display: flex;
+  width: 626px;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 40px;
+}
+
+.ohouse-journey-poster-slide__copy-block {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.22);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
+  transition:
+    color 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ohouse-journey-poster-slide__copy-block[data-active='true'] {
+  color: var(--text-primary);
+}
+
+.ohouse-journey-poster-slide__stage {
+  position: absolute;
+  top: 94px;
+  right: var(--layout-grid-left);
+  width: 820px;
+  height: 886px;
+}
+
+.ohouse-journey-poster-slide__eyebrow {
+  display: none;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: var(--type-body-md-size);
+  font-weight: var(--type-body-md-weight);
+  line-height: var(--type-body-md-line-height);
+  letter-spacing: var(--type-body-md-letter-spacing);
+}
+
+.ohouse-journey-poster-slide__rows {
+  display: grid;
+  height: 886px;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.ohouse-journey-poster-slide__row {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #050505;
+}
+
+.ohouse-journey-poster-slide__row::before,
+.ohouse-journey-poster-slide__row::after {
+  position: absolute;
+  z-index: 1;
+  content: '';
+  pointer-events: none;
+}
+
+.ohouse-journey-poster-slide__row::before {
+  display: none;
+}
+
+.ohouse-journey-poster-slide__row::after {
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: inherit;
+  background: transparent;
+}
+
+.ohouse-journey-poster-slide__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.96;
+  filter: saturate(0.98) contrast(1.01) brightness(0.98);
+  transform: scale(1);
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ohouse-journey-poster-slide__row[data-mode='expansion']:first-child .ohouse-journey-poster-slide__image {
+  object-position: center 50%;
+}
+
+.ohouse-journey-poster-slide__row[data-mode='focus'] .ohouse-journey-poster-slide__image {
+  object-position: center 52%;
+}
+
+.ohouse-journey-poster-slide__row[data-active='true'] .ohouse-journey-poster-slide__image {
+  opacity: 1;
+  filter: saturate(1) contrast(1.01) brightness(1);
+  transform: scale(1);
+}
+
+.ohouse-journey-poster-slide__row[data-mode='focus'][data-active='true'] .ohouse-journey-poster-slide__image {
+  opacity: 1;
+  filter: saturate(1) contrast(1.01) brightness(1);
+}
+
+.ohouse-journey-poster-slide__label {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: grid;
+  width: 190px;
+  box-sizing: border-box;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 8px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(14px) saturate(1.12);
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 22px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: right;
+  text-shadow: none;
+  transition:
+    color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ohouse-journey-poster-slide__label span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ohouse-journey-poster-slide__number {
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.ohouse-journey-poster-slide__row[data-active='true'] .ohouse-journey-poster-slide__label {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.92);
+  transform: translateX(-2px);
+}
+
+.ohouse-journey-poster-slide__row[data-active='true'] .ohouse-journey-poster-slide__number {
+  color: rgba(255, 255, 255, 0.66);
+}
+
 .community-bridge-slide {
   position: relative;
   width: 100%;
