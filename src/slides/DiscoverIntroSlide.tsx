@@ -1,16 +1,14 @@
+import { DeckVideo } from '../components/DeckVideo'
+
 export function DiscoverIntroSlide() {
   return (
     <article className="discover-intro-slide" data-node-id="6133:98817">
-      <video
-        autoPlay
+      <DeckVideo
         className="discover-intro-slide__screen"
-        loop
-        muted
-        playsInline
-      >
-        <source src="/media/discover/discover.webm" type="video/webm" />
-        <source src="/media/discover/discover.mp4" type="video/mp4" />
-      </video>
+        mp4="/media/discover/discover.mp4"
+        poster="/media/discover/screen.png"
+        webm="/media/discover/discover.webm"
+      />
       <h2
         className="discover-intro-slide__headline"
         data-node-id="6133:104069"

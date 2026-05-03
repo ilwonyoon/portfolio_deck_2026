@@ -1,16 +1,14 @@
+import { DeckVideo } from '../components/DeckVideo'
+
 export function UploadExperienceSlide() {
   return (
     <article className="upload-experience-slide" data-node-id="upload-experience">
-      <video
-        autoPlay
+      <DeckVideo
         className="upload-experience-slide__video"
-        loop
-        muted
-        playsInline
-      >
-        <source src="/media/upload/upload.webm" type="video/webm" />
-        <source src="/media/upload/upload.mp4" type="video/mp4" />
-      </video>
+        mp4="/media/upload/upload.mp4"
+        poster="/media/upload/upload-poster.jpg"
+        webm="/media/upload/upload.webm"
+      />
       <h2 className="upload-experience-slide__headline">Upload flow</h2>
     </article>
   )

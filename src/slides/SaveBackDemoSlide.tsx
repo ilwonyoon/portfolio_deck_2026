@@ -1,4 +1,5 @@
 import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 export function SaveBackDemoSlide() {
   return (
@@ -30,17 +31,12 @@ export function SaveBackDemoSlide() {
         aria-label="SaveBack demo video"
         className="saveback-demo-slide__stage"
       >
-        <video
-          autoPlay
+        <DeckVideo
           className="saveback-demo-slide__video"
-          loop
-          muted
-          playsInline
+          mp4="/media/saveback/saveback-demo.mp4"
           poster="/media/saveback/saveback-poster.jpg"
-        >
-          <source src="/media/saveback/saveback-demo.webm" type="video/webm" />
-          <source src="/media/saveback/saveback-demo.mp4" type="video/mp4" />
-        </video>
+          webm="/media/saveback/saveback-demo.webm"
+        />
       </section>
     </article>
   )

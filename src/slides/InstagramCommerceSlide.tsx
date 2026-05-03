@@ -1,4 +1,5 @@
 import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 const SCREENS = [
   {
@@ -47,17 +48,12 @@ export function InstagramCommerceSlide() {
           <figure className="instagram-commerce-slide__screen-card" key={screen.caption}>
             <div className="instagram-commerce-slide__media">
               {'webm' in screen ? (
-                <video
-                  autoPlay
+                <DeckVideo
                   className="instagram-commerce-slide__video"
-                  loop
-                  muted
-                  playsInline
+                  mp4={screen.mp4}
                   poster="/media/instagram-commerce/story-sticker-poster.png"
-                >
-                  <source src={screen.webm} type="video/webm" />
-                  <source src={screen.mp4} type="video/mp4" />
-                </video>
+                  webm={screen.webm}
+                />
               ) : (
                 <img
                   alt=""

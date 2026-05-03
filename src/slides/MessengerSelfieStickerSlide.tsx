@@ -1,4 +1,5 @@
 import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 const SCREENS = [
   {
@@ -44,17 +45,12 @@ export function MessengerSelfieStickerSlide() {
         {SCREENS.map((screen) => (
           <figure className="messenger-selfie-slide__screen-card" key={screen.caption}>
             <div className="messenger-selfie-slide__media">
-              <video
-                autoPlay
+              <DeckVideo
                 className="messenger-selfie-slide__video"
-                loop
-                muted
-                playsInline
+                mp4={screen.mp4}
                 poster={screen.poster}
-              >
-                <source src={screen.webm} type="video/webm" />
-                <source src={screen.mp4} type="video/mp4" />
-              </video>
+                webm={screen.webm}
+              />
             </div>
             <figcaption className="messenger-selfie-slide__caption">
               {screen.caption}

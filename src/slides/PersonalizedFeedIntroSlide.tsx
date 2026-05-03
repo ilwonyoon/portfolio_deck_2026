@@ -1,4 +1,5 @@
 import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 type PersonalizedFeedIntroSlideProps = {
   headline?: string
@@ -10,24 +11,19 @@ type PersonalizedFeedIntroSlideProps = {
 export function PersonalizedFeedIntroSlide({
   headline = 'Interest profiling',
   videoMp4 = '/media/interest-profiling.mp4',
-  videoPoster,
+  videoPoster = '/media/interest-profiling-poster.jpg',
   videoWebm = '/media/interest-profiling.webm',
 }: PersonalizedFeedIntroSlideProps) {
   return (
     <article className="personalized-feed-intro-slide" data-node-id="6133:90440">
       <div className="personalized-feed-intro-slide__phone" data-node-id="6133:90657">
-        <video
+        <DeckVideo
           key={`${videoWebm}:${videoMp4}`}
           className="personalized-feed-intro-slide__video"
-          autoPlay
-          loop
-          muted
+          mp4={videoMp4}
           poster={videoPoster}
-          playsInline
-        >
-          <source src={videoWebm} type="video/webm" />
-          <source src={videoMp4} type="video/mp4" />
-        </video>
+          webm={videoWebm}
+        />
       </div>
       <div className="personalized-feed-intro-slide__text-group">
         <ContextDrawer

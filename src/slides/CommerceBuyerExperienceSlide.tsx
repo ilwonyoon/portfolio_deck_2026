@@ -1,4 +1,5 @@
 import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 const SCREENS = [
   {
@@ -49,17 +50,12 @@ export function CommerceBuyerExperienceSlide() {
           <figure className="commerce-buyer-slide__screen-card" key={screen.caption}>
             <div className="commerce-buyer-slide__media">
               {'webm' in screen ? (
-                <video
-                  autoPlay
+                <DeckVideo
                   className="commerce-buyer-slide__video"
-                  loop
-                  muted
-                  playsInline
+                  mp4={screen.mp4}
                   poster="/media/commerce-buyer/pdp-poster.png"
-                >
-                  <source src={screen.webm} type="video/webm" />
-                  <source src={screen.mp4} type="video/mp4" />
-                </video>
+                  webm={screen.webm}
+                />
               ) : (
                 <img
                   alt=""

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { DeckInspectorPanel } from '../components/DeckInspectorPanel'
+import { MobileSlideRail } from '../components/MobileSlideRail'
 import { PresentationViewport } from '../components/PresentationViewport'
 import { SlideIndexPanel } from '../components/SlideIndexPanel'
 import { useDeckState } from '../hooks/useDeckState'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import { deleteSlideFromDeck, reorderDeckSlides } from '../lib/deckEditor'
 import {
   publishDeckLocation,
@@ -52,6 +54,8 @@ export function DeckWorkspace({ mode }: Props) {
   const sourceSlides = deckCollection === 'system' ? designSystemSlides : slides
 
   const isAdmin = mode === 'admin'
+  const isMobileShell = useMediaQuery('(max-width: 768px), (pointer: coarse)')
+  const shouldShowDesktopSidebars = !isPresenting && !isMobileShell
   const deckEditingEnabled = import.meta.env.DEV && isAdmin && deckCollection === 'portfolio'
 
   const {
@@ -59,6 +63,8 @@ export function DeckWorkspace({ mode }: Props) {
     currentSlideIndex,
     currentStep,
     goToSlide,
+    next,
+    previous,
     slides: activeSlides,
   } = useDeckState(sourceSlides)
 
@@ -162,14 +168,18 @@ export function DeckWorkspace({ mode }: Props) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isPresenting])
 
-  const shellClassName = ['editor-shell', isPresenting ? 'editor-shell--present' : '']
+  const shellClassName = [
+    'editor-shell',
+    isPresenting ? 'editor-shell--present' : '',
+    isMobileShell && !isPresenting ? 'editor-shell--mobile' : '',
+  ]
     .filter(Boolean)
     .join(' ')
 
   return (
     <div className="app-shell">
       <div className={shellClassName}>
-        {!isPresenting && (
+        {shouldShowDesktopSidebars && (
           <SlideIndexPanel
             currentSlideId={currentSlide.id}
             editingEnabled={deckEditingEnabled}
@@ -183,9 +193,11 @@ export function DeckWorkspace({ mode }: Props) {
 
         <main className="editor-workspace">
           <PresentationViewport
-            onSelectionChange={isPresenting || !isAdmin ? undefined : setSelection}
-            selection={isPresenting || !isAdmin ? null : selection}
-            showGrid={showGrid}
+            onSelectionChange={
+              isPresenting || !isAdmin || isMobileShell ? undefined : setSelection
+            }
+            selection={isPresenting || !isAdmin || isMobileShell ? null : selection}
+            showGrid={isMobileShell ? false : showGrid}
           >
             {currentSlide.render({
               advanceStep: () => handleGoToSlide(currentSlideIndex, currentStep + 1),
@@ -198,6 +210,23 @@ export function DeckWorkspace({ mode }: Props) {
             })}
           </PresentationViewport>
 
+          {isMobileShell && !isPresenting ? (
+            <div className="mobile-tap-zones" aria-label="Slide tap navigation">
+              <button
+                aria-label="Previous slide"
+                className="mobile-tap-zone mobile-tap-zone--previous"
+                onClick={previous}
+                type="button"
+              />
+              <button
+                aria-label="Next slide"
+                className="mobile-tap-zone mobile-tap-zone--next"
+                onClick={next}
+                type="button"
+              />
+            </div>
+          ) : null}
+
           {isPresenting && (
             <button
               className="present-exit-btn"
@@ -209,7 +238,16 @@ export function DeckWorkspace({ mode }: Props) {
           )}
         </main>
 
-        {!isPresenting && isAdmin && (
+        {isMobileShell && !isPresenting ? (
+          <MobileSlideRail
+            currentSlideIndex={currentSlideIndex}
+            currentStep={currentStep}
+            onSelect={handleGoToSlide}
+            slides={activeSlides}
+          />
+        ) : null}
+
+        {shouldShowDesktopSidebars && isAdmin && (
           <DeckInspectorPanel
             collapsed={isInspectorCollapsed}
             onToggleCollapse={() => setIsInspectorCollapsed((c) => !c)}

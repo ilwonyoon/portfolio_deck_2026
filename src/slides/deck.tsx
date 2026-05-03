@@ -90,6 +90,36 @@ import { WinningStatementSlide } from './WinningStatementSlide'
 import { TileEntranceStudySlide } from './TileEntranceStudySlide'
 import { deckManifest } from './deckManifest'
 
+const slideThumbnails: Record<string, string> = {
+  'poster-profile': '/media/personal/poster-portrait.png',
+  'instagram-commerce': '/media/instagram-commerce/story-sticker-poster.png',
+  'commerce-buyer-experience': '/media/commerce-buyer/pdp-poster.png',
+  'commerce-seller-tools': '/media/commerce-seller/ugc-grid.png',
+  'instagram-stories-add-yours': '/media/instagram-stories-add-yours/add-yours-story.png',
+  'instagram-shared-collection': '/media/instagram-shared-collection/shared-collection-view.png',
+  'messenger-selfie-sticker': '/media/messenger-selfie-sticker/selfie-composer-poster.png',
+  'promptcue-demo': '/media/promptcue/universal-memory-poster.png',
+  'side-projects-intro-copy': '/media/aido/aido-poster.jpg',
+  'saveback-demo': '/media/saveback/saveback-poster.jpg',
+  'case-study-02f-poster': '/media/journey-poster/journey-panels.png',
+  'personalized-discovery-combined': '/media/discovery-foundation-intro.png',
+  'pattern-screen-1': '/media/interest-profiling-poster.jpg',
+  'pattern-screen-1-copy': '/media/personalized-feed-poster.jpg',
+  'feed-structure': '/media/feed-structure/step1-a.png',
+  'discover-intro': '/media/discover/screen.png',
+  'feed-restructure': '/media/feed-restructure/screen.png',
+  'creator-economy-combined': '/media/creator-programs/program-01.png',
+  'creator-onboarding': '/media/creator-onboarding/phone.png',
+  'creator-dashboard': '/media/creator-dashboard/phone.png',
+  'upload-experience': '/media/upload/upload-poster.jpg',
+  'community-combined': '/media/community-story/screen-01.png',
+  'community-story': '/media/community-story/screen-01.png',
+  'community-story-2': '/media/community-story/screen-03.png',
+  'community-story-3': '/media/community-story/screen-05.png',
+  'mix-or-mismatch': '/media/mix-or-mismatch/dining-room.png',
+  'room-planner-proof': '/media/room-planner-proof/planner-phone.png',
+}
+
 function renderIntroHeroSlide() {
   return (
     <article className="intro-hero-slide">
@@ -938,7 +968,25 @@ export const slideRegistry: Record<string, SlideDefinition> = {
 export function buildDeckSlides(slideIds: readonly string[]): SlideDefinition[] {
   return slideIds.flatMap((slideId) => {
     const slide = slideRegistry[slideId]
-    return slide ? [slide] : []
+    const thumbnailSrc = slideThumbnails[slideId]
+
+    if (!slide) {
+      return []
+    }
+
+    if (!thumbnailSrc) {
+      return [slide]
+    }
+
+    return [
+      {
+        ...slide,
+        thumbnail: {
+          alt: slide.navLabel,
+          src: thumbnailSrc,
+        },
+      },
+    ]
   })
 }
 

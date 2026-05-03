@@ -70,6 +70,7 @@ Route: `/portfolio` on small or coarse-pointer devices
 - Do not render `DeckInspectorPanel`.
 - Add a bottom horizontal slide rail.
 - The slide rail uses text labels or static snapshot images only.
+- Support left/right edge taps on the main deck area for previous/next slide or step.
 - Respect safe-area insets.
 - Use `100dvh`/`100svh` carefully for browser chrome changes.
 
@@ -150,6 +151,17 @@ Behavior:
 - otherwise uses slide number and `navLabel`
 - never renders slide contents
 
+### Mobile Tap Navigation
+
+Single responsibility: let the main slide area behave like a deck on touch devices without rendering extra neighboring slides.
+
+Behavior:
+
+- left edge tap moves to the previous step or slide
+- right edge tap advances to the next step or slide
+- center area remains open for slide content interaction
+- bottom rail remains independently scrollable and tappable
+
 ### `DeckVideo`
 
 Single responsibility: safe video lifecycle.
@@ -184,6 +196,7 @@ Goal: stop mobile crashes first.
 - Do not render `SlideIndexPanel` on mobile.
 - Do not render `DeckInspectorPanel` on mobile.
 - Add `MobileSlideRail` using text-only tiles first.
+- Add left/right tap-zone navigation on the main mobile deck area.
 - Keep the fixed `1920x1080` stage scaled inside the available viewport.
 
 Acceptance criteria:
@@ -191,6 +204,7 @@ Acceptance criteria:
 - On mobile viewport, only one `.presentation-stage` exists.
 - On mobile viewport, no `.slide-index__thumbnail-canvas` exists.
 - On mobile viewport, the current slide can be changed from the bottom rail.
+- On mobile viewport, left/right edge taps change the current step or slide.
 - Build and lint pass.
 
 ### Phase 2: Static Slide Snapshots
@@ -198,6 +212,7 @@ Acceptance criteria:
 Goal: make navigation visual without live slide rendering.
 
 - Add `thumbnail` metadata to high-priority slides.
+- Reuse existing poster or representative media first where it already exists.
 - Generate compressed `webp` or `jpg` snapshots.
 - Use lazy images in `MobileSlideRail`.
 - Optionally update desktop `SlideIndexPanel` to use thumbnails instead of live renders.
@@ -207,6 +222,7 @@ Acceptance criteria:
 - Slide navigation never calls `slide.render`.
 - Mobile rail images load lazily.
 - Missing thumbnails degrade to text labels.
+- Desktop sidebar uses static thumbnails when a slide has thumbnail metadata.
 
 ### Phase 3: Media Lifecycle
 
@@ -218,23 +234,26 @@ Goal: reduce video and image decode pressure.
 - Add posters to every video slide.
 - Prefer MP4-safe playback for iOS Safari.
 - Add `preload` explicitly.
+- Render a poster image instead of a video when a video slide is reached through thumbnail rendering.
 
 Acceptance criteria:
 
 - Mobile has at most one active video element for the current slide.
 - Non-current slides do not load video sources.
 - Video slides show posters before playback.
+- Video components use consistent `muted`, `playsInline`, `loop`, and `preload` defaults.
 
-### Phase 4: Asset Compression
+### Phase 4: Asset Loading Without Quality Loss
 
-Goal: reduce per-slide memory and network cost.
+Goal: reduce unnecessary mobile work without lowering the visual quality of primary portfolio slides.
 
-- Convert large PNGs to WebP/AVIF where transparency is not required.
-- Keep original source files only if they are actively needed.
-- Create smaller mobile-friendly variants for large photographic assets.
-- Audit any media file above `2MB`.
+- Keep primary slide imagery at original/highest available resolution.
+- Do not replace on-slide portfolio images with lower-quality compressed variants by default.
+- Use lightweight assets only for navigation thumbnails, posters, and non-primary preview surfaces.
+- Audit any media file above `2MB` for loading behavior, not automatic quality reduction.
+- Prefer structural savings first: fewer mounted slides, no live thumbnail trees, no non-current videos.
 
-Priority candidates:
+Review candidates:
 
 - `public/media/clp-topic-left-3x.png`
 - `public/media/clp-topic-root-3x.png`
@@ -244,8 +263,9 @@ Priority candidates:
 
 Acceptance criteria:
 
-- Current slide media should ideally stay below `3-5MB`.
-- Large static PNGs should be replaced with compressed formats unless quality requires PNG.
+- Primary slide images remain visually high-resolution on both mobile and desktop.
+- Mobile still mounts only the active slide and lightweight navigation.
+- Any lower-quality derivative asset must be limited to thumbnails/posters or explicitly approved.
 
 ### Phase 5: Bundle Splitting
 
@@ -285,7 +305,7 @@ Initial mobile target:
 Asset budget:
 
 - video demo target: under `5MB` per short loop, lower if possible
-- static image target: under `1MB` for most slide assets
+- primary slide image target: highest available quality; optimize loading behavior before quality
 - thumbnail target: under `150KB` each
 
 Bundle budget:

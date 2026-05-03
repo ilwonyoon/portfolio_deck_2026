@@ -1,3 +1,5 @@
+import { DeckVideo } from '../components/DeckVideo'
+
 export function CreatorOnboardingSlide() {
   return (
     <article
@@ -9,17 +11,13 @@ export function CreatorOnboardingSlide() {
         aria-hidden="true"
       />
 
-      <video
-        autoPlay
+      <DeckVideo
         aria-hidden="true"
         className="creator-onboarding-slide__phone"
-        loop
-        muted
-        playsInline
-      >
-        <source src="/media/creator-onboarding/onboarding.webm" type="video/webm" />
-        <source src="/media/creator-onboarding/onboarding.mp4" type="video/mp4" />
-      </video>
+        mp4="/media/creator-onboarding/onboarding.mp4"
+        poster="/media/creator-onboarding/phone.png"
+        webm="/media/creator-onboarding/onboarding.webm"
+      />
 
       <h2 className="creator-onboarding-slide__headline">
         Creator onboarding

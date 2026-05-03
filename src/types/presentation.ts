@@ -15,5 +15,9 @@ export type SlideDefinition = {
   navLabel: string
   steps: number
   stepDisplay?: 'dots' | 'none'
+  thumbnail?: {
+    src: string
+    alt?: string
+  }
   render: (context: SlideRenderContext) => ReactNode
 }

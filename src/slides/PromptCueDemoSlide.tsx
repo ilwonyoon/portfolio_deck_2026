@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 const DEMOS = [
   {
@@ -76,18 +77,13 @@ export function PromptCueDemoSlide() {
       </section>
 
       <section className="promptcue-demo-slide__stage" aria-label={activeDemo.title}>
-        <video
-          autoPlay
+        <DeckVideo
           className="promptcue-demo-slide__video"
           key={activeDemo.video}
-          loop
-          muted
-          playsInline
+          mp4={activeDemo.video}
           poster={activeDemo.poster}
           ref={videoRef}
-        >
-          <source src={activeDemo.video} type="video/mp4" />
-        </video>
+        />
       </section>
     </article>
   )

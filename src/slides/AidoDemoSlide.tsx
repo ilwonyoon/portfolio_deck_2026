@@ -1,4 +1,5 @@
 import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 export function AidoDemoSlide() {
   return (
@@ -29,17 +30,12 @@ export function AidoDemoSlide() {
       </section>
 
       <section className="aido-demo-slide__stage" aria-label="AIDO demo video">
-        <video
-          autoPlay
+        <DeckVideo
           className="aido-demo-slide__video"
-          loop
-          muted
-          playsInline
+          mp4="/media/aido/aido.mp4"
           poster="/media/aido/aido-poster.jpg"
-        >
-          <source src="/media/aido/aido.webm" type="video/webm" />
-          <source src="/media/aido/aido.mp4" type="video/mp4" />
-        </video>
+          webm="/media/aido/aido.webm"
+        />
       </section>
     </article>
   )

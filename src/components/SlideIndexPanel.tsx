@@ -190,17 +190,31 @@ export function SlideIndexPanel({
                 >
                   <span className="slide-index__number">{formattedIndex}</span>
 
-                  <SlideThumbnail>
-                    {slide.render({
-                      advanceStep: () => undefined,
-                      advanceSlide: () => undefined,
-                      autoPlay: false,
-                      isThumbnail: true,
-                      step: 0,
-                      slideIndex: index,
-                      totalSlides: slides.length,
-                    })}
-                  </SlideThumbnail>
+                  {slide.thumbnail ? (
+                    <div aria-hidden="true" className="slide-index__thumbnail">
+                      <div className="slide-index__thumbnail-frame">
+                        <img
+                          alt=""
+                          className="slide-index__thumbnail-image"
+                          decoding="async"
+                          loading="lazy"
+                          src={slide.thumbnail.src}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <SlideThumbnail>
+                      {slide.render({
+                        advanceStep: () => undefined,
+                        advanceSlide: () => undefined,
+                        autoPlay: false,
+                        isThumbnail: true,
+                        step: 0,
+                        slideIndex: index,
+                        totalSlides: slides.length,
+                      })}
+                    </SlideThumbnail>
+                  )}
                 </div>
 
                 {editingEnabled ? (
