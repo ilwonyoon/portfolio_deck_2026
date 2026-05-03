@@ -359,9 +359,10 @@ h3 {
 }
 
 .editor-shell--mobile {
+  --mobile-letterbox-background: #070707;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr) auto;
-  background: var(--surface);
+  background: var(--mobile-letterbox-background);
 }
 
 /* =========================================================
@@ -407,14 +408,14 @@ h3 {
 }
 
 .editor-shell--mobile .editor-workspace {
-  background: var(--surface);
+  background: var(--mobile-letterbox-background);
   touch-action: pan-y;
   overscroll-behavior: none;
 }
 
 .editor-shell--mobile .presentation-viewport,
 .editor-shell--mobile .presentation-stage-frame {
-  background: var(--surface);
+  background: var(--mobile-letterbox-background);
 }
 
 .editor-workspace::before {
