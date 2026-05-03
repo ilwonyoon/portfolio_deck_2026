@@ -361,6 +361,7 @@ h3 {
 .editor-shell--mobile {
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr) auto;
+  background: var(--surface);
 }
 
 /* =========================================================
@@ -406,8 +407,14 @@ h3 {
 }
 
 .editor-shell--mobile .editor-workspace {
+  background: var(--surface);
   touch-action: pan-y;
   overscroll-behavior: none;
+}
+
+.editor-shell--mobile .presentation-viewport,
+.editor-shell--mobile .presentation-stage-frame {
+  background: var(--surface);
 }
 
 .editor-workspace::before {
