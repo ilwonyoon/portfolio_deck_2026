@@ -76,6 +76,7 @@ import { PersonalizedFeedIntroSlide } from './PersonalizedFeedIntroSlide'
 import { PosterProfileSlide } from './PosterProfileSlide'
 import { PromptCueDemoSlide } from './PromptCueDemoSlide'
 import { PatternTemplateSlide } from './PatternTemplateSlide'
+import { PdpPlaceItSlide } from './PdpPlaceItSlide'
 import { ProfileStatementSlideV2 } from './ProfileStatementSlideV2'
 import { ProjectIntroSlide } from './ProjectIntroSlide'
 import { RoomPlannerProofSlide } from './RoomPlannerProofSlide'
@@ -86,6 +87,7 @@ import { SideProjectsIntroSlide } from './SideProjectsIntroSlide'
 import { SpaceAiResultsSlide } from './SpaceAiResultsSlide'
 import { SpaceAiRoleSlide } from './SpaceAiRoleSlide'
 import { TbdSideTitleSlide } from './TbdSideTitleSlide'
+import { TryRoomProDesignsSlide } from './TryRoomProDesignsSlide'
 import { WinningStatementSlide } from './WinningStatementSlide'
 import { TileEntranceStudySlide } from './TileEntranceStudySlide'
 import { deckManifest } from './deckManifest'
@@ -118,6 +120,8 @@ const slideThumbnails: Record<string, string> = {
   'community-story-3': '/media/community-story/screen-05.png',
   'mix-or-mismatch': '/media/mix-or-mismatch/dining-room.png',
   'room-planner-proof': '/media/room-planner-proof/planner-phone.png',
+  'tbd-side-title-3': '/media/pdp-place-it/poster.png',
+  'tbd-side-title-4': '/media/try-room-pro-designs/poster.png',
 }
 
 function renderIntroHeroSlide() {
@@ -323,15 +327,15 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   },
   'tbd-side-title-3': {
     id: 'tbd-side-title-3',
-    navLabel: 'TBD 3',
+    navLabel: 'Try in your room',
     steps: 1,
-    render: () => <TbdSideTitleSlide />,
+    render: () => <PdpPlaceItSlide />,
   },
   'tbd-side-title-4': {
     id: 'tbd-side-title-4',
-    navLabel: 'TBD 4',
+    navLabel: 'Pro designs',
     steps: 1,
-    render: () => <TbdSideTitleSlide />,
+    render: () => <TryRoomProDesignsSlide />,
   },
   'mix-or-mismatch': {
     id: 'mix-or-mismatch',

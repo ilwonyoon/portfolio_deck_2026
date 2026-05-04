@@ -14,20 +14,32 @@ export function RoomPlannerProofSlide() {
       </section>
 
       <section className="room-planner-proof-slide__images" aria-label="Room Planner proof screens">
-        <img
-          alt="Room Planner interface showing a 3D room with product controls"
+        <video
+          autoPlay
           className="room-planner-proof-slide__image room-planner-proof-slide__image--planner"
           data-node-id="6460:61684"
-          draggable={false}
-          src="/media/room-planner-proof/planner-phone.png"
-        />
-        <img
-          alt="Room Planner explore feed showing a 3D room post"
+          loop
+          muted
+          playsInline
+          poster="/media/room-planner-proof/planner-phone.png"
+          preload="metadata"
+        >
+          <source src="/media/room-planner-proof/planner-phone.webm" type="video/webm" />
+          <source src="/media/room-planner-proof/planner-phone.mp4" type="video/mp4" />
+        </video>
+        <video
+          autoPlay
           className="room-planner-proof-slide__image room-planner-proof-slide__image--explore"
           data-node-id="6460:63446"
-          draggable={false}
-          src="/media/room-planner-proof/explore-phone.png"
-        />
+          loop
+          muted
+          playsInline
+          poster="/media/room-planner-proof/explore-phone.png"
+          preload="metadata"
+        >
+          <source src="/media/room-planner-proof/explore-phone.webm" type="video/webm" />
+          <source src="/media/room-planner-proof/explore-phone.mp4" type="video/mp4" />
+        </video>
       </section>
     </article>
   )

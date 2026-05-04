@@ -24,7 +24,14 @@ export function SaveBackDemoSlide() {
             </p>
           </div>
         </ContextDrawer>
-        <p className="saveback-demo-slide__link">Available on App Store</p>
+        <a
+          className="saveback-demo-slide__link"
+          href="https://apps.apple.com/us/app/saveback/id6764758294"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Available on App Store
+        </a>
       </section>
 
       <section

@@ -10359,6 +10359,80 @@ h3 {
 }
 
 /* =========================================================
+   PDP place it — phone video, aligned to creator video pattern
+   ========================================================= */
+.pdp-place-it-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+}
+
+.pdp-place-it-slide__phone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 375px;
+  height: 812px;
+  transform: translate(-50%, -50%);
+  border-radius: 40px;
+  object-fit: cover;
+}
+
+.pdp-place-it-slide__headline {
+  position: absolute;
+  top: calc(41.67% + 64.5px);
+  left: calc(8.33% + 2px);
+  width: 465px;
+  margin: 0;
+  transform: translateY(-50%);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
+}
+
+/* =========================================================
+   Try in your room — pro designs
+   ========================================================= */
+.try-room-pro-designs-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+}
+
+.try-room-pro-designs-slide__phone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 375px;
+  height: 812px;
+  transform: translate(-50%, -50%);
+  border-radius: 40px;
+  object-fit: cover;
+}
+
+.try-room-pro-designs-slide__headline {
+  position: absolute;
+  top: calc(41.67% + 64.5px);
+  left: calc(8.33% + 2px);
+  width: 465px;
+  margin: 0;
+  transform: translateY(-50%);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.1px;
+}
+
+/* =========================================================
    Ohouse AI role shift — Figma node 6596:56291
    ========================================================= */
 .ohouse-ai-role-shift-slide {
