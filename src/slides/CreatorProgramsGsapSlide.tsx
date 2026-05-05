@@ -1,5 +1,3 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 const PROGRAMS = [
   { label: 'Content Monetization', src: '/media/creator-programs/program-01.png' },
   { label: 'Ohouse Pro Review', src: '/media/creator-programs/program-02.png' },
@@ -14,8 +12,6 @@ export function CreatorProgramsGsapSlide() {
       data-node-id="6350:134807"
       style={{ position: 'relative', width: '100%', height: '100%', background: '#000' }}
     >
-      <ProposalBadge label="Proposal · static" />
-
       {/* Far card — dim 0.8 */}
       <div
         style={{

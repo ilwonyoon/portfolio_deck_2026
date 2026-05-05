@@ -106,7 +106,13 @@ export function SlideIndexPanel({
       <div className="editor-sidebar__header">
         <div>
           <p className="editor-sidebar__title">
-            <span>ilwonyoon portfolio</span>
+            <img
+              alt=""
+              aria-hidden="true"
+              className="editor-sidebar__site-icon"
+              src="/favicon.png"
+            />
+            <span>ilwonyoon.com</span>
           </p>
           <span className="editor-sidebar__subtitle">{slides.length} frames</span>
         </div>

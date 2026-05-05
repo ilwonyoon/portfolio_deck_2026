@@ -1,10 +1,8 @@
 import { DeckMetaFrame } from '../components/DeckMetaFrame'
-import { ProposalBadge } from '../components/ProposalBadge'
 
 export function ProfileStatementSlideV2() {
   return (
     <article className="profile-statement-slide profile-statement-slide--v2">
-      <ProposalBadge />
       <DeckMetaFrame
         bottomLeft="2026"
         bottomRight="Product Design · AI-native Execution"

@@ -1,5 +1,3 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 const CONTENT_CHALLENGES = [
   {
     body: 'Ranked by popularity, not relevance.',
@@ -18,8 +16,6 @@ const CONTENT_CHALLENGES = [
 export function OhouseContentStatementSlideV2() {
   return (
     <article className="ohouse-content-statement-slide ohouse-content-statement-slide--v2">
-      <ProposalBadge />
-
       <div className="ohouse-content-statement-slide__grid">
         <div className="ohouse-content-statement-slide__thesis-block">
           <h2 className="ohouse-content-statement-slide__thesis">

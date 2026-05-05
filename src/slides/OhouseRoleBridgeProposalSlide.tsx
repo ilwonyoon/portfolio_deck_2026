@@ -1,13 +1,6 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 export function OhouseRoleBridgeProposalSlide() {
   return (
     <article className="ohouse-role-bridge-proposal-slide">
-      <ProposalBadge
-        className="proposal-badge--visible"
-        label="Option · Role bridge"
-      />
-
       <div className="ohouse-role-bridge-proposal-slide__grid">
         <p className="ohouse-role-bridge-proposal-slide__label">My Role</p>
 

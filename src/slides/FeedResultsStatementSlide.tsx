@@ -1,5 +1,3 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 const RESULTS = [
   {
     label: 'Win',
@@ -21,8 +19,6 @@ const RESULTS = [
 export function FeedResultsStatementSlide() {
   return (
     <article className="ohouse-content-statement-slide ohouse-content-statement-slide--results">
-      <ProposalBadge label="Option · statement" />
-
       <div className="ohouse-content-statement-slide__grid">
         <div className="ohouse-content-statement-slide__thesis-block">
           <p className="ohouse-content-statement-slide__eyebrow">Results</p>

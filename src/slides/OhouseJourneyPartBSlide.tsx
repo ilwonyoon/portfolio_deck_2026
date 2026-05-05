@@ -1,5 +1,3 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 const JOURNEY_ROWS = [
   { label: 'Real estate' },
   { label: 'Remodeling' },
@@ -10,8 +8,6 @@ const JOURNEY_ROWS = [
 export function OhouseJourneyPartBSlide() {
   return (
     <article className="ohouse-journey-slide ohouse-journey-slide--part-b">
-      <ProposalBadge />
-
       <div className="ohouse-journey-slide__copy ohouse-journey-slide__copy--part-b">
         <p className="ohouse-journey-slide__copy-block ohouse-journey-slide__copy-block--emphasis">
           <span>So we went back to what we do best.</span>

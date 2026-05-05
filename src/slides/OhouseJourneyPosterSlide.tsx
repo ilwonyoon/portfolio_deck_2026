@@ -1,4 +1,4 @@
-import { ProposalBadge } from '../components/ProposalBadge'
+import { StepTextTransition } from '../components/StepTextTransition'
 
 type OhouseJourneyPosterSlideProps = {
   step: number
@@ -35,34 +35,20 @@ export function OhouseJourneyPosterSlide({
   step,
 }: OhouseJourneyPosterSlideProps) {
   const focusMode = step >= 1 ? 'move' : 'expansion'
+  const copy =
+    focusMode === 'move'
+      ? 'So we went back to what we do best. Content\naround the move.'
+      : "In 2023, tried expanding the journey — before\nand after the move. Real estate, remodeling,\nlifestyle, and more.\n\nRevenue kept growing, losses narrowed. MAU\nstalled. Most importantly, JTBD didn't shift."
 
   return (
     <article className="ohouse-journey-poster-slide" data-focus-mode={focusMode}>
-      <ProposalBadge label="Option · Image poster" />
-
-      <div className="ohouse-journey-poster-slide__copy">
-        <p
-          className="ohouse-journey-poster-slide__copy-block"
-          data-active={focusMode === 'expansion'}
-        >
-          In 2023, tried expanding the journey — before and after the move. Real
-          estate, remodeling, lifestyle, and more.
-        </p>
-
-        <p
-          className="ohouse-journey-poster-slide__copy-block"
-          data-active={focusMode === 'expansion'}
-        >
-          Revenue kept growing, losses narrowed. MAU stalled. Most importantly,
-          JTBD didn&apos;t shift.
-        </p>
-
-        <p
-          className="ohouse-journey-poster-slide__copy-block"
-          data-active={focusMode === 'move'}
-        >
-          So we went back to what we do best. Content around the move.
-        </p>
+      <div className="ohouse-journey-poster-slide__copy-anchor">
+        <StepTextTransition
+          animateOnMount={false}
+          className="ohouse-journey-poster-slide__copy"
+          text={copy}
+          variant="crossfade"
+        />
       </div>
 
       <section

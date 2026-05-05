@@ -1,10 +1,8 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 const sections = [
   'Introduction',
-  'Ohouse · Inspiration 2.0',
+  'Ohouse · Content 2.0',
   'Ohouse · AI transformation',
-  'Side Projects',
+  'User centric as a system',
 ] as const
 
 type SectionIndexSlideV2Props = {
@@ -17,7 +15,6 @@ export function SectionIndexSlideV2({
 }: SectionIndexSlideV2Props) {
   return (
     <article className="section-index-slide section-index-slide--v2">
-      <ProposalBadge />
       <header className="section-index-slide__header">
         <span>Portfolio</span>
         <span>Ilwon Yoon</span>

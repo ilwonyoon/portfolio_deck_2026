@@ -85,6 +85,7 @@ import { SectionIndexSlide } from './SectionIndexSlide'
 import { SectionIndexSlideV2 } from './SectionIndexSlideV2'
 import { SideProjectsIntroSlide } from './SideProjectsIntroSlide'
 import { SpaceAiResultsSlide } from './SpaceAiResultsSlide'
+import { SpaceAiLearningSlide } from './SpaceAiLearningSlide'
 import { SpaceAiRoleSlide } from './SpaceAiRoleSlide'
 import { TbdSideTitleSlide } from './TbdSideTitleSlide'
 import { TryRoomProDesignsSlide } from './TryRoomProDesignsSlide'
@@ -312,6 +313,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Space AI Results',
     steps: 1,
     render: () => <SpaceAiResultsSlide />,
+  },
+  'space-ai-learning': {
+    id: 'space-ai-learning',
+    navLabel: 'Space AI Learning',
+    steps: 1,
+    render: () => <SpaceAiLearningSlide />,
   },
   'tbd-side-title-1': {
     id: 'tbd-side-title-1',

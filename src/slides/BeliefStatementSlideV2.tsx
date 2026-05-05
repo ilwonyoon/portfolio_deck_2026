@@ -1,4 +1,3 @@
-import { ProposalBadge } from '../components/ProposalBadge'
 import { StepTextTransition } from '../components/StepTextTransition'
 import type { SlideRenderContext } from '../types/presentation'
 
@@ -17,7 +16,6 @@ export function BeliefStatementSlideV2({
 
   return (
     <article className="belief-statement-slide belief-statement-slide--v2">
-      <ProposalBadge />
       <div className="belief-statement-slide__copy">
         <p className="belief-statement-slide__eyebrow">I believe</p>
         <StepTextTransition

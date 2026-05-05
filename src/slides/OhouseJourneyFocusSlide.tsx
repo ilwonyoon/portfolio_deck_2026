@@ -1,5 +1,3 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 type OhouseJourneyFocusSlideProps = {
   step: number
 }
@@ -16,8 +14,6 @@ export function OhouseJourneyFocusSlide({ step }: OhouseJourneyFocusSlideProps) 
 
   return (
     <article className="ohouse-journey-focus-slide" data-focus-mode={focusMode}>
-      <ProposalBadge label="Option · 2-step" />
-
       <div className="ohouse-journey-focus-slide__copy">
         <p
           className="ohouse-journey-focus-slide__copy-block"

@@ -1,10 +1,6 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 export function OhouseRoleSlideV2() {
   return (
     <article className="ohouse-role-slide">
-      <ProposalBadge />
-
       <header className="ohouse-role-slide__header">
         <span className="ohouse-role-slide__header-brand">Ilwon Yoon</span>
         <span className="ohouse-role-slide__header-context">Case Study 02</span>

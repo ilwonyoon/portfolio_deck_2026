@@ -2,8 +2,8 @@ const SPACE_AI_RESULTS = [
   {
     title: 'Faster decisions.',
     body: [
-      '30% of AI users bought same day.',
-      'Platform average: 8 days.',
+      'Avg. time to purchase: 8d → 4.6d.',
+      'Strongest for movable furniture.',
     ],
   },
   {
@@ -14,10 +14,10 @@ const SPACE_AI_RESULTS = [
     ],
   },
   {
-    title: "One thing we didn't expect.",
+    title: 'Remaining blocker.',
     body: [
-      "Drop-off wasn't the wait.",
-      'It was the photo upload — privacy.',
+      'Accuracy still limited confidence.',
+      'Scale and fit needed stronger product grounding.',
     ],
   },
 ] as const
@@ -30,6 +30,7 @@ export function SpaceAiResultsSlide() {
           <p className="ohouse-content-statement-slide__eyebrow">Results</p>
           <h2 className="ohouse-content-statement-slide__thesis">
             <span>Two strong signals.</span>
+            <span>One remaining blocker.</span>
           </h2>
         </div>
 

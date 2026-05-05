@@ -1,4 +1,9 @@
-const sections = ['Introduction', 'Ohouse · Inspiration 2.0', 'Ohouse · AI transformation', 'Side Projects'] as const
+const sections = [
+  'Introduction',
+  'Ohouse · Content 2.0',
+  'Ohouse · AI transformation',
+  'User centric as a system',
+] as const
 
 type SectionIndexSlideProps = {
   activeIndex?: number

@@ -1,9 +1,6 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 export function OhouseConfidenceSlideV2() {
   return (
     <article className="ohouse-confidence-slide">
-      <ProposalBadge />
       <div className="ohouse-confidence-slide__copy">
         <p>
           Content shows how products look in real homes —{' '}

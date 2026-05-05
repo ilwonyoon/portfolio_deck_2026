@@ -1,10 +1,6 @@
-import { ProposalBadge } from '../components/ProposalBadge'
-
 export function OhouseJourneyPartASlide() {
   return (
     <article className="ohouse-journey-slide ohouse-journey-slide--part-a">
-      <ProposalBadge />
-
       <div className="ohouse-journey-slide__copy ohouse-journey-slide__copy--part-a">
         <p className="ohouse-journey-slide__copy-block">
           <span>In 2023, tried expanding the journey —</span>

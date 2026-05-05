@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 
-import { ProposalBadge } from '../components/ProposalBadge'
 import { StepTextTransition } from '../components/StepTextTransition'
 
 type PersonaMetric = {
@@ -182,7 +181,6 @@ export function OhousePersonaSlideV2({ step }: { step: number }) {
       className="ohouse-persona-slide ohouse-persona-slide--v2"
       data-persona-step={step === 0 ? 'overview' : 'focus'}
     >
-      <ProposalBadge />
       <StepTextTransition
         animateOnMount
         className="ohouse-persona-slide__copy"

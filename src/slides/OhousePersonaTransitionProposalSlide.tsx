@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import type { CSSProperties } from 'react'
 
-import { ProposalBadge } from '../components/ProposalBadge'
+import { StepTextTransition } from '../components/StepTextTransition'
 
 type PersonaMetric = {
   label: string
@@ -153,24 +153,6 @@ function PersonaMetricGroup({ metrics }: { metrics: PersonaMetric[] }) {
   )
 }
 
-function MinimalStepCopy({ text }: { text: string }) {
-  return (
-    <div className="ohouse-persona-transition__copy">
-      <AnimatePresence initial={false} mode="wait">
-        <motion.p
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-          key={text}
-          transition={{ duration: 0.14, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {text}
-        </motion.p>
-      </AnimatePresence>
-    </div>
-  )
-}
-
 export function OhousePersonaTransitionProposalSlide({
   step,
 }: {
@@ -193,12 +175,12 @@ export function OhousePersonaTransitionProposalSlide({
       className="ohouse-persona-transition"
       data-persona-mode={focusCard ? 'focus' : 'overview'}
     >
-      <ProposalBadge
-        className="proposal-badge--visible"
-        label="Option · Persona rhythm"
+      <StepTextTransition
+        animateOnMount
+        className="ohouse-persona-transition__copy"
+        text={currentStep.copy}
+        variant="crossfade"
       />
-
-      <MinimalStepCopy text={currentStep.copy} />
 
       <div className="ohouse-persona-transition__table">
         <AnimatePresence>
