@@ -47,6 +47,14 @@ import { ContentStyleTransferSlide } from './ContentStyleTransferSlide'
 import { CreatorEconomyResultsSlide } from './CreatorEconomyResultsSlide'
 import { CreatorEconomyCombinedSlide } from './CreatorEconomyCombinedSlide'
 import { Cs02CloseSlide } from './Cs02CloseSlide'
+import { Cs03OhouseIntroSlide } from './Cs03OhouseIntroSlide'
+import { OmakersDemoSlide } from './OmakersDemoSlide'
+import { PersonaInsideOutSlide } from './PersonaInsideOutSlide'
+import { MaximizeBrandSlide } from './MaximizeBrandSlide'
+import { MaximizeEngineeringSlide } from './MaximizeEngineeringSlide'
+import { MaximizeProductSlide } from './MaximizeProductSlide'
+import { Cs03ReflectionSlide } from './Cs03ReflectionSlide'
+import { Cs03EndSlide } from './Cs03EndSlide'
 import { ContentGrowthSlide } from './ContentGrowthSlide'
 import { CreatorDashboardSlide } from './CreatorDashboardSlide'
 import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
@@ -412,7 +420,51 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     id: 'cs03-bridge',
     navLabel: 'CS03 Bridge',
     steps: 1,
-    render: () => <UserCentricBridgeSlide />,
+    render: ({ isThumbnail }) => (
+      <UserCentricBridgeSlide isThumbnail={isThumbnail} />
+    ),
+  },
+  'cs03-omakers': {
+    id: 'cs03-omakers',
+    navLabel: 'O!Makers',
+    steps: 1,
+    render: () => <OmakersDemoSlide />,
+  },
+  'cs03-persona-insideout': {
+    id: 'cs03-persona-insideout',
+    navLabel: 'Inside Out Persona',
+    steps: 1,
+    render: () => <PersonaInsideOutSlide />,
+  },
+  'cs03-maximize-brand': {
+    id: 'cs03-maximize-brand',
+    navLabel: 'Maximize · Brand',
+    steps: 1,
+    render: () => <MaximizeBrandSlide />,
+  },
+  'cs03-maximize-engineering': {
+    id: 'cs03-maximize-engineering',
+    navLabel: 'Maximize · Engineering',
+    steps: 1,
+    render: () => <MaximizeEngineeringSlide />,
+  },
+  'cs03-maximize-product': {
+    id: 'cs03-maximize-product',
+    navLabel: 'Maximize · Product',
+    steps: 1,
+    render: () => <MaximizeProductSlide />,
+  },
+  'cs03-reflection': {
+    id: 'cs03-reflection',
+    navLabel: 'Reflection',
+    steps: 1,
+    render: () => <Cs03ReflectionSlide />,
+  },
+  'cs03-end': {
+    id: 'cs03-end',
+    navLabel: 'End',
+    steps: 1,
+    render: () => <Cs03EndSlide />,
   },
   'user-centric-system-requirements': {
     id: 'user-centric-system-requirements',
@@ -504,6 +556,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Ohouse Intro',
     steps: 2,
     render: ({ step }) => <OhouseIntroSlide step={step} />,
+  },
+  'cs03-ohouse-intro': {
+    id: 'cs03-ohouse-intro',
+    navLabel: 'Ohouse Vision Now',
+    steps: 3,
+    render: ({ step }) => <Cs03OhouseIntroSlide step={step} />,
   },
   'case-study-02c': {
     id: 'case-study-02c',
