@@ -55,6 +55,7 @@ import { MaximizeEngineeringSlide } from './MaximizeEngineeringSlide'
 import { MaximizeProductSlide } from './MaximizeProductSlide'
 import { Cs03ReflectionSlide } from './Cs03ReflectionSlide'
 import { Cs03EndSlide } from './Cs03EndSlide'
+import { PatternTestSlide } from './PatternTestSlide'
 import { ContentGrowthSlide } from './ContentGrowthSlide'
 import { CreatorDashboardSlide } from './CreatorDashboardSlide'
 import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
@@ -185,6 +186,42 @@ function renderEmptySlide(
 }
 
 export const slideRegistry: Record<string, SlideDefinition> = {
+  'pattern-test-a': {
+    id: 'pattern-test-a',
+    navLabel: 'Pattern A · Aurora grain',
+    steps: 1,
+    render: () => (
+      <PatternTestSlide
+        variant="a"
+        label="Aurora grain."
+        caption="Soft blob + faded squares + film grain — three layers."
+      />
+    ),
+  },
+  'pattern-test-d': {
+    id: 'pattern-test-d',
+    navLabel: 'Pattern D · Spotlight',
+    steps: 1,
+    render: () => (
+      <PatternTestSlide
+        variant="d"
+        label="Spotlight blob."
+        caption="Off-center radial light + dot grid + grain."
+      />
+    ),
+  },
+  'pattern-test-e': {
+    id: 'pattern-test-e',
+    navLabel: 'Pattern E · Quiet grid',
+    steps: 1,
+    render: () => (
+      <PatternTestSlide
+        variant="e"
+        label="Quiet grid."
+        caption="Dot grid + diagonal blob shadow + grain."
+      />
+    ),
+  },
   intro: {
     id: 'intro',
     navLabel: 'Intro',
