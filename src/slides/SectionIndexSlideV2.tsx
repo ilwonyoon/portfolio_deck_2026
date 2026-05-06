@@ -2,7 +2,7 @@ const sections = [
   'Introduction',
   'Ohouse · Content 2.0',
   'Ohouse · AI transformation',
-  'User centric as a system',
+  'Work like AI native',
 ] as const
 
 type SectionIndexSlideV2Props = {

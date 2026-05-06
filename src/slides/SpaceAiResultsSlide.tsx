@@ -14,10 +14,10 @@ const SPACE_AI_RESULTS = [
     ],
   },
   {
-    title: 'Remaining blocker.',
+    title: 'Also launched in the US.',
     body: [
-      'Accuracy still limited confidence.',
-      'Scale and fit needed stronger product grounding.',
+      'Standalone app. Subscription + affiliate.',
+      'Early signal: 6–8% subscription conversion.',
     ],
   },
 ] as const
@@ -29,8 +29,8 @@ export function SpaceAiResultsSlide() {
         <div className="ohouse-content-statement-slide__thesis-block">
           <p className="ohouse-content-statement-slide__eyebrow">Results</p>
           <h2 className="ohouse-content-statement-slide__thesis">
-            <span>Two strong signals.</span>
-            <span>One remaining blocker.</span>
+            <span>Visualization proven.</span>
+            <span>New business model explored.</span>
           </h2>
         </div>
 

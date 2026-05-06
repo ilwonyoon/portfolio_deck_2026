@@ -21,6 +21,7 @@ import { OhouseContentStatementSlideV2 } from './OhouseContentStatementSlideV2'
 import { OhouseBrowseMotionSlide } from './OhouseBrowseMotionSlide'
 import { OhouseAiVisionSlide } from './OhouseAiVisionSlide'
 import { OhouseAiTransitionSlide } from './OhouseAiTransitionSlide'
+import { OhouseAiUsStandaloneSlide } from './OhouseAiUsStandaloneSlide'
 import { OhouseAiRoleShiftSlide } from './OhouseAiRoleShiftSlide'
 import { OhouseCs01ClosingSlide } from './OhouseCs01ClosingSlide'
 import { OhouseContentSlide } from './OhouseContentSlide'
@@ -42,8 +43,10 @@ import { OhouseRoleSlideV2 } from './OhouseRoleSlideV2'
 import { OhouseSlide } from './OhouseSlide'
 import { ContributionStoryMonoSlide } from './ContributionStoryMonoSlide'
 import { CommunityCombinedSlide } from './CommunityCombinedSlide'
+import { ContentStyleTransferSlide } from './ContentStyleTransferSlide'
 import { CreatorEconomyResultsSlide } from './CreatorEconomyResultsSlide'
 import { CreatorEconomyCombinedSlide } from './CreatorEconomyCombinedSlide'
+import { Cs02CloseSlide } from './Cs02CloseSlide'
 import { ContentGrowthSlide } from './ContentGrowthSlide'
 import { CreatorDashboardSlide } from './CreatorDashboardSlide'
 import { CreatorOnboardingSlide } from './CreatorOnboardingSlide'
@@ -89,8 +92,15 @@ import { SpaceAiLearningSlide } from './SpaceAiLearningSlide'
 import { SpaceAiRoleSlide } from './SpaceAiRoleSlide'
 import { TbdSideTitleSlide } from './TbdSideTitleSlide'
 import { TryRoomProDesignsSlide } from './TryRoomProDesignsSlide'
+import { TryRoomOverviewSlide } from './TryRoomOverviewSlide'
 import { WinningStatementSlide } from './WinningStatementSlide'
 import { TileEntranceStudySlide } from './TileEntranceStudySlide'
+import { UserCentricBridgeSlide } from './UserCentricBridgeSlide'
+import { UserCentricCloseSlide } from './UserCentricCloseSlide'
+import { UserCentricPersonaSlide } from './UserCentricPersonaSlide'
+import { UserCentricProblemSlide } from './UserCentricProblemSlide'
+import { UserCentricSystemSlide } from './UserCentricSystemSlide'
+import { UserCentricSystemRequirementsSlide } from './UserCentricSystemRequirementsSlide'
 import { deckManifest } from './deckManifest'
 
 const slideThumbnails: Record<string, string> = {
@@ -116,6 +126,7 @@ const slideThumbnails: Record<string, string> = {
   'creator-dashboard': '/media/creator-dashboard/phone.png',
   'upload-experience': '/media/upload/upload-poster.jpg',
   'community-combined': '/media/community-story/screen-01.png',
+  'space-ai-community-combined': '/media/try-room-overview/products.png',
   'community-story': '/media/community-story/screen-01.png',
   'community-story-2': '/media/community-story/screen-03.png',
   'community-story-3': '/media/community-story/screen-05.png',
@@ -123,6 +134,7 @@ const slideThumbnails: Record<string, string> = {
   'room-planner-proof': '/media/room-planner-proof/planner-phone.png',
   'tbd-side-title-3': '/media/pdp-place-it/poster.png',
   'tbd-side-title-4': '/media/try-room-pro-designs/poster.png',
+  'content-style-transfer': '/media/content-style-transfer/poster.png',
 }
 
 function renderIntroHeroSlide() {
@@ -344,6 +356,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <TryRoomProDesignsSlide />,
   },
+  'content-style-transfer': {
+    id: 'content-style-transfer',
+    navLabel: 'Content style transfer',
+    steps: 1,
+    render: () => <ContentStyleTransferSlide />,
+  },
   'mix-or-mismatch': {
     id: 'mix-or-mismatch',
     navLabel: 'Mix or Mismatch',
@@ -377,6 +395,54 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     render: ({ isThumbnail }) => (
       <SectionIndexSlide activeIndex={3} isThumbnail={Boolean(isThumbnail)} />
     ),
+  },
+  'us-standalone': {
+    id: 'us-standalone',
+    navLabel: 'US Standalone',
+    steps: 1,
+    render: () => <OhouseAiUsStandaloneSlide />,
+  },
+  'cs02-close': {
+    id: 'cs02-close',
+    navLabel: 'CS02 Close',
+    steps: 1,
+    render: () => <Cs02CloseSlide />,
+  },
+  'cs03-bridge': {
+    id: 'cs03-bridge',
+    navLabel: 'CS03 Bridge',
+    steps: 1,
+    render: () => <UserCentricBridgeSlide />,
+  },
+  'user-centric-system-requirements': {
+    id: 'user-centric-system-requirements',
+    navLabel: 'System Requirements',
+    steps: 1,
+    render: () => <UserCentricSystemRequirementsSlide />,
+  },
+  'user-centric-problem': {
+    id: 'user-centric-problem',
+    navLabel: 'User Question',
+    steps: 1,
+    render: () => <UserCentricProblemSlide />,
+  },
+  'user-centric-system': {
+    id: 'user-centric-system',
+    navLabel: 'User System',
+    steps: 1,
+    render: () => <UserCentricSystemSlide />,
+  },
+  'user-centric-persona': {
+    id: 'user-centric-persona',
+    navLabel: 'Persona System',
+    steps: 1,
+    render: () => <UserCentricPersonaSlide />,
+  },
+  'user-centric-close': {
+    id: 'user-centric-close',
+    navLabel: 'User System Close',
+    steps: 1,
+    render: () => <UserCentricCloseSlide />,
   },
   'belief-statement-v2': {
     id: 'belief-statement-v2',
@@ -935,6 +1001,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Community Combined',
     steps: 1,
     render: () => <CommunityCombinedSlide />,
+  },
+  'space-ai-community-combined': {
+    id: 'space-ai-community-combined',
+    navLabel: 'Try in your room overview',
+    steps: 1,
+    render: () => <TryRoomOverviewSlide />,
   },
   'community-story': {
     id: 'community-story',
