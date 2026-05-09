@@ -87,6 +87,7 @@ import { PersonalizedDiscoveryCombinedSlide } from './PersonalizedDiscoveryCombi
 import { PersonalizedFeedIntroSlide } from './PersonalizedFeedIntroSlide'
 import { PosterProfileSlide } from './PosterProfileSlide'
 import { PromptCueDemoSlide } from './PromptCueDemoSlide'
+import { SteerDemoSlide } from './SteerDemoSlide'
 import { PatternTemplateSlide } from './PatternTemplateSlide'
 import { PdpPlaceItSlide } from './PdpPlaceItSlide'
 import { ProfileStatementSlideV2 } from './ProfileStatementSlideV2'
@@ -296,6 +297,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'SaveBack',
     steps: 1,
     render: () => <SaveBackDemoSlide />,
+  },
+  'steer-demo': {
+    id: 'steer-demo',
+    navLabel: 'Steer',
+    steps: 1,
+    render: () => <SteerDemoSlide />,
   },
   'promptcue-demo': {
     id: 'promptcue-demo',

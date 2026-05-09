@@ -12,6 +12,7 @@ export const deckManifest = [
   'messenger-selfie-sticker',
   'side-projects-intro',
   'promptcue-demo',
+  'steer-demo',
   'side-projects-intro-copy',
   'saveback-demo',
   'section-index-02-v2',
