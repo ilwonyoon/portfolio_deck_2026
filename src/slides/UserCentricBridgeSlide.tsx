@@ -1,23 +1,9 @@
-import { StepTextTransition } from '../components/StepTextTransition'
-import type { SlideRenderContext } from '../types/presentation'
-
-type UserCentricBridgeSlideProps = Pick<SlideRenderContext, 'isThumbnail'>
-
-export function UserCentricBridgeSlide({
-  isThumbnail = false,
-}: UserCentricBridgeSlideProps = {}) {
+export function UserCentricBridgeSlide() {
   return (
-    <article className="belief-statement-slide belief-statement-slide--v2">
-      <div className="belief-statement-slide__copy">
-        <p className="belief-statement-slide__eyebrow">In the AI era</p>
-        <StepTextTransition
-          animateOnMount={!isThumbnail}
-          className="belief-statement-slide__headline"
-          text={
-            'The edge is defining your user,\ntheir problem, and solving it\nbetter with AI.'
-          }
-          variant="erase-type"
-        />
+    <article className="ohouse-ai-role-shift-slide">
+      <div className="ohouse-ai-role-shift-slide__copy">
+        <p>I led AI transformation beyond the product.</p>
+        <p>It changed how the organization worked.</p>
       </div>
     </article>
   )

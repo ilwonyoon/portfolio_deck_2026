@@ -1,9 +1,33 @@
 const sections = [
-  'Introduction',
-  'Ohouse · Content 2.0',
-  'Ohouse · AI transformation',
-  'Work like AI native',
+  {
+    label: 'Introduction',
+    targetSlide: 'belief-statement-v2',
+  },
+  {
+    label: 'Ohouse · Content 2.0',
+    targetSlide: 'case-study-02b',
+  },
+  {
+    label: 'Ohouse · AI transformation',
+    targetSlide: 'ohouse-ai-role-shift',
+  },
+  {
+    label: 'Human-AI Agent Workflow',
+    targetSlide: 'hai-workflow-fragmentation',
+  },
 ] as const
+
+function buildSectionHref(targetSlide: string) {
+  if (typeof window === 'undefined') {
+    return `?slide=${targetSlide}&step=0`
+  }
+
+  const params = new URLSearchParams(window.location.search)
+  params.set('slide', targetSlide)
+  params.set('step', '0')
+
+  return `${window.location.pathname}?${params.toString()}`
+}
 
 type SectionIndexSlideProps = {
   activeIndex?: number
@@ -23,22 +47,23 @@ export function SectionIndexSlide({
       <div className="section-index-slide__copy">
         {sections.map((section, index) => (
           <div
-            key={section}
+            key={section.label}
             className={
               index === activeIndex
                 ? 'section-index-slide__line-row section-index-slide__line-row--active'
                 : 'section-index-slide__line-row section-index-slide__line-row--muted'
             }
           >
-            <p
+            <a
               className={
                 index === activeIndex
                   ? 'section-index-slide__line section-index-slide__line--active'
                   : 'section-index-slide__line section-index-slide__line--muted'
               }
+              href={buildSectionHref(section.targetSlide)}
             >
-              {section}
-            </p>
+              {section.label}
+            </a>
           </div>
         ))}
       </div>

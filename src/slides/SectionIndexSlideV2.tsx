@@ -1,9 +1,33 @@
 const sections = [
-  'Introduction',
-  'Ohouse · Content 2.0',
-  'Ohouse · AI transformation',
-  'Work like AI native',
+  {
+    label: 'Introduction',
+    targetSlide: 'belief-statement-v2',
+  },
+  {
+    label: 'Ohouse · Content 2.0',
+    targetSlide: 'case-study-02b',
+  },
+  {
+    label: 'Ohouse · AI transformation',
+    targetSlide: 'ohouse-ai-role-shift',
+  },
+  {
+    label: 'Human-AI Agent Workflow',
+    targetSlide: 'hai-workflow-fragmentation',
+  },
 ] as const
+
+function buildSectionHref(targetSlide: string) {
+  if (typeof window === 'undefined') {
+    return `?slide=${targetSlide}&step=0`
+  }
+
+  const params = new URLSearchParams(window.location.search)
+  params.set('slide', targetSlide)
+  params.set('step', '0')
+
+  return `${window.location.pathname}?${params.toString()}`
+}
 
 type SectionIndexSlideV2Props = {
   activeIndex?: number
@@ -31,8 +55,10 @@ export function SectionIndexSlideV2({
             : 'section-index-slide__line-row section-index-slide__line-row--muted'
 
           return (
-            <div className={rowClass} key={section}>
-              <p className={lineClass}>{section}</p>
+            <div className={rowClass} key={section.label}>
+              <a className={lineClass} href={buildSectionHref(section.targetSlide)}>
+                {section.label}
+              </a>
             </div>
           )
         })}

@@ -6,13 +6,24 @@ const DEMOS = [
   {
     id: 'memory',
     eyebrow: 'Backtick',
-    label: 'Thought staging app',
+    label: 'Demo',
     title: 'Shared memory for AI agents',
     body: 'Backtick turns scattered thoughts and decisions into reusable context your AI tools can read through MCP.',
     linkLabel: 'Available for MacOS',
     linkUrl: 'https://github.com/ilwonyoon/Backtick',
     video: '/media/promptcue/universal-memory.mp4',
     poster: '/media/promptcue/universal-memory-poster.png',
+  },
+  {
+    id: 'actual',
+    eyebrow: 'Backtick',
+    label: 'Actual',
+    title: 'Shared memory for AI agents',
+    body: 'Backtick turns scattered thoughts and decisions into reusable context your AI tools can read through MCP.',
+    linkLabel: 'Available for MacOS',
+    linkUrl: 'https://github.com/ilwonyoon/Backtick',
+    video: '/media/promptcue/actual-run.mp4',
+    poster: '/media/promptcue/actual-run-poster.png',
   },
 ] as const
 
@@ -59,21 +70,6 @@ export function PromptCueDemoSlide() {
           {activeDemo.linkLabel}
         </a>
 
-        {DEMOS.length > 1 && (
-          <div className="promptcue-demo-slide__chips" aria-label="Backtick demos">
-            {DEMOS.map((demo) => (
-              <button
-                aria-pressed={demo.id === activeId}
-                className="promptcue-demo-slide__chip"
-                key={demo.id}
-                onClick={() => setActiveId(demo.id)}
-                type="button"
-              >
-                {demo.label}
-              </button>
-            ))}
-          </div>
-        )}
       </section>
 
       <section className="promptcue-demo-slide__stage" aria-label={activeDemo.title}>
@@ -85,6 +81,22 @@ export function PromptCueDemoSlide() {
           ref={videoRef}
         />
       </section>
+
+      {DEMOS.length > 1 && (
+        <div className="promptcue-demo-slide__chips" aria-label="Backtick demos">
+          {DEMOS.map((demo) => (
+            <button
+              aria-pressed={demo.id === activeId}
+              className="promptcue-demo-slide__chip"
+              key={demo.id}
+              onClick={() => setActiveId(demo.id)}
+              type="button"
+            >
+              {demo.label}
+            </button>
+          ))}
+        </div>
+      )}
     </article>
   )
 }

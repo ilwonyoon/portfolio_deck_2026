@@ -3320,7 +3320,11 @@ h3 {
 }
 
 .section-index-slide__line {
+  display: block;
   margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 160ms ease;
 }
 
 .section-index-slide__line--muted {
@@ -3329,6 +3333,16 @@ h3 {
 
 .section-index-slide__line--active {
   color: rgba(250, 250, 250, 0.98);
+}
+
+.section-index-slide__line:hover,
+.section-index-slide__line:focus-visible {
+  color: rgba(250, 250, 250, 0.98);
+}
+
+.section-index-slide__line:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.62);
+  outline-offset: 8px;
 }
 
 .belief-statement-slide {
@@ -4270,6 +4284,280 @@ h3 {
 
 .side-projects-intro-slide__context p + p {
   margin-top: 22px;
+}
+
+/* =========================================================
+   Human-AI agent workflow — problem diagram options
+   ========================================================= */
+.hai-workflow-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans);
+}
+
+.hai-workflow-slide__copy {
+  position: absolute;
+  top: 400px;
+  left: 120px;
+  width: 500px;
+}
+
+.hai-workflow-slide__eyebrow {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.08px;
+}
+
+.hai-workflow-slide__title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.hai-workflow-slide__body {
+  width: 430px;
+  margin: 26px 0 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.hai-workflow-slide__stage {
+  position: absolute;
+  top: 260px;
+  left: 770px;
+  width: 880px;
+  height: 560px;
+}
+
+.hai-workflow-diagram {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hai-workflow-lines,
+.hai-workflow-loop {
+  position: absolute;
+  top: 64px;
+  left: 60px;
+  width: 760px;
+  height: 430px;
+  overflow: visible;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 1.5;
+}
+
+.hai-workflow-node,
+.hai-layer,
+.hai-loop-node {
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hai-workflow-node span,
+.hai-layer span,
+.hai-loop-node span,
+.hai-loop-core span {
+  display: block;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.hai-workflow-node small,
+.hai-layer small,
+.hai-loop-node small {
+  display: block;
+  margin-top: 9px;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.hai-workflow-diagram__agents {
+  position: absolute;
+  top: 88px;
+  left: 70px;
+  right: 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 54px;
+}
+
+.hai-workflow-node--agent {
+  position: relative;
+  height: 116px;
+  padding: 28px 24px;
+  border-radius: 16px;
+}
+
+.hai-workflow-node--agent i {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.hai-workflow-node--agent i[data-index='1'] {
+  background: rgba(255, 255, 255, 0.36);
+}
+
+.hai-workflow-node--human {
+  position: absolute;
+  top: 344px;
+  left: 314px;
+  width: 252px;
+  height: 118px;
+  padding: 29px 28px;
+  border-color: rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hai-workflow-node--human span {
+  font-size: 22px;
+}
+
+.hai-workflow-queue {
+  position: absolute;
+  top: 92px;
+  left: 82px;
+  display: grid;
+  width: 228px;
+  gap: 18px;
+}
+
+.hai-workflow-ticket {
+  height: 52px;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 50px;
+  letter-spacing: 0;
+}
+
+.hai-workflow-node--right {
+  top: 190px;
+  left: 506px;
+  width: 280px;
+  height: 136px;
+}
+
+.hai-workflow-diagram--layers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: 76px 92px;
+}
+
+.hai-layer {
+  min-height: 104px;
+  padding: 29px 32px;
+  border-radius: 18px;
+}
+
+.hai-layer--human {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.hai-layer-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.hai-layer--memory,
+.hai-layer--attention {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.hai-layer--agents {
+  border-style: dashed;
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.hai-workflow-loop {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+
+.hai-loop-node {
+  position: absolute;
+  width: 246px;
+  min-height: 102px;
+  padding: 25px 26px;
+  border-radius: 18px;
+}
+
+.hai-loop-node span {
+  text-transform: capitalize;
+}
+
+.hai-loop-node--intent {
+  top: 42px;
+  left: 318px;
+}
+
+.hai-loop-node--context {
+  top: 222px;
+  left: 574px;
+}
+
+.hai-loop-node--execution {
+  top: 402px;
+  left: 318px;
+}
+
+.hai-loop-node--intervention {
+  top: 222px;
+  left: 62px;
+}
+
+.hai-loop-core {
+  position: absolute;
+  top: 246px;
+  left: 316px;
+  display: flex;
+  width: 250px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hai-loop-core span {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 17px;
 }
 
 .aido-demo-slide {
@@ -9704,10 +9992,14 @@ h3 {
 }
 
 .promptcue-demo-slide__chips {
+  position: absolute;
+  top: 862px;
+  left: 1263px;
   display: flex;
-  margin-top: 32px;
   gap: 10px;
   align-items: center;
+  transform: translateX(-50%);
+  z-index: 2;
 }
 
 .promptcue-demo-slide__chip {
@@ -9722,12 +10014,22 @@ h3 {
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .promptcue-demo-slide__chip[aria-pressed='true'] {
   border-color: rgba(255, 255, 255, 0.32);
   background: rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.92);
+}
+
+.promptcue-demo-slide__chip:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.72);
+  outline-offset: 3px;
 }
 
 .promptcue-demo-slide__stage {

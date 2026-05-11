@@ -9,7 +9,9 @@ export function SteerDemoSlide() {
           showHint={false}
           title={
             <h1 className="promptcue-demo-slide__title">
-              Parallel AI agents, one inbox
+              Stop watching agents work.
+              <br />
+              Just answer when they need you.
             </h1>
           }
           variant="dot"

@@ -40,7 +40,7 @@ export function PersonaInsideOutSlide() {
     <article className="promptcue-demo-slide omakers-demo-slide persona-insideout-slide">
       <section className="promptcue-demo-slide__copy">
         <p className="promptcue-demo-slide__eyebrow">
-          User-centric as a system
+          Direction layer
         </p>
         <ContextDrawer
           showHint={false}

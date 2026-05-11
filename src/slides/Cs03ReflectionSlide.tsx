@@ -4,9 +4,9 @@ export function Cs03ReflectionSlide() {
       <div className="cs03-reflection-slide__copy">
         <p className="cs03-reflection-slide__eyebrow">Reflection</p>
         <p className="cs03-reflection-slide__body">
-          Productivity is easy to count.
+          AI changed how we executed.
           <br />
-          Product impact is what scales.
+          Direction still needed a system.
           <br />
           And to know what scales — know your users.
         </p>

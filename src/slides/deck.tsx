@@ -79,6 +79,7 @@ import { InstagramCommerceSlide } from './InstagramCommerceSlide'
 import { InstagramCommerceSlideV2 } from './InstagramCommerceSlideV2'
 import { InstagramSharedCollectionSlide } from './InstagramSharedCollectionSlide'
 import { InstagramStoriesAddYoursSlide } from './InstagramStoriesAddYoursSlide'
+import { HumanAiWorkflowProblemSlide } from './HumanAiWorkflowProblemSlide'
 import { InteriorWorkflowSlide } from './InteriorWorkflowSlide'
 import { MessengerSelfieStickerSlide } from './MessengerSelfieStickerSlide'
 import { MixOrMismatchSlide } from './MixOrMismatchSlide'
@@ -282,9 +283,33 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   },
   'side-projects-intro': {
     id: 'side-projects-intro',
-    navLabel: 'Side Projects',
+    navLabel: 'Human-AI Agent Workflow',
     steps: 2,
     render: ({ step }) => <SideProjectsIntroSlide step={step} />,
+  },
+  'hai-workflow-fragmentation': {
+    id: 'hai-workflow-fragmentation',
+    navLabel: 'Workflow A',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="fragmentation" />,
+  },
+  'hai-workflow-bottleneck': {
+    id: 'hai-workflow-bottleneck',
+    navLabel: 'Workflow B',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="bottleneck" />,
+  },
+  'hai-workflow-layers': {
+    id: 'hai-workflow-layers',
+    navLabel: 'Workflow C',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="layers" />,
+  },
+  'hai-workflow-loop': {
+    id: 'hai-workflow-loop',
+    navLabel: 'Workflow D',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="loop" />,
   },
   'side-projects-intro-copy': {
     id: 'side-projects-intro-copy',
@@ -464,9 +489,7 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     id: 'cs03-bridge',
     navLabel: 'CS03 Bridge',
     steps: 1,
-    render: ({ isThumbnail }) => (
-      <UserCentricBridgeSlide isThumbnail={isThumbnail} />
-    ),
+    render: () => <UserCentricBridgeSlide />,
   },
   'cs03-omakers': {
     id: 'cs03-omakers',

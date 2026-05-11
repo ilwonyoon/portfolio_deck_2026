@@ -5,7 +5,9 @@ type Props = Pick<SlideRenderContext, 'step'>
 export function SideProjectsIntroSlide({ step = 0 }: Props) {
   return (
     <article className="side-projects-intro-slide">
-      <h1 className="side-projects-intro-slide__title">Side Projects</h1>
+      <h1 className="side-projects-intro-slide__title">
+        Side Projects
+      </h1>
       <aside
         aria-hidden={step === 0}
         className="side-projects-intro-slide__context"
