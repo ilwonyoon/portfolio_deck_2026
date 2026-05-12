@@ -289,27 +289,81 @@ export const slideRegistry: Record<string, SlideDefinition> = {
   },
   'hai-workflow-fragmentation': {
     id: 'hai-workflow-fragmentation',
-    navLabel: 'Workflow A',
-    steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="fragmentation" />,
+    navLabel: 'Thesis Origin',
+    steps: 3,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="origin" />
+    ),
   },
-  'hai-workflow-bottleneck': {
-    id: 'hai-workflow-bottleneck',
-    navLabel: 'Workflow B',
-    steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="bottleneck" />,
+  'hai-workflow-task-memory': {
+    id: 'hai-workflow-task-memory',
+    navLabel: 'Task Memory',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="taskMemory" />
+    ),
   },
-  'hai-workflow-layers': {
-    id: 'hai-workflow-layers',
-    navLabel: 'Workflow C',
-    steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="layers" />,
+  'hai-workflow-capture-stack': {
+    id: 'hai-workflow-capture-stack',
+    navLabel: 'Capture Stack',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="captureStack" />
+    ),
   },
-  'hai-workflow-loop': {
-    id: 'hai-workflow-loop',
-    navLabel: 'Workflow D',
+  'hai-workflow-context-loss': {
+    id: 'hai-workflow-context-loss',
+    navLabel: 'Context Loss',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="contextLoss" />
+    ),
+  },
+  'hai-workflow-memory-mcp': {
+    id: 'hai-workflow-memory-mcp',
+    navLabel: 'Memory MCP',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="memoryMcp" />
+    ),
+  },
+  'hai-workflow-attention-routing': {
+    id: 'hai-workflow-attention-routing',
+    navLabel: 'Attention Routing',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="attentionRouting" />
+    ),
+  },
+  'hai-workflow-steer': {
+    id: 'hai-workflow-steer',
+    navLabel: 'Steer',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="steer" />
+    ),
+  },
+  'hai-workflow-step-back': {
+    id: 'hai-workflow-step-back',
+    navLabel: 'Step Back',
+    steps: 3,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="stepBack" />
+    ),
+  },
+  'hai-workflow-orchestration': {
+    id: 'hai-workflow-orchestration',
+    navLabel: 'Orchestration',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="orchestration" />
+    ),
+  },
+  'hai-workflow-open-field': {
+    id: 'hai-workflow-open-field',
+    navLabel: 'Open Field',
     steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="loop" />,
+    render: () => <HumanAiWorkflowProblemSlide variant="future" />,
   },
   'side-projects-intro-copy': {
     id: 'side-projects-intro-copy',
