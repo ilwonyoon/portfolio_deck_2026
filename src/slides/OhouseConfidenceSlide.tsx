@@ -27,13 +27,13 @@ export function OhouseConfidenceSlide() {
           draggable={false}
           src="/media/ohouse-confidence-styled.png"
         />
+        <a
+          aria-label="Jump to Ohouse AI transformation"
+          className="ohouse-confidence-slide__image-hotspot ohouse-confidence-slide__image-hotspot--styled"
+          href="/portfolio?slide=ohouse-ai-role-shift&step=0"
+          title="Jump to Ohouse AI transformation"
+        />
       </div>
-      <a
-        aria-label="Jump to Ohouse AI transformation"
-        className="ohouse-confidence-slide__jump"
-        href="/portfolio?slide=section-index-03&step=0"
-        title="Jump to slide 49"
-      />
     </article>
   )
 }

@@ -1076,27 +1076,6 @@ h3 {
   display: block;
 }
 
-.ohouse-confidence-slide__jump {
-  position: absolute;
-  right: 28px;
-  bottom: 28px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.035);
-  opacity: 0.28;
-  transition:
-    background 160ms ease,
-    opacity 160ms ease;
-}
-
-.ohouse-confidence-slide__jump:hover,
-.ohouse-confidence-slide__jump:focus-visible {
-  background: rgba(255, 255, 255, 0.12);
-  opacity: 0.75;
-  outline: none;
-}
-
 .ohouse-intro-slide:has(.cs03-ohouse-intro-slide__eyebrow)
   .ohouse-intro-slide__copy {
   animation: cs03-ohouse-intro-fade 480ms ease-out both;
@@ -1254,6 +1233,23 @@ h3 {
 
 .ohouse-confidence-slide__image--styled {
   left: 583px;
+}
+
+.ohouse-confidence-slide__image-hotspot {
+  position: absolute;
+  display: block;
+  cursor: default;
+}
+
+.ohouse-confidence-slide__image-hotspot:focus-visible {
+  outline: none;
+}
+
+.ohouse-confidence-slide__image-hotspot--styled {
+  top: 134px;
+  left: 583px;
+  width: 375px;
+  height: 812px;
 }
 
 .ohouse-metrics-slide {
