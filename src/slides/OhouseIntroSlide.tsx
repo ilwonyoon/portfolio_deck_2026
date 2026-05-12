@@ -29,12 +29,6 @@ export function OhouseIntroSlide({ step = 0 }: OhouseIntroSlideProps) {
           ))}
         </h2>
       </div>
-      <a
-        aria-label="Jump to Ohouse AI transformation"
-        className="ohouse-intro-slide__jump"
-        href="/portfolio?slide=section-index-03&step=0"
-        title="Jump to slide 49"
-      />
     </article>
   )
 }

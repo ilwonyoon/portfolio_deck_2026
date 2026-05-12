@@ -28,6 +28,12 @@ export function OhouseConfidenceSlide() {
           src="/media/ohouse-confidence-styled.png"
         />
       </div>
+      <a
+        aria-label="Jump to Ohouse AI transformation"
+        className="ohouse-confidence-slide__jump"
+        href="/portfolio?slide=section-index-03&step=0"
+        title="Jump to slide 49"
+      />
     </article>
   )
 }
