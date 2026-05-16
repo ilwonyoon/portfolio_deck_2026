@@ -9,23 +9,23 @@ export function SteerDemoSlide() {
           showHint={false}
           title={
             <h1 className="promptcue-demo-slide__title">
-              Stop watching agents work.
+              The decision surface
               <br />
-              Just answer when they need you.
+              for your AI agents.
             </h1>
           }
           variant="dot"
         >
           <div className="context-drawer__content promptcue-demo-slide__drawer-content">
             <p>
-              Steer is a macOS-first card stack that surfaces only the moments
-              your CLI agents — Claude Code, Codex, Gemini — actually need a
-              human. Sessions keep running off-screen; you steer three at once
-              instead of babysitting one.
+              Steer surfaces only the moments your AI agents need a human —
+              one card per stop event. Answer from Mac or iPhone, agent
+              resumes. Built for people who direct AI without reading every
+              diff.
             </p>
           </div>
         </ContextDrawer>
-        <span className="promptcue-demo-slide__body-link">Coming soon for macOS</span>
+        <span className="promptcue-demo-slide__body-link">Available on Mac and iOS</span>
       </section>
 
       <section

@@ -3325,6 +3325,7 @@ h3 {
   text-decoration: none;
   cursor: pointer;
   transition: color 160ms ease;
+  white-space: nowrap;
 }
 
 .section-index-slide__line--muted {
@@ -4583,6 +4584,11 @@ h3 {
   width: 1100px;
 }
 
+.hai-thesis-slide--center .hai-thesis-copy--center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .hai-thesis-eyebrow {
   margin: 0 0 20px;
   color: rgba(255, 255, 255, 0.48);
@@ -5225,6 +5231,265 @@ h3 {
   font-size: 13px;
   font-weight: 560;
   letter-spacing: 0;
+}
+
+.hai-thesis-stage--placeholder {
+  display: grid;
+  place-items: center;
+}
+
+.hai-thesis-placeholder {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  padding: 56px 64px;
+  min-width: 320px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  color: rgba(255, 255, 255, 0.32);
+  text-align: center;
+}
+
+.hai-thesis-placeholder span {
+  font-size: 15px;
+  font-weight: 560;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hai-thesis-placeholder small {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.32);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.promptcue-demo-slide__stage.hai-thesis-stage--pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  border-radius: 0;
+}
+
+.hai-thesis-pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+  height: 100%;
+}
+
+.hai-thesis-pair__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  height: 100%;
+}
+
+.hai-thesis-pair__video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  background: #050505;
+  border-radius: 28px;
+  display: block;
+  object-fit: contain;
+}
+
+.hai-thesis-pair__video--click {
+  cursor: pointer;
+}
+
+.hai-thesis-pair__placeholder {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 28px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.hai-thesis-pair__card figcaption {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.hai-thesis-media-caption {
+  position: absolute;
+  top: 858px;
+  left: 706px;
+  width: 1114px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.hai-loop-fullbleed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hai-loop-stacked {
+  position: relative;
+  padding: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 80px;
+}
+
+.hai-loop-stacked__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.hai-loop-stacked__copy[data-visible='false'] {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.hai-loop-stacked__copy[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+.hai-loop-stacked__copy p {
+  margin: 0;
+}
+
+.hai-loop-stacked__copy p + p {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hai-loop-stacked__table {
+  display: flex;
+  flex-direction: column;
+}
+
+.hai-loop-htable {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.hai-loop-htable__eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08px;
+}
+
+.hai-loop-htable__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hai-loop-htable__col {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.hai-loop-htable__col:first-child {
+  padding-left: 0;
+}
+
+.hai-loop-htable__col:last-child {
+  border-right: none;
+}
+
+.hai-loop-htable__label {
+  color: rgba(255, 255, 255, 0.98);
+  font-weight: 600;
+}
+
+.hai-loop-htable__value {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+.hai-loop-table {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.hai-loop-table__eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08px;
+}
+
+.hai-loop-table__grid {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hai-loop-table__row {
+  display: grid;
+  grid-template-columns: 280px 360px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hai-loop-table__cell {
+  padding: 22px 24px;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.hai-loop-table__cell--label {
+  color: rgba(255, 255, 255, 0.98);
+  font-weight: 600;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hai-loop-table__cell--value {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
 }
 
 .hai-thesis-slide--discovery .hai-live-viewport,

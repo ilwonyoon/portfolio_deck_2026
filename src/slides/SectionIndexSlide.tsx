@@ -12,8 +12,8 @@ const sections = [
     targetSlide: 'ohouse-ai-role-shift',
   },
   {
-    label: 'Human-AI Agent Workflow',
-    targetSlide: 'hai-workflow-fragmentation',
+    label: 'Personal · Agent workflow tools',
+    targetSlide: 'hai-opening',
   },
 ] as const
 

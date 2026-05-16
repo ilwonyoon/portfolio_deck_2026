@@ -287,83 +287,67 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 2,
     render: ({ step }) => <SideProjectsIntroSlide step={step} />,
   },
-  'hai-workflow-fragmentation': {
-    id: 'hai-workflow-fragmentation',
-    navLabel: 'Thesis Origin',
+  'hai-opening': {
+    id: 'hai-opening',
+    navLabel: 'Opening',
     steps: 3,
     render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="origin" />
+      <HumanAiWorkflowProblemSlide step={step} variant="opening" />
     ),
   },
-  'hai-workflow-task-memory': {
-    id: 'hai-workflow-task-memory',
-    navLabel: 'Task Memory',
-    steps: 2,
-    render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="taskMemory" />
-    ),
-  },
-  'hai-workflow-capture-stack': {
-    id: 'hai-workflow-capture-stack',
-    navLabel: 'Capture Stack',
-    steps: 2,
-    render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="captureStack" />
-    ),
-  },
-  'hai-workflow-context-loss': {
-    id: 'hai-workflow-context-loss',
-    navLabel: 'Context Loss',
-    steps: 2,
-    render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="contextLoss" />
-    ),
-  },
-  'hai-workflow-memory-mcp': {
-    id: 'hai-workflow-memory-mcp',
+  'hai-memory-mcp': {
+    id: 'hai-memory-mcp',
     navLabel: 'Memory MCP',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="memoryMcp" />,
+  },
+  'hai-capture': {
+    id: 'hai-capture',
+    navLabel: 'Capture → Stack',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="capture" />,
+  },
+  'hai-backtick-panels': {
+    id: 'hai-backtick-panels',
+    navLabel: 'Human observability',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="backtickPanels" />,
+  },
+  'hai-steer-decision': {
+    id: 'hai-steer-decision',
+    navLabel: 'Steer · Mac',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="steerDecision" />,
+  },
+  'hai-steer-inbox': {
+    id: 'hai-steer-inbox',
+    navLabel: 'Steer · Mobile',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="steerInbox" />,
+  },
+  'hai-loop-overview': {
+    id: 'hai-loop-overview',
+    navLabel: 'Loop overview',
     steps: 2,
     render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="memoryMcp" />
+      <HumanAiWorkflowProblemSlide step={step} variant="loopOverview" />
     ),
   },
-  'hai-workflow-attention-routing': {
-    id: 'hai-workflow-attention-routing',
-    navLabel: 'Attention Routing',
-    steps: 2,
-    render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="attentionRouting" />
-    ),
-  },
-  'hai-workflow-steer': {
-    id: 'hai-workflow-steer',
-    navLabel: 'Steer',
-    steps: 2,
-    render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="steer" />
-    ),
-  },
-  'hai-workflow-step-back': {
-    id: 'hai-workflow-step-back',
-    navLabel: 'Step Back',
+  'hai-step-back': {
+    id: 'hai-step-back',
+    navLabel: 'Step back',
     steps: 3,
     render: ({ step }) => (
       <HumanAiWorkflowProblemSlide step={step} variant="stepBack" />
     ),
   },
-  'hai-workflow-orchestration': {
-    id: 'hai-workflow-orchestration',
-    navLabel: 'Orchestration',
-    steps: 2,
+  'hai-open-field': {
+    id: 'hai-open-field',
+    navLabel: 'Where this leads',
+    steps: 3,
     render: ({ step }) => (
-      <HumanAiWorkflowProblemSlide step={step} variant="orchestration" />
+      <HumanAiWorkflowProblemSlide step={step} variant="openField" />
     ),
-  },
-  'hai-workflow-open-field': {
-    id: 'hai-workflow-open-field',
-    navLabel: 'Open Field',
-    steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="future" />,
   },
   'side-projects-intro-copy': {
     id: 'side-projects-intro-copy',
