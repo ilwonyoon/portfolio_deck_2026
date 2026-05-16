@@ -1,179 +1,463 @@
-import type { ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ContextDrawer } from '../components/ContextDrawer'
+import { DeckVideo } from '../components/DeckVideo'
 
 type HumanAiWorkflowProblemVariant =
-  | 'fragmentation'
-  | 'bottleneck'
-  | 'layers'
-  | 'loop'
+  | 'opening'
+  | 'memoryMcp'
+  | 'capture'
+  | 'backtickPanels'
+  | 'steerDecision'
+  | 'steerInbox'
+  | 'loopOverview'
+  | 'stepBack'
+  | 'openField'
 
 type Props = {
+  step?: number
   variant: HumanAiWorkflowProblemVariant
 }
 
-const agents = ['Claude Code', 'Codex', 'Gemini CLI']
-
-function FragmentationDiagram() {
-  return (
-    <div className="hai-workflow-diagram hai-workflow-diagram--fragmentation">
-      <div className="hai-workflow-diagram__agents" aria-label="Fragmented AI agents">
-        {agents.map((agent, index) => (
-          <div className="hai-workflow-node hai-workflow-node--agent" key={agent}>
-            <span>{agent}</span>
-            <small>own context</small>
-            <i data-index={index} />
-          </div>
-        ))}
-      </div>
-
-      <svg className="hai-workflow-lines" viewBox="0 0 760 430" aria-hidden="true">
-        <path d="M 142 110 C 245 150, 320 205, 382 286" />
-        <path d="M 382 110 C 382 174, 382 226, 382 286" />
-        <path d="M 622 110 C 520 151, 445 205, 382 286" />
-      </svg>
-
-      <div className="hai-workflow-node hai-workflow-node--human">
-        <span>Me</span>
-        <small>integration layer</small>
-      </div>
-    </div>
-  )
+type VideoSource = {
+  mp4?: string
+  webm?: string
+  poster?: string
+  caption?: string
+  placeholder?: string
 }
 
-function BottleneckDiagram() {
-  return (
-    <div className="hai-workflow-diagram hai-workflow-diagram--bottleneck">
-      <div className="hai-workflow-queue">
-        {[
-          'permission',
-          'question',
-          'blocked',
-          'done',
-          'next step',
-        ].map((item) => (
-          <span className="hai-workflow-ticket" key={item}>
-            {item}
-          </span>
-        ))}
-      </div>
-
-      <svg className="hai-workflow-lines" viewBox="0 0 760 430" aria-hidden="true">
-        <path d="M 164 92 C 276 102, 358 142, 430 212" />
-        <path d="M 164 172 C 280 174, 360 194, 430 232" />
-        <path d="M 164 252 C 278 246, 360 244, 430 252" />
-        <path d="M 164 332 C 274 318, 360 292, 430 272" />
-      </svg>
-
-      <div className="hai-workflow-node hai-workflow-node--human hai-workflow-node--right">
-        <span>Human attention</span>
-        <small>the new bottleneck</small>
-      </div>
-    </div>
-  )
+type MediaChip = {
+  id: string
+  label: string
+  mp4: string
+  poster: string
+  webm?: string
 }
 
-function LayersDiagram() {
-  return (
-    <div className="hai-workflow-diagram hai-workflow-diagram--layers">
-      <div className="hai-layer hai-layer--human">
-        <span>Human judgment</span>
-        <small>intent · decisions · standards</small>
-      </div>
-      <div className="hai-layer-row">
-        <div className="hai-layer hai-layer--memory">
-          <span>Memory layer</span>
-          <small>shared context</small>
-        </div>
-        <div className="hai-layer hai-layer--attention">
-          <span>Attention layer</span>
-          <small>interruptions</small>
-        </div>
-      </div>
-      <div className="hai-layer hai-layer--agents">
-        <span>AI agents</span>
-        <small>parallel execution</small>
-      </div>
-    </div>
-  )
-}
-
-function LoopDiagram() {
-  return (
-    <div className="hai-workflow-diagram hai-workflow-diagram--loop">
-      <svg className="hai-workflow-loop" viewBox="0 0 760 430" aria-hidden="true">
-        <path d="M 386 72 C 548 72, 670 184, 670 302" />
-        <path d="M 670 302 C 670 360, 594 386, 510 386" />
-        <path d="M 250 386 C 144 386, 88 338, 88 270" />
-        <path d="M 88 270 C 88 154, 206 72, 386 72" />
-      </svg>
-
-      {[
-        ['intent', 'What should be true?'],
-        ['context', 'What should agents know?'],
-        ['execution', 'What can run in parallel?'],
-        ['intervention', 'When do I step in?'],
-      ].map(([label, caption]) => (
-        <div className={`hai-loop-node hai-loop-node--${label}`} key={label}>
-          <span>{label}</span>
-          <small>{caption}</small>
-        </div>
-      ))}
-
-      <div className="hai-loop-core">
-        <span>orchestration</span>
-      </div>
-    </div>
-  )
-}
-
-const variantContent: Record<
-  HumanAiWorkflowProblemVariant,
-  {
-    eyebrow: string
-    title: string
-    body: string
-    diagram: ReactNode
+type DemoSlideContent = {
+  eyebrow: string
+  title: string
+  drawer: React.ReactNode
+  media?: {
+    mp4: string
+    poster: string
   }
+  mediaCaption?: string
+  mediaList?: MediaChip[]
+  mediaPair?: {
+    left: VideoSource
+    right: VideoSource
+    ratio?: string
+  }
+}
+
+const demoContent: Record<
+  | 'memoryMcp'
+  | 'capture'
+  | 'backtickPanels'
+  | 'steerDecision'
+  | 'steerInbox',
+  DemoSlideContent
 > = {
-  fragmentation: {
-    eyebrow: 'Problem 01',
-    title: 'Every agent had its own memory.',
-    body: 'Claude, Codex, and ChatGPT could all help me build. But the shared context still lived in my head.',
-    diagram: <FragmentationDiagram />,
+  memoryMcp: {
+    eyebrow: 'Backtick · Memory MCP',
+    title: 'Selective memory. Persistent across agents.',
+    drawer: (
+      <p>
+        To better manage multiple agents, I needed a place where my
+        decisions live — not just the answer, but how I got there. The MCP
+        layer makes it the handoff between agents.
+      </p>
+    ),
+    media: {
+      mp4: '/media/promptcue/actual-run.mp4',
+      poster: '/media/promptcue/actual-run-poster.png',
+    },
+    mediaCaption: 'Sped up 4× for demo.',
   },
-  bottleneck: {
-    eyebrow: 'Problem 02',
-    title: 'Parallel agents made me the bottleneck.',
-    body: 'The more sessions I ran, the more my job shifted from doing the work to watching, routing, and unblocking it.',
-    diagram: <BottleneckDiagram />,
+  capture: {
+    eyebrow: 'Backtick · Capture → Stack',
+    title: 'Capture instantly. Hand off prioritized.',
+    drawer: (
+      <p>
+        Sending notes one by one pollutes the agent's context. So I capture
+        scattered feedback first, then stack it into a single,
+        action-oriented brief the agent can actually run on.
+      </p>
+    ),
+    mediaPair: {
+      left: {
+        mp4: '/media/human-ai-agent-workflow/backtick-capture.mp4',
+        webm: '/media/human-ai-agent-workflow/backtick-capture.webm',
+        poster: '/media/human-ai-agent-workflow/backtick-capture.mp4',
+        caption: 'Capture · scattered feedback in',
+      },
+      right: {
+        mp4: '/media/human-ai-agent-workflow/backtick-stack-mcp.mp4',
+        webm: '/media/human-ai-agent-workflow/backtick-stack-mcp.webm',
+        poster: '/media/human-ai-agent-workflow/backtick-stack-mcp.mp4',
+        caption: 'Stack → MCP · one brief out',
+      },
+    },
   },
-  layers: {
-    eyebrow: 'Focus area',
-    title: 'I started designing the missing workflow layers.',
-    body: 'Backtick became the memory layer. Steer became the attention layer. Together, they explore how humans direct AI agents.',
-    diagram: <LayersDiagram />,
+  backtickPanels: {
+    eyebrow: 'Backtick · Observability',
+    title: 'Observability for the human in the loop.',
+    drawer: (
+      <p>
+        Backtick is built to feed agents. But the human still needs to see
+        what's in flight and fix what's wrong. Stack and Memory panels
+        surface what's queued and what's been decided — each entry carries a
+        vividness signal and stays directly editable.
+      </p>
+    ),
+    mediaPair: {
+      ratio: '1.5fr 2.5fr',
+      left: {
+        mp4: '/media/human-ai-agent-workflow/backtick-stack-panel.mp4',
+        webm: '/media/human-ai-agent-workflow/backtick-stack-panel.webm',
+        poster: '/media/human-ai-agent-workflow/backtick-stack-panel.mp4',
+        caption: 'Stack · what is queued',
+      },
+      right: {
+        mp4: '/media/human-ai-agent-workflow/backtick-memory-panel.mp4',
+        webm: '/media/human-ai-agent-workflow/backtick-memory-panel.webm',
+        poster: '/media/human-ai-agent-workflow/backtick-memory-panel.mp4',
+        caption: 'Memory · what is decided, editable',
+      },
+    },
   },
-  loop: {
-    eyebrow: 'Thesis',
-    title: 'The work moved from execution to orchestration.',
-    body: 'The product question became: how do I give context, supervise progress, intervene at the right moment, and keep agents moving?',
-    diagram: <LoopDiagram />,
+  steerDecision: {
+    eyebrow: 'Steer · Mac',
+    title: 'The decision surface for AI agent workflows.',
+    drawer: (
+      <p>
+        Multiple agents running. If I stay on one, the others stall. Steer
+        surfaces only the moments an agent has stopped and needs me — one
+        card per terminal stop event, with evidence to decide on.
+      </p>
+    ),
+  },
+  steerInbox: {
+    eyebrow: 'Steer · Mobile',
+    title: 'Unblock from anywhere.',
+    drawer: (
+      <p>
+        The decision can't only live on the desk. A push lands on iPhone the
+        moment an agent stops — same card, same surface. The AI doesn't wait
+        for me to come back.
+      </p>
+    ),
   },
 }
 
-export function HumanAiWorkflowProblemSlide({ variant }: Props) {
-  const content = variantContent[variant]
+function DemoSlide({
+  variant,
+}: {
+  variant:
+    | 'memoryMcp'
+    | 'capture'
+    | 'backtickPanels'
+    | 'steerDecision'
+    | 'steerInbox'
+}) {
+  const content = demoContent[variant]
+  const rightVideoRef = useRef<HTMLVideoElement>(null)
+  const listVideoRef = useRef<HTMLVideoElement>(null)
+  const [activeChipId, setActiveChipId] = useState<string>(
+    content.mediaList?.[0]?.id ?? '',
+  )
+  const activeChip = useMemo(
+    () =>
+      content.mediaList?.find((item) => item.id === activeChipId) ??
+      content.mediaList?.[0],
+    [content.mediaList, activeChipId],
+  )
+
+  useEffect(() => {
+    const video = listVideoRef.current
+    if (!video || !activeChip) return
+    video.currentTime = 0
+    void video.play().catch(() => {})
+  }, [activeChip?.mp4])
+
+  function handleLeftEnded() {
+    const right = rightVideoRef.current
+    if (!right) return
+    right.currentTime = 0
+    void right.play().catch(() => {})
+  }
+
+  function handleRightLoaded() {
+    const right = rightVideoRef.current
+    if (!right) return
+    right.currentTime = 0.001
+  }
+
+  function handleRightClick() {
+    const right = rightVideoRef.current
+    if (!right) return
+    if (right.paused) {
+      void right.play().catch(() => {})
+    } else {
+      right.pause()
+    }
+  }
 
   return (
-    <article className={`hai-workflow-slide hai-workflow-slide--${variant}`}>
-      <section className="hai-workflow-slide__copy">
-        <p className="hai-workflow-slide__eyebrow">{content.eyebrow}</p>
-        <h1 className="hai-workflow-slide__title">{content.title}</h1>
-        <p className="hai-workflow-slide__body">{content.body}</p>
+    <article className={`hai-thesis-slide hai-thesis-slide--${variant}`}>
+      <section className="promptcue-demo-slide__copy">
+        <p className="promptcue-demo-slide__eyebrow">{content.eyebrow}</p>
+        <ContextDrawer
+          showHint={false}
+          title={<h1 className="promptcue-demo-slide__title">{content.title}</h1>}
+          variant="dot"
+        >
+          <div className="context-drawer__content promptcue-demo-slide__drawer-content">
+            {content.drawer}
+          </div>
+        </ContextDrawer>
       </section>
 
-      <section className="hai-workflow-slide__stage" aria-label={content.title}>
-        {content.diagram}
+      <section
+        className={`promptcue-demo-slide__stage${
+          content.media || content.mediaPair || content.mediaList
+            ? ''
+            : ' hai-thesis-stage--placeholder'
+        }${content.mediaPair ? ' hai-thesis-stage--pair' : ''}`}
+        aria-label={content.title}
+      >
+        {content.media ? (
+          <DeckVideo
+            className="promptcue-demo-slide__video"
+            mp4={content.media.mp4}
+            poster={content.media.poster}
+          />
+        ) : content.mediaList && activeChip ? (
+          <DeckVideo
+            className="promptcue-demo-slide__video"
+            key={activeChip.mp4}
+            mp4={activeChip.mp4}
+            poster={activeChip.poster}
+            ref={listVideoRef}
+            webm={activeChip.webm}
+          />
+        ) : content.mediaPair ? (
+          <div
+            className="hai-thesis-pair"
+            style={
+              content.mediaPair.ratio
+                ? { gridTemplateColumns: content.mediaPair.ratio }
+                : undefined
+            }
+          >
+            <figure className="hai-thesis-pair__card">
+              {content.mediaPair.left.mp4 ? (
+                <DeckVideo
+                  autoPlay
+                  className="hai-thesis-pair__video"
+                  loop={false}
+                  mp4={content.mediaPair.left.mp4}
+                  onEnded={handleLeftEnded}
+                  poster=""
+                  preload="auto"
+                  webm={content.mediaPair.left.webm}
+                />
+              ) : (
+                <div className="hai-thesis-pair__placeholder">
+                  <span>{content.mediaPair.left.placeholder ?? 'Video'}</span>
+                </div>
+              )}
+              {content.mediaPair.left.caption && (
+                <figcaption>{content.mediaPair.left.caption}</figcaption>
+              )}
+            </figure>
+            <figure className="hai-thesis-pair__card">
+              {content.mediaPair.right.mp4 ? (
+                <DeckVideo
+                  autoPlay={false}
+                  className="hai-thesis-pair__video hai-thesis-pair__video--click"
+                  loop={false}
+                  mp4={content.mediaPair.right.mp4}
+                  onClick={handleRightClick}
+                  onLoadedMetadata={handleRightLoaded}
+                  poster=""
+                  preload="auto"
+                  ref={rightVideoRef}
+                  webm={content.mediaPair.right.webm}
+                />
+              ) : (
+                <div className="hai-thesis-pair__placeholder">
+                  <span>{content.mediaPair.right.placeholder ?? 'Video'}</span>
+                </div>
+              )}
+              {content.mediaPair.right.caption && (
+                <figcaption>{content.mediaPair.right.caption}</figcaption>
+              )}
+            </figure>
+          </div>
+        ) : (
+          <div className="hai-thesis-placeholder">
+            <span>Content coming</span>
+            <small>{content.eyebrow}</small>
+          </div>
+        )}
+      </section>
+
+      {content.mediaCaption && (
+        <p className="hai-thesis-media-caption">{content.mediaCaption}</p>
+      )}
+
+      {content.mediaList && content.mediaList.length > 1 && (
+        <div className="promptcue-demo-slide__chips" aria-label={content.eyebrow}>
+          {content.mediaList.map((chip) => (
+            <button
+              aria-pressed={chip.id === activeChipId}
+              className="promptcue-demo-slide__chip"
+              key={chip.id}
+              onClick={() => setActiveChipId(chip.id)}
+              type="button"
+            >
+              {chip.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </article>
+  )
+}
+
+function OpeningSlide({ step }: { step: number }) {
+  return (
+    <article className="hai-thesis-slide hai-thesis-slide--origin hai-thesis-slide--center">
+      <section className="hai-thesis-copy hai-thesis-copy--wide hai-thesis-copy--center">
+        <p className="hai-thesis-eyebrow">Side project</p>
+        <div className="hai-thesis-lines">
+          <p data-visible="true">
+            I use AI to push beyond my limit.
+            <br />
+            Soon the ceiling wasn't the model's capability —
+            <br />
+            it was me, as a human.
+          </p>
+          <p data-visible={step >= 1}>
+            How can a human manage and orchestrate
+            <br />
+            a suite of AI agents to maximize outputs?
+          </p>
+          <p data-visible={step >= 2}>
+            So I've been building tools to solve this problem.
+          </p>
+        </div>
       </section>
     </article>
   )
+}
+
+function StepBackSlide({ step }: { step: number }) {
+  return (
+    <article className="hai-thesis-slide hai-thesis-slide--origin">
+      <section className="hai-thesis-copy hai-thesis-copy--wide">
+        <p className="hai-thesis-eyebrow">Step back</p>
+        <div className="hai-thesis-lines">
+          <p data-visible="true">
+            Three problems.
+            <br />
+            Three products.
+          </p>
+          <p data-visible={step >= 1}>
+            One question underneath:
+          </p>
+          <p data-visible={step >= 2}>
+            How do you survive
+            <br />
+            as a manager of AIs?
+          </p>
+        </div>
+      </section>
+    </article>
+  )
+}
+
+function OpenFieldSlide({ step }: { step: number }) {
+  return (
+    <article className="hai-thesis-slide hai-thesis-slide--open">
+      <section className="hai-thesis-copy hai-thesis-copy--wide">
+        <p className="hai-thesis-eyebrow">Where this leads</p>
+        <div className="hai-thesis-lines">
+          <p data-visible="true">
+            I'm still figuring this out.
+          </p>
+          <p data-visible={step >= 1}>
+            Memory · Capture · Attention —
+            <br />
+            three pieces of something larger.
+          </p>
+          <p data-visible={step >= 2}>
+            The question stays the same.
+          </p>
+        </div>
+      </section>
+    </article>
+  )
+}
+
+function LoopOverviewSlide({ step }: { step: number }) {
+  return (
+    <article className="hai-thesis-slide hai-thesis-slide--loop hai-loop-stacked">
+      <section className="hai-loop-stacked__table">
+        <LoopDiagram />
+      </section>
+      <section
+        className="hai-loop-stacked__copy"
+        data-visible={step >= 1 ? 'true' : 'false'}
+      >
+        <p>
+          The more AI can do, the more
+          <br />
+          one person ends up responsible for.
+        </p>
+        <p>
+          I keep working on the loop between human and AI —
+          <br />
+          smoothing the friction so AI can be pushed further.
+        </p>
+      </section>
+    </article>
+  )
+}
+
+const loopStages: Array<{
+  label: string
+  bottom: string
+}> = [
+  { label: 'Intent', bottom: 'Backtick Capture' },
+  { label: 'Context', bottom: 'Memory MCP' },
+  { label: 'Handoff', bottom: 'Stack → MCP' },
+  { label: 'Oversight', bottom: 'Memory panel + edit' },
+  { label: 'Intervention', bottom: 'Steer (Mac + Mobile)' },
+]
+
+function LoopDiagram() {
+  return (
+    <div className="hai-loop-htable" aria-label="AI workflow orchestration">
+      <p className="hai-loop-htable__eyebrow">AI workflow orchestration</p>
+      <div className="hai-loop-htable__grid">
+        {loopStages.map((stage) => (
+          <div className="hai-loop-htable__col" key={stage.label}>
+            <div className="hai-loop-htable__label">{stage.label}</div>
+            <div className="hai-loop-htable__value">{stage.bottom}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function HumanAiWorkflowProblemSlide({ step = 0, variant }: Props) {
+  if (variant === 'opening') return <OpeningSlide step={step} />
+  if (variant === 'stepBack') return <StepBackSlide step={step} />
+  if (variant === 'openField') return <OpenFieldSlide step={step} />
+  if (variant === 'loopOverview') return <LoopOverviewSlide step={step} />
+  return <DemoSlide variant={variant} />
 }

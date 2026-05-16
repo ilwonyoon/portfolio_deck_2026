@@ -287,29 +287,67 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 2,
     render: ({ step }) => <SideProjectsIntroSlide step={step} />,
   },
-  'hai-workflow-fragmentation': {
-    id: 'hai-workflow-fragmentation',
-    navLabel: 'Workflow A',
-    steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="fragmentation" />,
+  'hai-opening': {
+    id: 'hai-opening',
+    navLabel: 'Opening',
+    steps: 3,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="opening" />
+    ),
   },
-  'hai-workflow-bottleneck': {
-    id: 'hai-workflow-bottleneck',
-    navLabel: 'Workflow B',
+  'hai-memory-mcp': {
+    id: 'hai-memory-mcp',
+    navLabel: 'Memory MCP',
     steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="bottleneck" />,
+    render: () => <HumanAiWorkflowProblemSlide variant="memoryMcp" />,
   },
-  'hai-workflow-layers': {
-    id: 'hai-workflow-layers',
-    navLabel: 'Workflow C',
+  'hai-capture': {
+    id: 'hai-capture',
+    navLabel: 'Capture → Stack',
     steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="layers" />,
+    render: () => <HumanAiWorkflowProblemSlide variant="capture" />,
   },
-  'hai-workflow-loop': {
-    id: 'hai-workflow-loop',
-    navLabel: 'Workflow D',
+  'hai-backtick-panels': {
+    id: 'hai-backtick-panels',
+    navLabel: 'Human observability',
     steps: 1,
-    render: () => <HumanAiWorkflowProblemSlide variant="loop" />,
+    render: () => <HumanAiWorkflowProblemSlide variant="backtickPanels" />,
+  },
+  'hai-steer-decision': {
+    id: 'hai-steer-decision',
+    navLabel: 'Steer · Mac',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="steerDecision" />,
+  },
+  'hai-steer-inbox': {
+    id: 'hai-steer-inbox',
+    navLabel: 'Steer · Mobile',
+    steps: 1,
+    render: () => <HumanAiWorkflowProblemSlide variant="steerInbox" />,
+  },
+  'hai-loop-overview': {
+    id: 'hai-loop-overview',
+    navLabel: 'Loop overview',
+    steps: 2,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="loopOverview" />
+    ),
+  },
+  'hai-step-back': {
+    id: 'hai-step-back',
+    navLabel: 'Step back',
+    steps: 3,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="stepBack" />
+    ),
+  },
+  'hai-open-field': {
+    id: 'hai-open-field',
+    navLabel: 'Where this leads',
+    steps: 3,
+    render: ({ step }) => (
+      <HumanAiWorkflowProblemSlide step={step} variant="openField" />
+    ),
   },
   'side-projects-intro-copy': {
     id: 'side-projects-intro-copy',
