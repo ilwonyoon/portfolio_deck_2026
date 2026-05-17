@@ -71,8 +71,10 @@ export const deckManifest = [
   'hai-memory-mcp',
   'hai-capture',
   'hai-backtick-panels',
+  'hai-backtick-mockups',
   'hai-steer-decision',
   'hai-steer-inbox',
+  'hai-steer-mockups',
   'hai-loop-overview',
   'cs03-end',
 ] as const

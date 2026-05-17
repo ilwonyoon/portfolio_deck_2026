@@ -41,6 +41,7 @@ type DemoSlideContent = {
   media?: {
     mp4: string
     poster: string
+    webm?: string
   }
   mediaCaption?: string
   mediaList?: MediaChip[]
@@ -137,6 +138,11 @@ const demoContent: Record<
         card per terminal stop event, with evidence to decide on.
       </p>
     ),
+    media: {
+      mp4: '/media/steer-demo-mac-2x.mp4',
+      webm: '/media/steer-demo-mac-2x.webm',
+      poster: '/posters/steer-demo-left-poster.jpg',
+    },
   },
   steerInbox: {
     eyebrow: 'Steer · Mobile',
@@ -148,6 +154,11 @@ const demoContent: Record<
         for me to come back.
       </p>
     ),
+    media: {
+      mp4: '/media/steer-demo-ios-2x.mp4',
+      webm: '/media/steer-demo-ios-2x.webm',
+      poster: '/posters/steer-demo-ios-poster.jpg',
+    },
   },
 }
 
@@ -232,6 +243,7 @@ function DemoSlide({
             className="promptcue-demo-slide__video"
             mp4={content.media.mp4}
             poster={content.media.poster}
+            webm={content.media.webm}
           />
         ) : content.mediaList && activeChip ? (
           <DeckVideo

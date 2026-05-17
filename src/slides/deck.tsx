@@ -83,6 +83,7 @@ import { HumanAiWorkflowProblemSlide } from './HumanAiWorkflowProblemSlide'
 import { InteriorWorkflowSlide } from './InteriorWorkflowSlide'
 import { MessengerSelfieStickerSlide } from './MessengerSelfieStickerSlide'
 import { MixOrMismatchSlide } from './MixOrMismatchSlide'
+import { MockupShowcaseSlide } from './MockupShowcaseSlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
 import { PersonalizedDiscoveryCombinedSlide } from './PersonalizedDiscoveryCombinedSlide'
 import { PersonalizedFeedIntroSlide } from './PersonalizedFeedIntroSlide'
@@ -325,6 +326,18 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     steps: 1,
     render: () => <HumanAiWorkflowProblemSlide variant="steerInbox" />,
   },
+  'hai-backtick-mockups': {
+    id: 'hai-backtick-mockups',
+    navLabel: 'Backtick mockups',
+    steps: 1,
+    render: () => <MockupShowcaseSlide variant="backtick" />,
+  },
+  'hai-steer-mockups': {
+    id: 'hai-steer-mockups',
+    navLabel: 'Steer mockups',
+    steps: 1,
+    render: () => <MockupShowcaseSlide variant="steer" />,
+  },
   'hai-loop-overview': {
     id: 'hai-loop-overview',
     navLabel: 'Loop overview',
@@ -365,7 +378,7 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     id: 'steer-demo',
     navLabel: 'Steer',
     steps: 1,
-    render: () => <SteerDemoSlide />,
+    render: ({ isThumbnail }) => <SteerDemoSlide isThumbnail={isThumbnail} />,
   },
   'promptcue-demo': {
     id: 'promptcue-demo',
