@@ -538,6 +538,7 @@ function DemoSlide({ eyebrow, title, subtitle, slideNum, placeholderLabel, video
             loop
             muted
             playsInline
+            preload="auto"
             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           >
             {videoWebm && <source src={videoWebm} type="video/webm" />}
@@ -618,7 +619,7 @@ function DemoSlideProactive({ slideNum, video, videoWebm }: { slideNum: string; 
         overflow: 'hidden',
       }}>
         {video ? (
-          <video key={video} loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          <video key={video} loop muted playsInline preload="auto" style={{ width: '100%', height: '100%', objectFit: 'contain' }}
             ref={el => { if (el) el.play().catch(() => {}) }}>
             {videoWebm && <source src={videoWebm} type="video/webm" />}
             <source src={video} type="video/mp4" />
