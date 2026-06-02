@@ -665,7 +665,9 @@ const DEMO_SLIDES: (DemoSlideProps & { id: string; navLabel: string })[] = [
     title: 'Privacy, without\nthe settings tax',
     subtitle: 'Tell it what matters. AI runs a full audit — nothing slips through, no clicks wasted.',
     slideNum: '09',
-    placeholderLabel: 'AI-assisted privacy control — video',
+    placeholderLabel: undefined,
+    video: '/media/highlight/ai-privacy.mp4',
+    videoWebm: '/media/highlight/ai-privacy.webm',
   },
   {
     id: 'hl-demo-proactive',
