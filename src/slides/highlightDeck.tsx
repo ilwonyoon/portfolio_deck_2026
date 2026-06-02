@@ -537,7 +537,7 @@ function DemoSlide({ eyebrow, title, subtitle, slideNum, placeholderLabel, video
             loop
             muted
             playsInline
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           >
             {videoWebm && <source src={videoWebm} type="video/webm" />}
             <source src={video} type="video/mp4" />
