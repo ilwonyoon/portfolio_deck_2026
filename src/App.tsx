@@ -13,6 +13,10 @@ function App() {
     return <DeckWorkspace mode="viewer" />
   }
 
+  if (path === '/highlight') {
+    return <DeckWorkspace mode="viewer" deck="highlight" />
+  }
+
   if (path === '/admin' || path === '/Admin') {
     return <DeckWorkspace mode="admin" />
   }

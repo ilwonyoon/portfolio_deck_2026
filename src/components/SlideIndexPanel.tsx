@@ -1,6 +1,7 @@
 import { GripVertical, Maximize2, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
+import { ThinkingOrbit } from './HighlightMark'
 import type { SlideDefinition } from '../types/presentation'
 
 const DESIGN_WIDTH = 1920
@@ -8,6 +9,7 @@ const DESIGN_HEIGHT = 1080
 
 type SlideIndexPanelProps = {
   currentSlideId: string
+  deck?: string
   editingEnabled?: boolean
   onDelete?: (slideId: string) => void
   onEnterPresent: () => void
@@ -63,6 +65,7 @@ function SlideThumbnail({ children }: { children: ReactNode }) {
 
 export function SlideIndexPanel({
   currentSlideId,
+  deck,
   editingEnabled = false,
   onDelete,
   onEnterPresent,
@@ -106,13 +109,17 @@ export function SlideIndexPanel({
       <div className="editor-sidebar__header">
         <div>
           <p className="editor-sidebar__title">
-            <img
-              alt=""
-              aria-hidden="true"
-              className="editor-sidebar__site-icon"
-              src="/favicon.png"
-            />
-            <span>ilwonyoon.com</span>
+            {deck === 'highlight' ? (
+              <ThinkingOrbit size={22} color="var(--text-primary)" />
+            ) : (
+              <img
+                alt=""
+                aria-hidden="true"
+                className="editor-sidebar__site-icon"
+                src="/favicon.png"
+              />
+            )}
+            <span>{deck === 'highlight' ? 'Highlight' : 'ilwonyoon.com'}</span>
           </p>
           <span className="editor-sidebar__subtitle">{slides.length} frames</span>
         </div>

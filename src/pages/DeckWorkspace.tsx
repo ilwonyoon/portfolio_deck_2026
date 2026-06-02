@@ -12,22 +12,18 @@ import {
   subscribeDeckSync,
 } from '../lib/deckSync'
 import { deckSlides as initialDeckSlides } from '../slides/deck'
+import { highlightSlides } from '../slides/highlightDeck'
 import { designSystemSlides } from '../slides/systemDeck'
 import type { CanvasSelection } from '../types/inspector'
 import type { SlideDefinition } from '../types/presentation'
 
 export type DeckWorkspaceMode = 'viewer' | 'admin'
 
-type DeckCollection = 'portfolio' | 'system'
-
-function readDeckCollection(): DeckCollection {
-  if (typeof window === 'undefined') return 'portfolio'
-  const params = new URLSearchParams(window.location.search)
-  return params.get('deck') === 'system' ? 'system' : 'portfolio'
-}
+type DeckCollection = 'portfolio' | 'system' | 'highlight'
 
 type Props = {
   mode: DeckWorkspaceMode
+  deck?: DeckCollection
 }
 
 function orderSlidesById(slides: SlideDefinition[], orderedIds: string[]) {
@@ -43,15 +39,23 @@ function orderSlidesById(slides: SlideDefinition[], orderedIds: string[]) {
   return nextSlides
 }
 
-export function DeckWorkspace({ mode }: Props) {
+export function DeckWorkspace({ mode, deck: deckProp }: Props) {
   const [selection, setSelection] = useState<CanvasSelection | null>(null)
   const [showGrid, setShowGrid] = useState(false)
   const [isInspectorCollapsed, setIsInspectorCollapsed] = useState(false)
-  const [deckCollection] = useState<DeckCollection>(readDeckCollection)
+  const [deckCollection] = useState<DeckCollection>(() => {
+    if (deckProp) return deckProp
+    if (typeof window === 'undefined') return 'portfolio'
+    const params = new URLSearchParams(window.location.search)
+    return params.get('deck') === 'system' ? 'system' : 'portfolio'
+  })
   const [slides, setSlides] = useState(initialDeckSlides)
   const [isPresenting, setIsPresenting] = useState(false)
 
-  const sourceSlides = deckCollection === 'system' ? designSystemSlides : slides
+  const sourceSlides =
+    deckCollection === 'system' ? designSystemSlides :
+    deckCollection === 'highlight' ? highlightSlides :
+    slides
 
   const isAdmin = mode === 'admin'
   const isMobileShell = useMediaQuery('(max-width: 768px), (pointer: coarse)')
@@ -177,11 +181,12 @@ export function DeckWorkspace({ mode }: Props) {
     .join(' ')
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" data-deck={deckCollection}>
       <div className={shellClassName}>
         {shouldShowDesktopSidebars && (
           <SlideIndexPanel
             currentSlideId={currentSlide.id}
+            deck={deckCollection}
             editingEnabled={deckEditingEnabled}
             onDelete={handleDeleteSlide}
             onEnterPresent={handleEnterPresent}
