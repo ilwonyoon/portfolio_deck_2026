@@ -82,6 +82,7 @@ import { InstagramStoriesAddYoursSlide } from './InstagramStoriesAddYoursSlide'
 import { HumanAiWorkflowProblemSlide } from './HumanAiWorkflowProblemSlide'
 import { InteriorWorkflowSlide } from './InteriorWorkflowSlide'
 import { MessengerSelfieStickerSlide } from './MessengerSelfieStickerSlide'
+import { OhouseRebrandSlide } from './OhouseRebrandSlide'
 import { MixOrMismatchSlide } from './MixOrMismatchSlide'
 import { MockupShowcaseSlide } from './MockupShowcaseSlide'
 import { PersonalHoverSlide } from './PersonalHoverSlide'
@@ -281,6 +282,12 @@ export const slideRegistry: Record<string, SlideDefinition> = {
     navLabel: 'Selfie Sticker',
     steps: 1,
     render: () => <MessengerSelfieStickerSlide />,
+  },
+  'ohouse-rebrand': {
+    id: 'ohouse-rebrand',
+    navLabel: 'Ohouse Rebrand',
+    steps: 1,
+    render: () => <OhouseRebrandSlide />,
   },
   'side-projects-intro': {
     id: 'side-projects-intro',

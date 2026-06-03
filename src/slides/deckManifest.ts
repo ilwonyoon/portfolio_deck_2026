@@ -10,6 +10,7 @@ export const deckManifest = [
   'instagram-stories-add-yours',
   'instagram-shared-collection',
   'messenger-selfie-sticker',
+  'ohouse-rebrand',
   'side-projects-intro',
   'promptcue-demo',
   'steer-demo',
