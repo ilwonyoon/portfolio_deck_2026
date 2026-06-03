@@ -14693,3 +14693,18 @@ h3 {
 [data-deck="portfolio-v2"] .ohouse-metrics-editorial-slide__hero-value {
   font-family: var(--font-display) !important;
 }
+
+/* ── Portfolio V2: screen/mockup drop shadow for cream background ─────────── */
+[data-deck="portfolio-v2"] .instagram-commerce-slide__screen-card,
+[data-deck="portfolio-v2"] .instagram-shared-slide__screen-card,
+[data-deck="portfolio-v2"] .instagram-stories-slide__screen-card,
+[data-deck="portfolio-v2"] .commerce-buyer-slide__screen-card,
+[data-deck="portfolio-v2"] .commerce-seller-slide__screen-card,
+[data-deck="portfolio-v2"] .messenger-selfie-slide__screen-card,
+[data-deck="portfolio-v2"] .community-combined-slide__screen-card,
+[data-deck="portfolio-v2"] .creator-economy-combined-slide__screen-card,
+[data-deck="portfolio-v2"] .personalized-discovery-combined-slide__screen-card,
+[data-deck="portfolio-v2"] .pattern-screen__frame,
+[data-deck="portfolio-v2"] .pattern-screen__card {
+  box-shadow: 0 2px 12px rgba(35, 32, 26, 0.10), 0 0 0 1px rgba(35, 32, 26, 0.06) !important;
+}
