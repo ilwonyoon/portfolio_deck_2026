@@ -1,6 +1,22 @@
 import { useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ThinkingOrbit } from '../components/HighlightMark'
 import type { SlideDefinition } from '../types/presentation'
+
+const EASE = [0.25, 0.1, 0.25, 1] as [number, number, number, number]
+
+function FadeUp({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: EASE, delay }}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 // ── Design tokens ──────────────────────────────────────────────────────────
 const T = {
@@ -112,84 +128,71 @@ function SlideCover() {
 }
 
 // ── 01 · The Challenge ─────────────────────────────────────────────────────
-function SlideChallenge() {
+function SlideChallenge({ step }: { step: number }) {
   return (
     <Shell>
-      <Eyebrow>The challenge</Eyebrow>
-      <div style={{
-        fontFamily: T.display, fontSize: 96, fontWeight: 800,
-        lineHeight: 1.0, letterSpacing: '-0.04em', color: T.inkPrimary,
-        maxWidth: 1000, marginBottom: 56,
-      }}>
-        Memory without<br />cognitive overload
-      </div>
-      <AccentBar />
-      <div style={{
-        fontSize: 24, lineHeight: 1.55, color: T.inkSecondary,
-        maxWidth: 740,
-      }}>
-        Users need transparency and control over what Highlight captures —
-        without breaking the magic of ambient intelligence.
-      </div>
+      <FadeUp delay={0}><Eyebrow>The challenge</Eyebrow></FadeUp>
+      <FadeUp delay={0.08}>
+        <div style={{
+          fontFamily: T.display, fontSize: 96, fontWeight: 800,
+          lineHeight: 1.0, letterSpacing: '-0.04em', color: T.inkPrimary,
+          maxWidth: 1000, marginBottom: 56,
+        }}>
+          Memory without<br />cognitive overload
+        </div>
+      </FadeUp>
+      <AnimatePresence>
+        {step >= 1 && (
+          <motion.div key="body" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE }}>
+            <AccentBar />
+            <div style={{ fontSize: 24, lineHeight: 1.55, color: T.inkSecondary, maxWidth: 740 }}>
+              Users need transparency and control over what Highlight captures —
+              without breaking the magic of ambient intelligence.
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <SlideNum n="01" />
     </Shell>
   )
 }
 
 // ── 02 · Trust & Performance ───────────────────────────────────────────────
-function SlideTrustPerformance() {
+function SlideTrustPerformance({ step }: { step: number }) {
   return (
     <Shell>
-      <Eyebrow>Big theme</Eyebrow>
-      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 24, marginBottom: 72 }}>
-        <div style={{
-          fontFamily: T.display, fontSize: 120, fontWeight: 800,
-          lineHeight: 0.95, letterSpacing: '-0.04em', color: T.inkPrimary,
-        }}>
-          Trust
+      <FadeUp delay={0}><Eyebrow>Big theme</Eyebrow></FadeUp>
+      <FadeUp delay={0.06}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 24, marginBottom: 72 }}>
+          <div style={{ fontFamily: T.display, fontSize: 120, fontWeight: 800, lineHeight: 0.95, letterSpacing: '-0.04em', color: T.inkPrimary }}>Trust</div>
+          <div style={{ fontFamily: T.display, fontSize: 48, fontWeight: 400, lineHeight: 1, letterSpacing: '-0.02em', color: T.inkTertiary, paddingBottom: 16 }}>&</div>
+          <div style={{ fontFamily: T.display, fontSize: 120, fontWeight: 800, lineHeight: 0.95, letterSpacing: '-0.04em', color: T.inkPrimary }}>Performance</div>
         </div>
-        <div style={{
-          fontFamily: T.display, fontSize: 48, fontWeight: 400,
-          lineHeight: 1, letterSpacing: '-0.02em', color: T.inkTertiary,
-          paddingBottom: 16,
-        }}>
-          &
-        </div>
-        <div style={{
-          fontFamily: T.display, fontSize: 120, fontWeight: 800,
-          lineHeight: 0.95, letterSpacing: '-0.04em', color: T.inkPrimary,
-        }}>
-          Performance
-        </div>
-      </div>
-
-      <div style={{ display: 'flex', gap: 80 }}>
-        {[
-          { label: 'Transparency', body: "Show what's captured, how, and from where" },
-          { label: 'Control', body: 'Make it easy to shape without overwhelming' },
-        ].map(item => (
-          <div key={item.label} style={{ maxWidth: 400 }}>
-            <div style={{
-              display: 'inline-block', background: T.accent, color: T.accentInk,
-              fontFamily: T.mono, fontSize: 12, letterSpacing: '0.08em',
-              textTransform: 'uppercase', padding: '3px 10px', borderRadius: 4,
-              marginBottom: 16,
-            }}>
-              {item.label}
-            </div>
-            <div style={{ fontSize: 20, lineHeight: 1.55, color: T.inkSecondary }}>
-              {item.body}
-            </div>
-          </div>
-        ))}
-      </div>
+      </FadeUp>
+      <AnimatePresence>
+        {step >= 1 && (
+          <motion.div key="cards" style={{ display: 'flex', gap: 80 }} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE }}>
+            {[
+              { label: 'Transparency', body: "Show what's captured, how, and from where" },
+              { label: 'Control', body: 'Make it easy to shape without overwhelming' },
+            ].map(item => (
+              <div key={item.label} style={{ maxWidth: 400 }}>
+                <div style={{ display: 'inline-block', background: T.accent, color: T.accentInk, fontFamily: T.mono, fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', padding: '3px 10px', borderRadius: 4, marginBottom: 16 }}>
+                  {item.label}
+                </div>
+                <div style={{ fontSize: 20, lineHeight: 1.55, color: T.inkSecondary }}>{item.body}</div>
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
       <SlideNum n="02" />
     </Shell>
   )
 }
 
 // ── 03 · Why it matters ────────────────────────────────────────────────────
-function SlideWhy() {
+function SlideWhy({ step }: { step: number }) {
   const chain = [
     { top: "No trust in what's stored", bottom: "Users don't connect more data" },
     { top: 'Less data', bottom: 'Weaker context → weaker AI' },
@@ -198,64 +201,61 @@ function SlideWhy() {
 
   return (
     <Shell>
-      <Eyebrow>Why it matters</Eyebrow>
-      <div style={{
-        fontFamily: T.display, fontSize: 72, fontWeight: 700,
-        lineHeight: 1.05, letterSpacing: '-0.03em', color: T.inkPrimary,
-        marginBottom: 88,
-      }}>
-        Trust is the growth lever<br />
-        <span style={{ color: T.inkTertiary, fontWeight: 600 }}>Transparency and control are the means</span>
-      </div>
+      <FadeUp delay={0}><Eyebrow>Why it matters</Eyebrow></FadeUp>
+      <FadeUp delay={0.07}>
+        <div style={{
+          fontFamily: T.display, fontSize: 72, fontWeight: 700,
+          lineHeight: 1.05, letterSpacing: '-0.03em', color: T.inkPrimary,
+          marginBottom: 88,
+        }}>
+          Trust is the growth lever<br />
+          <span style={{ color: T.inkTertiary, fontWeight: 600 }}>Transparency and control are the means</span>
+        </div>
+      </FadeUp>
 
       {/* causal chain */}
       <div style={{ display: 'flex', alignItems: 'stretch', gap: 0 }}>
         {chain.map((item, i) => (
           <>
-            <div key={item.top} style={{
-              padding: '32px 40px',
-              background: T.paperSunken,
-              borderRadius: 16,
-              minWidth: 300,
-              boxSizing: 'border-box',
-              display: 'flex', flexDirection: 'column', justifyContent: 'center',
-            }}>
-              <div style={{ fontSize: 13, color: T.inkTertiary, fontFamily: T.mono, letterSpacing: '0.06em', marginBottom: 10 }}>
-                if
-              </div>
-              <div style={{ fontSize: 18, fontWeight: 600, color: T.inkPrimary, lineHeight: 1.3, marginBottom: 8 }}>
-                {item.top}
-              </div>
-              <div style={{ fontSize: 16, color: T.inkSecondary, lineHeight: 1.4 }}>
-                → {item.bottom}
-              </div>
-            </div>
-            {i < chain.length - 1 && (
-              <div key={`arrow-${i}`} style={{
-                fontSize: 24, color: T.inkTertiary, padding: '0 24px', flexShrink: 0,
-                display: 'flex', alignItems: 'center',
-              }}>→</div>
+            <AnimatePresence key={item.top}>
+              {step >= i + 1 && (
+                <motion.div initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.35, ease: EASE }} style={{
+                  padding: '32px 40px',
+                  background: T.paperSunken,
+                  borderRadius: 16,
+                  minWidth: 300,
+                  boxSizing: 'border-box',
+                  display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                }}>
+                  <div style={{ fontSize: 13, color: T.inkTertiary, fontFamily: T.mono, letterSpacing: '0.06em', marginBottom: 10 }}>if</div>
+                  <div style={{ fontSize: 18, fontWeight: 600, color: T.inkPrimary, lineHeight: 1.3, marginBottom: 8 }}>{item.top}</div>
+                  <div style={{ fontSize: 16, color: T.inkSecondary, lineHeight: 1.4 }}>→ {item.bottom}</div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {i < chain.length - 1 && step >= i + 1 && (
+              <div key={`arrow-${i}`} style={{ fontSize: 24, color: T.inkTertiary, padding: '0 24px', flexShrink: 0, display: 'flex', alignItems: 'center' }}>→</div>
             )}
           </>
         ))}
 
         {/* payoff */}
-        <div style={{ fontSize: 24, color: T.inkTertiary, padding: '0 24px', flexShrink: 0, display: 'flex', alignItems: 'center' }}>→</div>
-        <div style={{
-          padding: '32px 40px',
-          background: T.accent,
-          borderRadius: 16,
-          minWidth: 280,
-          boxSizing: 'border-box',
-          display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        }}>
-          <div style={{ fontSize: 13, color: T.accentInk, fontFamily: T.mono, letterSpacing: '0.06em', marginBottom: 10, opacity: 0.7 }}>
-            therefore
-          </div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: T.accentInk, lineHeight: 1.3 }}>
-            More connections → more context → conversion
-          </div>
-        </div>
+        <AnimatePresence>
+          {step >= 4 && (
+            <motion.div key="payoff-arrow" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} style={{ fontSize: 24, color: T.inkTertiary, padding: '0 24px', flexShrink: 0, display: 'flex', alignItems: 'center' }}>→</motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {step >= 4 && (
+            <motion.div key="payoff" initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.35, ease: EASE }} style={{
+              padding: '32px 40px', background: T.accent, borderRadius: 16,
+              minWidth: 280, boxSizing: 'border-box', display: 'flex', flexDirection: 'column', justifyContent: 'center',
+            }}>
+              <div style={{ fontSize: 13, color: T.accentInk, fontFamily: T.mono, letterSpacing: '0.06em', marginBottom: 10, opacity: 0.7 }}>therefore</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: T.accentInk, lineHeight: 1.3 }}>More connections → more context → conversion</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <SlideNum n="03" />
     </Shell>
@@ -263,7 +263,7 @@ function SlideWhy() {
 }
 
 // ── 04 · Privacy model ─────────────────────────────────────────────────────
-function SlidePrivacyModel() {
+function SlidePrivacyModel({ step }: { step: number }) {
   const colW = 260
 
   function Col({
@@ -309,20 +309,22 @@ function SlidePrivacyModel() {
 
   return (
     <Shell>
-      <Eyebrow>Privacy model</Eyebrow>
-      <div style={{
-        fontFamily: T.display, fontSize: 64, fontWeight: 700,
-        lineHeight: 1.05, letterSpacing: '-0.03em', color: T.inkPrimary,
-        marginBottom: 20,
-      }}>
-        Three layers of control
-      </div>
-      <div style={{ fontSize: 20, lineHeight: 1.55, color: T.inkSecondary, marginBottom: 32, maxWidth: 900 }}>
-        Some privacy is <span style={{ color: T.inkPrimary, fontWeight: 600 }}>objective</span> — passwords, health data, secrets the system can detect.
-        {' '}But much of it is <span style={{ color: T.inkPrimary, fontWeight: 600 }}>subjective</span> — what feels private varies by person, team, and org culture. That's why layers 2 and 3 exist.
-      </div>
+      <FadeUp delay={0}><Eyebrow>Privacy model</Eyebrow></FadeUp>
+      <FadeUp delay={0.07}>
+        <div style={{ fontFamily: T.display, fontSize: 64, fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.03em', color: T.inkPrimary, marginBottom: 20 }}>
+          Three layers of control
+        </div>
+      </FadeUp>
+      <FadeUp delay={0.13}>
+        <div style={{ fontSize: 20, lineHeight: 1.55, color: T.inkSecondary, marginBottom: 32, maxWidth: 900 }}>
+          Some privacy is <span style={{ color: T.inkPrimary, fontWeight: 600 }}>objective</span> — passwords, health data, secrets the system can detect.
+          {' '}But much of it is <span style={{ color: T.inkPrimary, fontWeight: 600 }}>subjective</span> — what feels private varies by person, team, and org culture. That's why layers 2 and 3 exist.
+        </div>
+      </FadeUp>
 
-      <div style={{ display: 'flex', alignItems: 'stretch', gap: 0 }}>
+      <AnimatePresence>
+        {step >= 1 && (
+          <motion.div key="cols" style={{ display: 'flex', alignItems: 'stretch', gap: 0 }} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE }}>
         {/* Sources */}
         <div style={{
           display: 'flex', flexDirection: 'column', gap: 12,
@@ -388,7 +390,9 @@ function SlidePrivacyModel() {
             → Org shared memory
           </div>
         </div>
-      </div>
+        </motion.div>
+        )}
+      </AnimatePresence>
       <SlideNum n="04" />
     </Shell>
   )
@@ -405,7 +409,7 @@ function SlideDani() {
       position: 'relative', overflow: 'hidden',
     }}>
       {/* left copy */}
-      <div style={{
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: EASE }} style={{
         position: 'absolute',
         top: 0, bottom: 0, left: MX, width: 480,
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
@@ -437,10 +441,10 @@ function SlideDani() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* right — persona screenshot */}
-      <div style={{
+      <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: EASE, delay: 0.1 }} style={{
         position: 'absolute',
         top: 96, left: 700, width: 1094, height: 810,
         borderRadius: 24,
@@ -453,7 +457,7 @@ function SlideDani() {
           alt="Dani Reyes persona"
           style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
         />
-      </div>
+      </motion.div>
 
       <SlideNum n="06" />
     </div>
@@ -485,7 +489,7 @@ function DemoSlide({ eyebrow, title, subtitle, slideNum, placeholderLabel, video
       position: 'relative', overflow: 'hidden',
     }}>
       {/* left copy — vertically centered */}
-      <div style={{
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: EASE }} style={{
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -514,10 +518,10 @@ function DemoSlide({ eyebrow, title, subtitle, slideNum, placeholderLabel, video
             {subtitle}
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* right media stage */}
-      <div style={{
+      <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: EASE, delay: 0.08 }} style={{
         position: 'absolute',
         top: 96,
         left: 680,
@@ -552,7 +556,7 @@ function DemoSlide({ eyebrow, title, subtitle, slideNum, placeholderLabel, video
             {placeholderLabel ?? '— media —'}
           </div>
         )}
-      </div>
+      </motion.div>
 
       <SlideNum n={slideNum} />
     </div>
@@ -817,12 +821,12 @@ function SlideEnd() {
 
 // ── deck ───────────────────────────────────────────────────────────────────
 export const highlightSlides: SlideDefinition[] = [
-  { id: 'hl-cover',          navLabel: 'Cover',        steps: 1, render: () => <SlideCover /> },
-  { id: 'hl-challenge',       navLabel: 'Challenge',    steps: 1, render: () => <SlideChallenge /> },
-  { id: 'hl-trust',           navLabel: 'Trust',        steps: 1, render: () => <SlideTrustPerformance /> },
-  { id: 'hl-why',             navLabel: 'Why',          steps: 1, render: () => <SlideWhy /> },
-  { id: 'hl-privacy',         navLabel: 'Privacy model',steps: 1, render: () => <SlidePrivacyModel /> },
-  { id: 'hl-dani',            navLabel: 'Dani',         steps: 1, render: () => <SlideDani /> },
+  { id: 'hl-cover',    navLabel: 'Cover',         steps: 1, render: () => <SlideCover /> },
+  { id: 'hl-challenge',navLabel: 'Challenge',      steps: 2, render: ({ step }) => <SlideChallenge step={step} /> },
+  { id: 'hl-trust',    navLabel: 'Trust',          steps: 2, render: ({ step }) => <SlideTrustPerformance step={step} /> },
+  { id: 'hl-why',      navLabel: 'Why',            steps: 5, render: ({ step }) => <SlideWhy step={step} /> },
+  { id: 'hl-privacy',  navLabel: 'Privacy model',  steps: 2, render: ({ step }) => <SlidePrivacyModel step={step} /> },
+  { id: 'hl-dani',     navLabel: 'Dani',           steps: 1, render: () => <SlideDani /> },
   ...DEMO_SLIDES.map(s => {
     if (s.id === 'hl-demo-proactive') {
       return {
