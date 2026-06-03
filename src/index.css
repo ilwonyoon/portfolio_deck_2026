@@ -14653,3 +14653,43 @@ h3 {
 [data-deck="portfolio-v2"] .section-index-slide--v2 .section-index-slide__line--muted {
   color: rgba(26, 25, 20, 0.22) !important;
 }
+
+/* ── Portfolio V2: Family (display) font on headlines ────────────────────── */
+/* h1/h2/h3 tags get Family — matches highlight pattern */
+[data-deck="portfolio-v2"] h1,
+[data-deck="portfolio-v2"] h2,
+[data-deck="portfolio-v2"] h3 {
+  font-family: var(--font-display) !important;
+}
+
+/* Named headline classes across slides */
+[data-deck="portfolio-v2"] .slide-shell__title,
+[data-deck="portfolio-v2"] .ohouse-cs01-close-slide__headline,
+[data-deck="portfolio-v2"] .ohouse-intro-slide__headline,
+[data-deck="portfolio-v2"] .ohouse-role-slide__headline,
+[data-deck="portfolio-v2"] .ohouse-content-statement-slide__headline,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-slide__headline,
+[data-deck="portfolio-v2"] .ohouse-journey-poster-slide__headline,
+[data-deck="portfolio-v2"] .community-bridge-slide__question,
+[data-deck="portfolio-v2"] .belief-statement-slide__headline,
+[data-deck="portfolio-v2"] .winning-statement-slide__headline,
+[data-deck="portfolio-v2"] .section-index-slide__copy,
+[data-deck="portfolio-v2"] .section-index-slide__line,
+[data-deck="portfolio-v2"] .feed-results-slide__headline,
+[data-deck="portfolio-v2"] .hai-workflow-slide__headline,
+[data-deck="portfolio-v2"] .hai-thesis-slide__headline,
+[data-deck="portfolio-v2"] .promptcue-demo-slide__title,
+[data-deck="portfolio-v2"] .saveback-demo-slide__title,
+[data-deck="portfolio-v2"] .steer-demo-slide .promptcue-demo-slide__title,
+[data-deck="portfolio-v2"] .instagram-commerce-slide__title,
+[data-deck="portfolio-v2"] .instagram-stories-slide__title,
+[data-deck="portfolio-v2"] .instagram-shared-slide__title,
+[data-deck="portfolio-v2"] .messenger-selfie-slide__title,
+[data-deck="portfolio-v2"] .commerce-buyer-slide__title,
+[data-deck="portfolio-v2"] .commerce-seller-slide__title,
+[data-deck="portfolio-v2"] .mix-or-mismatch-slide__title,
+[data-deck="portfolio-v2"] .room-planner-proof-slide__copy,
+[data-deck="portfolio-v2"] .cs03-reflection-slide__headline,
+[data-deck="portfolio-v2"] .ohouse-metrics-editorial-slide__hero-value {
+  font-family: var(--font-display) !important;
+}
