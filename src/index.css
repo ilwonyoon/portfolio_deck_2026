@@ -14621,3 +14621,35 @@ h3 {
 [data-deck="portfolio-v2"] .context-drawer--line .context-drawer__title-btn--open::before {
   background: var(--text-primary) !important;
 }
+
+/* Portfolio V2 — section-index overrides */
+[data-deck="portfolio-v2"] .section-index-slide {
+  background: var(--bg) !important;
+}
+
+[data-deck="portfolio-v2"] .section-index-slide__copy {
+  color: var(--text-primary) !important;
+}
+
+[data-deck="portfolio-v2"] .section-index-slide__line--muted {
+  color: rgba(26, 25, 20, 0.22) !important;
+}
+
+[data-deck="portfolio-v2"] .section-index-slide__line--active,
+[data-deck="portfolio-v2"] .section-index-slide__line:hover,
+[data-deck="portfolio-v2"] .section-index-slide__line:focus-visible {
+  color: rgba(26, 25, 20, 0.98) !important;
+}
+
+[data-deck="portfolio-v2"] .section-index-slide__header,
+[data-deck="portfolio-v2"] .section-index-slide__footer {
+  color: var(--text-tertiary) !important;
+}
+
+[data-deck="portfolio-v2"] .section-index-slide--v2 .section-index-slide__line--active {
+  color: var(--text-primary) !important;
+}
+
+[data-deck="portfolio-v2"] .section-index-slide--v2 .section-index-slide__line--muted {
+  color: rgba(26, 25, 20, 0.22) !important;
+}
