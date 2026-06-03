@@ -17,6 +17,10 @@ function App() {
     return <DeckWorkspace mode="viewer" deck="highlight" />
   }
 
+  if (path === '/portfolio-v2') {
+    return <DeckWorkspace mode="viewer" deck="portfolio-v2" />
+  }
+
   if (path === '/admin' || path === '/Admin') {
     return <DeckWorkspace mode="admin" />
   }

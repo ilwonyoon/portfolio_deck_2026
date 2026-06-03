@@ -58,60 +58,73 @@
 }
 
 /* Highlight deck chrome overrides — sidebar, workspace, slide index, canvas edge */
-[data-deck="highlight"] .slide-index__item-shell[data-active='true'] .slide-index__item {
+[data-deck="highlight"] .slide-index__item-shell[data-active='true'] .slide-index__item,
+[data-deck="portfolio-v2"] .slide-index__item-shell[data-active='true'] .slide-index__item {
   border-color: var(--surface-line-strong);
   background: rgba(35, 32, 26, 0.08);
   color: var(--text-primary);
 }
 
-[data-deck="highlight"] .slide-index__item-shell[data-drop-target='true']::before {
+[data-deck="highlight"] .slide-index__item-shell[data-drop-target='true']::before,
+[data-deck="portfolio-v2"] .slide-index__item-shell[data-drop-target='true']::before {
   background: var(--text-primary);
 }
 
-[data-deck="highlight"] .slide-index__thumbnail-frame {
+[data-deck="highlight"] .slide-index__thumbnail-frame,
+[data-deck="portfolio-v2"] .slide-index__thumbnail-frame {
   border-color: rgba(35, 32, 26, 0.10);
   background: #F7F5EF;
   box-shadow: inset 0 0 0 1px rgba(35, 32, 26, 0.04);
 }
 
-[data-deck="highlight"] .slide-index__item-shell[data-active='true'] .slide-index__thumbnail-frame {
+[data-deck="highlight"] .slide-index__item-shell[data-active='true'] .slide-index__thumbnail-frame,
+[data-deck="portfolio-v2"] .slide-index__item-shell[data-active='true'] .slide-index__thumbnail-frame {
   border-color: rgba(35, 32, 26, 0.22);
 }
 
-[data-deck="highlight"] .presentation-stage-frame {
+[data-deck="highlight"] .presentation-stage-frame,
+[data-deck="portfolio-v2"] .presentation-stage-frame {
   box-shadow: 0 0 0 1px rgba(35, 32, 26, 0.10), 0 8px 32px rgba(35, 32, 26, 0.08);
 }
 
-[data-deck="highlight"] .presentation-stage::before {
+[data-deck="highlight"] .presentation-stage::before,
+[data-deck="portfolio-v2"] .presentation-stage::before {
   background: none;
 }
 
 /* Highlight deck theme — chrome overrides (sidebar, workspace shell) */
-[data-deck="highlight"].app-shell {
+[data-deck="highlight"].app-shell,
+[data-deck="portfolio-v2"].app-shell {
   background: #F0EEE8;
 }
 
-[data-deck="highlight"] .editor-workspace {
+[data-deck="highlight"] .editor-workspace,
+[data-deck="portfolio-v2"] .editor-workspace {
   background: #FEFDF8;
 }
 
-[data-deck="highlight"] .editor-shell--present .editor-workspace {
+[data-deck="highlight"] .editor-shell--present .editor-workspace,
+[data-deck="portfolio-v2"] .editor-shell--present .editor-workspace {
   background: #FEFDF8;
 }
 
-[data-deck="highlight"] .editor-workspace::before {
+[data-deck="highlight"] .editor-workspace::before,
+[data-deck="portfolio-v2"] .editor-workspace::before {
   border-color: rgba(35, 32, 26, 0.08);
 }
 
-[data-deck="highlight"] .editor-sidebar {
+[data-deck="highlight"] .editor-sidebar,
+[data-deck="portfolio-v2"] .editor-sidebar {
   background: #ECEAE4;
 }
 
-[data-deck="highlight"] .editor-sidebar__header {
+[data-deck="highlight"] .editor-sidebar__header,
+[data-deck="portfolio-v2"] .editor-sidebar__header {
   border-bottom-color: rgba(35, 32, 26, 0.08);
 }
 
-[data-deck="highlight"] .editor-sidebar__toggle {
+[data-deck="highlight"] .editor-sidebar__toggle,
+[data-deck="portfolio-v2"] .editor-sidebar__toggle {
   background: #E4E2DC;
   border-color: rgba(35, 32, 26, 0.12);
 }
@@ -120,21 +133,29 @@
 [data-deck="highlight"] .slide-index__item:hover,
 [data-deck="highlight"] .inspector-nav__button:hover,
 [data-deck="highlight"] .step-strip__chip:hover,
-[data-deck="highlight"] .inspector-toggle:hover {
+[data-deck="highlight"] .inspector-toggle:hover,
+[data-deck="portfolio-v2"] .editor-sidebar__toggle:hover,
+[data-deck="portfolio-v2"] .slide-index__item:hover,
+[data-deck="portfolio-v2"] .inspector-nav__button:hover,
+[data-deck="portfolio-v2"] .step-strip__chip:hover,
+[data-deck="portfolio-v2"] .inspector-toggle:hover {
   background: #DDDBD5;
   border-color: rgba(35, 32, 26, 0.18);
 }
 
-[data-deck="highlight"] .present-exit-btn {
+[data-deck="highlight"] .present-exit-btn,
+[data-deck="portfolio-v2"] .present-exit-btn {
   color: rgba(35, 32, 26, 0.3);
 }
 
-[data-deck="highlight"] .present-exit-btn:hover {
+[data-deck="highlight"] .present-exit-btn:hover,
+[data-deck="portfolio-v2"] .present-exit-btn:hover {
   color: rgba(35, 32, 26, 0.72);
 }
 
-/* Highlight deck theme tokens */
-[data-deck="highlight"] {
+/* Highlight deck theme tokens — shared by highlight and portfolio-v2 */
+[data-deck="highlight"],
+[data-deck="portfolio-v2"] {
   --bg: #FEFDF8;
   --surface: #FEFDF8;
   --surface-raised: #FFFFFB;
@@ -14386,4 +14407,127 @@ h3 {
   .landing__cursor {
     animation: none;
   }
+}
+
+/* ── Portfolio V2 theme overrides ─────────────────────────────────────────── */
+/* Override all hardcoded dark slide backgrounds with highlight cream theme */
+
+[data-deck="portfolio-v2"] .aido-demo-slide,
+[data-deck="portfolio-v2"] .belief-statement-slide,
+[data-deck="portfolio-v2"] .commerce-buyer-slide,
+[data-deck="portfolio-v2"] .commerce-seller-slide,
+[data-deck="portfolio-v2"] .community-bridge-slide,
+[data-deck="portfolio-v2"] .community-combined-slide,
+[data-deck="portfolio-v2"] .community-story-2-slide,
+[data-deck="portfolio-v2"] .community-story-3-slide,
+[data-deck="portfolio-v2"] .community-story-slide,
+[data-deck="portfolio-v2"] .content-growth-slide,
+[data-deck="portfolio-v2"] .contribution-story-slide,
+[data-deck="portfolio-v2"] .creator-dashboard-slide,
+[data-deck="portfolio-v2"] .creator-onboarding-slide,
+[data-deck="portfolio-v2"] .creator-programs-slide,
+[data-deck="portfolio-v2"] .cs03-reflection-slide,
+[data-deck="portfolio-v2"] .discover-intro-slide,
+[data-deck="portfolio-v2"] .feed-results-slide,
+[data-deck="portfolio-v2"] .feed-structure-slide,
+[data-deck="portfolio-v2"] .figma-export-slide,
+[data-deck="portfolio-v2"] .growth-story-slide,
+[data-deck="portfolio-v2"] .hai-thesis-slide,
+[data-deck="portfolio-v2"] .hai-workflow-slide,
+[data-deck="portfolio-v2"] .instagram-commerce-slide,
+[data-deck="portfolio-v2"] .instagram-shared-slide,
+[data-deck="portfolio-v2"] .instagram-stories-slide,
+[data-deck="portfolio-v2"] .interior-workflow-slide,
+[data-deck="portfolio-v2"] .messenger-selfie-slide,
+[data-deck="portfolio-v2"] .mix-or-mismatch-slide,
+[data-deck="portfolio-v2"] .mockup-showcase-slide,
+[data-deck="portfolio-v2"] .ohouse-ai-role-shift-slide,
+[data-deck="portfolio-v2"] .ohouse-ai-transition-slide,
+[data-deck="portfolio-v2"] .ohouse-confidence-slide,
+[data-deck="portfolio-v2"] .ohouse-content-blocks-slide,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-bridge-slide,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-slide,
+[data-deck="portfolio-v2"] .ohouse-content-slide,
+[data-deck="portfolio-v2"] .ohouse-content-statement-slide,
+[data-deck="portfolio-v2"] .ohouse-cs01-close-slide,
+[data-deck="portfolio-v2"] .ohouse-intro-slide,
+[data-deck="portfolio-v2"] .ohouse-journey-focus-slide,
+[data-deck="portfolio-v2"] .ohouse-journey-poster-slide,
+[data-deck="portfolio-v2"] .ohouse-journey-slide,
+[data-deck="portfolio-v2"] .ohouse-metrics-slide,
+[data-deck="portfolio-v2"] .ohouse-persona-slide,
+[data-deck="portfolio-v2"] .ohouse-persona-transition,
+[data-deck="portfolio-v2"] .ohouse-role-bridge-proposal-slide,
+[data-deck="portfolio-v2"] .ohouse-role-slide,
+[data-deck="portfolio-v2"] .ohouse-slide,
+[data-deck="portfolio-v2"] .past-works-intro-slide,
+[data-deck="portfolio-v2"] .pdp-place-it-slide,
+[data-deck="portfolio-v2"] .personalized-feed-intro-slide,
+[data-deck="portfolio-v2"] .poster-profile-slide,
+[data-deck="portfolio-v2"] .promptcue-demo-slide,
+[data-deck="portfolio-v2"] .room-planner-proof-slide,
+[data-deck="portfolio-v2"] .saveback-demo-slide,
+[data-deck="portfolio-v2"] .section-index-slide,
+[data-deck="portfolio-v2"] .side-projects-intro-slide,
+[data-deck="portfolio-v2"] .space-ai-learning-slide,
+[data-deck="portfolio-v2"] .steer-demo-slide,
+[data-deck="portfolio-v2"] .tbd-side-title-slide,
+[data-deck="portfolio-v2"] .try-room-pro-designs-slide,
+[data-deck="portfolio-v2"] .upload-experience-slide,
+[data-deck="portfolio-v2"] .user-centric-close-slide,
+[data-deck="portfolio-v2"] .winning-statement-slide,
+[data-deck="portfolio-v2"] .ohouse-rebrand-slide {
+  background: var(--bg) !important;
+}
+
+/* Text color overrides for dark-on-dark text */
+[data-deck="portfolio-v2"] .ohouse-ai-role-shift-slide *,
+[data-deck="portfolio-v2"] .ohouse-ai-transition-slide *,
+[data-deck="portfolio-v2"] .ohouse-cs01-close-slide *,
+[data-deck="portfolio-v2"] .community-bridge-slide *,
+[data-deck="portfolio-v2"] .interior-workflow-slide *,
+[data-deck="portfolio-v2"] .cs03-reflection-slide * {
+  color: var(--text-primary);
+}
+
+/* Portfolio V2 — white text overrides (for cream background legibility) */
+[data-deck="portfolio-v2"] .belief-statement-slide__headline,
+[data-deck="portfolio-v2"] .commerce-buyer-slide__title,
+[data-deck="portfolio-v2"] .commerce-seller-slide__title,
+[data-deck="portfolio-v2"] .growth-chart-slide__title,
+[data-deck="portfolio-v2"] .growth-story-slide__badge-row-value,
+[data-deck="portfolio-v2"] .inspiration-slide__word,
+[data-deck="portfolio-v2"] .instagram-commerce-slide__title,
+[data-deck="portfolio-v2"] .instagram-shared-slide__callout,
+[data-deck="portfolio-v2"] .instagram-shared-slide__title,
+[data-deck="portfolio-v2"] .instagram-stories-slide__title,
+[data-deck="portfolio-v2"] .messenger-selfie-slide__title,
+[data-deck="portfolio-v2"] .mix-or-mismatch-slide__title,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-slide__headline,
+[data-deck="portfolio-v2"] .ohouse-journey-slide__copy-block--emphasis,
+[data-deck="portfolio-v2"] .ohouse-journey-slide__journey-row--current .ohouse-journey-slide__journey-label,
+[data-deck="portfolio-v2"] .ohouse-slide__brand,
+[data-deck="portfolio-v2"] .ohouse-slide__label,
+[data-deck="portfolio-v2"] .promptcue-demo-slide__title,
+[data-deck="portfolio-v2"] .room-planner-proof-slide__copy,
+[data-deck="portfolio-v2"] .saveback-demo-slide__title,
+[data-deck="portfolio-v2"] .winning-statement-slide__headline {
+  color: var(--text-primary) !important;
+}
+
+/* Portfolio V2 — secondary/tertiary text that was also white */
+[data-deck="portfolio-v2"] .ohouse-intro-slide *,
+[data-deck="portfolio-v2"] .ohouse-role-slide *,
+[data-deck="portfolio-v2"] .ohouse-journey-poster-slide *,
+[data-deck="portfolio-v2"] .feed-structure-slide__copy,
+[data-deck="portfolio-v2"] .feed-structure-slide__headline,
+[data-deck="portfolio-v2"] .discover-intro-slide__copy,
+[data-deck="portfolio-v2"] .side-projects-intro-slide__headline,
+[data-deck="portfolio-v2"] .side-projects-intro-slide__body,
+[data-deck="portfolio-v2"] .hai-workflow-slide__headline,
+[data-deck="portfolio-v2"] .hai-workflow-slide__body,
+[data-deck="portfolio-v2"] .hai-thesis-slide__headline,
+[data-deck="portfolio-v2"] .section-index-slide__title,
+[data-deck="portfolio-v2"] .section-index-slide__item {
+  color: var(--text-primary) !important;
 }

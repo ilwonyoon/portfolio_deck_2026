@@ -19,7 +19,7 @@ import type { SlideDefinition } from '../types/presentation'
 
 export type DeckWorkspaceMode = 'viewer' | 'admin'
 
-type DeckCollection = 'portfolio' | 'system' | 'highlight'
+type DeckCollection = 'portfolio' | 'system' | 'highlight' | 'portfolio-v2'
 
 type Props = {
   mode: DeckWorkspaceMode
@@ -55,6 +55,7 @@ export function DeckWorkspace({ mode, deck: deckProp }: Props) {
   const sourceSlides =
     deckCollection === 'system' ? designSystemSlides :
     deckCollection === 'highlight' ? highlightSlides :
+    deckCollection === 'portfolio-v2' ? initialDeckSlides :
     slides
 
   const isAdmin = mode === 'admin'
