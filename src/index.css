@@ -14531,3 +14531,93 @@ h3 {
 [data-deck="portfolio-v2"] .section-index-slide__item {
   color: var(--text-primary) !important;
 }
+
+/* ── Portfolio V2: comprehensive color overrides ─────────────────────────── */
+/* Slide root + all children: white text → dark text */
+[data-deck="portfolio-v2"] .belief-statement-slide,
+[data-deck="portfolio-v2"] .belief-statement-slide *,
+[data-deck="portfolio-v2"] .commerce-buyer-slide,
+[data-deck="portfolio-v2"] .commerce-buyer-slide *,
+[data-deck="portfolio-v2"] .commerce-seller-slide,
+[data-deck="portfolio-v2"] .commerce-seller-slide *,
+[data-deck="portfolio-v2"] .community-combined-slide,
+[data-deck="portfolio-v2"] .community-combined-slide *,
+[data-deck="portfolio-v2"] .contribution-story-slide,
+[data-deck="portfolio-v2"] .contribution-story-slide *,
+[data-deck="portfolio-v2"] .growth-chart-slide *,
+[data-deck="portfolio-v2"] .growth-story-slide *,
+[data-deck="portfolio-v2"] .hai-thesis-slide,
+[data-deck="portfolio-v2"] .hai-thesis-slide *,
+[data-deck="portfolio-v2"] .hai-workflow-slide,
+[data-deck="portfolio-v2"] .hai-workflow-slide *,
+[data-deck="portfolio-v2"] .inspiration-slide *,
+[data-deck="portfolio-v2"] .instagram-commerce-slide,
+[data-deck="portfolio-v2"] .instagram-commerce-slide *,
+[data-deck="portfolio-v2"] .instagram-shared-slide,
+[data-deck="portfolio-v2"] .instagram-shared-slide *,
+[data-deck="portfolio-v2"] .instagram-stories-slide,
+[data-deck="portfolio-v2"] .instagram-stories-slide *,
+[data-deck="portfolio-v2"] .interior-workflow-slide,
+[data-deck="portfolio-v2"] .interior-workflow-slide *,
+[data-deck="portfolio-v2"] .intro-hero-slide *,
+[data-deck="portfolio-v2"] .messenger-selfie-slide,
+[data-deck="portfolio-v2"] .messenger-selfie-slide *,
+[data-deck="portfolio-v2"] .mix-or-mismatch-slide,
+[data-deck="portfolio-v2"] .mix-or-mismatch-slide *,
+[data-deck="portfolio-v2"] .ohouse-ai-role-shift-slide,
+[data-deck="portfolio-v2"] .ohouse-ai-role-shift-slide *,
+[data-deck="portfolio-v2"] .ohouse-confidence-slide *,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-bridge-slide,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-bridge-slide *,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-slide,
+[data-deck="portfolio-v2"] .ohouse-content-ecosystem-slide *,
+[data-deck="portfolio-v2"] .ohouse-content-slide *,
+[data-deck="portfolio-v2"] .ohouse-content-statement-slide,
+[data-deck="portfolio-v2"] .ohouse-content-statement-slide *,
+[data-deck="portfolio-v2"] .ohouse-journey-slide,
+[data-deck="portfolio-v2"] .ohouse-journey-slide *,
+[data-deck="portfolio-v2"] .ohouse-metrics-editorial-slide,
+[data-deck="portfolio-v2"] .ohouse-metrics-editorial-slide *,
+[data-deck="portfolio-v2"] .ohouse-metrics-slide,
+[data-deck="portfolio-v2"] .ohouse-metrics-slide *,
+[data-deck="portfolio-v2"] .ohouse-persona-slide,
+[data-deck="portfolio-v2"] .ohouse-persona-slide *,
+[data-deck="portfolio-v2"] .ohouse-persona-transition,
+[data-deck="portfolio-v2"] .ohouse-persona-transition *,
+[data-deck="portfolio-v2"] .ohouse-role-bridge-proposal-slide,
+[data-deck="portfolio-v2"] .ohouse-role-bridge-proposal-slide *,
+[data-deck="portfolio-v2"] .ohouse-role-slide,
+[data-deck="portfolio-v2"] .ohouse-role-slide *,
+[data-deck="portfolio-v2"] .poster-profile-slide,
+[data-deck="portfolio-v2"] .poster-profile-slide *,
+[data-deck="portfolio-v2"] .promptcue-demo-slide,
+[data-deck="portfolio-v2"] .promptcue-demo-slide *,
+[data-deck="portfolio-v2"] .room-planner-proof-slide,
+[data-deck="portfolio-v2"] .room-planner-proof-slide *,
+[data-deck="portfolio-v2"] .saveback-demo-slide,
+[data-deck="portfolio-v2"] .saveback-demo-slide *,
+[data-deck="portfolio-v2"] .winning-statement-slide,
+[data-deck="portfolio-v2"] .winning-statement-slide * {
+  color: var(--text-primary) !important;
+}
+
+/* ContextDrawer: override hardcoded dark-mode styles */
+[data-deck="portfolio-v2"] .context-drawer,
+[data-deck="portfolio-v2"] .context-drawer *,
+[data-deck="portfolio-v2"] .context-drawer__title-btn,
+[data-deck="portfolio-v2"] .context-drawer__title-wrap,
+[data-deck="portfolio-v2"] .context-drawer__hint,
+[data-deck="portfolio-v2"] .context-drawer__body,
+[data-deck="portfolio-v2"] .context-drawer__content {
+  color: var(--text-primary) !important;
+}
+
+[data-deck="portfolio-v2"] .context-drawer__dot {
+  background: var(--text-primary) !important;
+}
+
+[data-deck="portfolio-v2"] .context-drawer--line .context-drawer__title-btn::before,
+[data-deck="portfolio-v2"] .context-drawer--line .context-drawer__title-btn:hover::before,
+[data-deck="portfolio-v2"] .context-drawer--line .context-drawer__title-btn--open::before {
+  background: var(--text-primary) !important;
+}
