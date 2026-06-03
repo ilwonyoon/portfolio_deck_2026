@@ -14708,3 +14708,11 @@ h3 {
 [data-deck="portfolio-v2"] .pattern-screen__card {
   box-shadow: 0 2px 12px rgba(35, 32, 26, 0.10), 0 0 0 1px rgba(35, 32, 26, 0.06) !important;
 }
+
+/* ── Portfolio V2: body font-weight reduction for cream background ────────── */
+[data-deck="portfolio-v2"] {
+  --font-weight-book: 380;
+  --font-weight-medium: 420;
+  --font-weight-medium-strong: 460;
+  --font-weight-semibold: 500;
+}
