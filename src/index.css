@@ -14767,3 +14767,32 @@ h3 {
 [data-deck="cartesia"] .presentation-stage::before {
   background: none;
 }
+
+/* ── Cartesia deck chrome hover states ───────────────────────────────────── */
+[data-deck="cartesia"] .editor-sidebar__toggle:hover,
+[data-deck="cartesia"] .slide-index__item:hover,
+[data-deck="cartesia"] .inspector-nav__button:hover,
+[data-deck="cartesia"] .step-strip__chip:hover,
+[data-deck="cartesia"] .inspector-toggle:hover {
+  background: #dfdbd6;
+  border-color: rgba(57, 52, 47, 0.18);
+}
+
+[data-deck="cartesia"] .slide-index__item-shell[data-active='true'] .slide-index__item {
+  border-color: rgba(57, 52, 47, 0.16);
+  background: rgba(57, 52, 47, 0.08);
+  color: var(--text-primary);
+}
+
+[data-deck="cartesia"] .step-strip__chip[aria-pressed='true'] {
+  background: var(--text-primary);
+  color: var(--bg);
+}
+
+[data-deck="cartesia"] .present-exit-btn {
+  color: rgba(57, 52, 47, 0.3);
+}
+
+[data-deck="cartesia"] .present-exit-btn:hover {
+  color: rgba(57, 52, 47, 0.72);
+}
