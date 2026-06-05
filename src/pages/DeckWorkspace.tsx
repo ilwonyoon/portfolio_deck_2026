@@ -12,6 +12,7 @@ import {
   subscribeDeckSync,
 } from '../lib/deckSync'
 import { deckSlides as initialDeckSlides } from '../slides/deck'
+import { cartesiaSlides } from '../slides/cartesiaDeck'
 import { highlightSlides } from '../slides/highlightDeck'
 import { designSystemSlides } from '../slides/systemDeck'
 import type { CanvasSelection } from '../types/inspector'
@@ -19,7 +20,7 @@ import type { SlideDefinition } from '../types/presentation'
 
 export type DeckWorkspaceMode = 'viewer' | 'admin'
 
-type DeckCollection = 'portfolio' | 'system' | 'highlight' | 'portfolio-v2'
+type DeckCollection = 'portfolio' | 'system' | 'highlight' | 'portfolio-v2' | 'cartesia'
 
 type Props = {
   mode: DeckWorkspaceMode
@@ -56,6 +57,7 @@ export function DeckWorkspace({ mode, deck: deckProp }: Props) {
     deckCollection === 'system' ? designSystemSlides :
     deckCollection === 'highlight' ? highlightSlides :
     deckCollection === 'portfolio-v2' ? initialDeckSlides :
+    deckCollection === 'cartesia' ? cartesiaSlides :
     slides
 
   const isAdmin = mode === 'admin'

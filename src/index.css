@@ -14716,3 +14716,54 @@ h3 {
   --font-weight-medium-strong: 460;
   --font-weight-semibold: 500;
 }
+
+/* ── Cartesia deck theme ──────────────────────────────────────────────────── */
+[data-deck="cartesia"] {
+  --bg: #f9f9f8;
+  --surface: #ffffff;
+  --surface-raised: #fdfdfc;
+  --surface-sunken: #efeee8;
+  --surface-nav: #f4f4f4;
+  --surface-soft: rgba(57, 52, 47, 0.04);
+  --surface-line: rgba(57, 52, 47, 0.10);
+  --text-primary: #39342f;
+  --text-secondary: #737373;
+  --text-tertiary: #626160;
+  --text-quaternary: #525150;
+  --accent: #004d22;
+  --accent-soft: rgba(0, 77, 34, 0.12);
+  --accent-ink: #ffffff;
+  --divider: #dfdbd6;
+  --hairline: #dfdbd6;
+  --font-sans: 'TestSohne', 'Inter', -apple-system, sans-serif;
+  --font-display: 'TestSohne', 'Inter', -apple-system, sans-serif;
+  --font-mono: 'TestSohneMono', 'IBM Plex Mono', monospace;
+  --font-weight-book: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+}
+
+[data-deck="cartesia"].app-shell {
+  background: #efeee8;
+}
+
+[data-deck="cartesia"] .editor-workspace {
+  background: #f9f9f8;
+}
+
+[data-deck="cartesia"] .editor-sidebar {
+  background: #eceae4;
+}
+
+[data-deck="cartesia"] .slide-index__thumbnail-frame {
+  border-color: rgba(57, 52, 47, 0.10);
+  background: #efeee8;
+}
+
+[data-deck="cartesia"] .slide-index__item-shell[data-active='true'] .slide-index__thumbnail-frame {
+  border-color: rgba(57, 52, 47, 0.22);
+}
+
+[data-deck="cartesia"] .presentation-stage::before {
+  background: none;
+}

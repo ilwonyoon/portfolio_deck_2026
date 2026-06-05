@@ -21,6 +21,10 @@ function App() {
     return <DeckWorkspace mode="viewer" deck="portfolio-v2" />
   }
 
+  if (path === '/cartesia') {
+    return <DeckWorkspace mode="viewer" deck="cartesia" />
+  }
+
   if (path === '/admin' || path === '/Admin') {
     return <DeckWorkspace mode="admin" />
   }
