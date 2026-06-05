@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 import type { SlideDefinition, SlideRenderContext } from '../types/presentation'
 
 // ── Design tokens ──────────────────────────────────────────────────────────
@@ -219,25 +220,60 @@ function SlideTeardownIntro() {
   )
 }
 
-// ── Comparison slide: side-by-side ElevenLabs vs Cartesia ─────────────────
+// ── Lightbox ───────────────────────────────────────────────────────────────
+function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+      style={{
+        position: 'absolute', inset: 0, zIndex: 100,
+        background: 'rgba(26,23,20,0.85)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        cursor: 'zoom-out',
+      }}
+    >
+      <motion.img
+        src={src}
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.92, opacity: 0 }}
+        transition={{ duration: 0.25, ease: EASE }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth: '88%', maxHeight: '88%',
+          borderRadius: 12,
+          boxShadow: '0 32px 80px rgba(0,0,0,0.4)',
+          objectFit: 'contain',
+          cursor: 'default',
+        }}
+      />
+    </motion.div>
+  )
+}
+
+// ── Comparison slide: ElevenLabs (wide, multi-image) vs Cartesia (narrow) ──
 interface CompareSlideProps {
   slideNum: string
-  axis: string          // e.g. "① Onboarding funnel"
-  caption?: string      // optional 1-line note at bottom
-  leftImage?: string
-  rightImage?: string
-  leftLabel?: string
-  rightLabel?: string
+  axis: string
+  caption?: string
+  elevenlabsImages?: string[]   // multiple landscape screenshots
+  cartesiaImages?: string[]
 }
 
 function CompareSlide({
-  slideNum, axis, caption, leftImage, rightImage,
-  leftLabel = 'ElevenLabs', rightLabel = 'Cartesia',
+  slideNum, axis, caption,
+  elevenlabsImages = [],
+  cartesiaImages = [],
 }: CompareSlideProps) {
-  const panelH = H - MY * 2 - 80
+  const [lightbox, setLightbox] = useState<string | null>(null)
+  const panelH = H - MY * 2 - 56
   return (
     <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
-      {/* Top label */}
+      {/* Top bar */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -257,64 +293,104 @@ function CompareSlide({
         )}
       </motion.div>
 
-      {/* Two panels */}
+      {/* Panels — ElevenLabs 62%, Cartesia 38% */}
       <div style={{
         position: 'absolute',
-        top: MY + 48, left: MX, right: MX, height: panelH,
-        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24,
+        top: MY + 44, left: MX, right: MX, height: panelH,
+        display: 'grid', gridTemplateColumns: '62fr 38fr', gap: 20,
       }}>
-        {[
-          { label: leftLabel, image: leftImage, highlight: true },
-          { label: rightLabel, image: rightImage, highlight: false },
-        ].map((panel) => (
-          <motion.div
-            key={panel.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: EASE }}
-            style={{
-              display: 'flex', flexDirection: 'column', height: '100%',
-            }}
-          >
-            {/* Panel label */}
-            <div style={{
-              marginBottom: 12,
-              display: 'flex', alignItems: 'center', gap: 8,
-            }}>
-              <span style={{
-                fontFamily: T.mono, fontSize: 11, letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: panel.highlight ? T.accent : T.inkTertiary,
-                fontWeight: panel.highlight ? 600 : 400,
+        {/* ElevenLabs — multi-image stack */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: EASE }}
+          style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+        >
+          <div style={{ marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: T.accent, fontWeight: 600 }}>ElevenLabs</span>
+            <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: T.accentLight }} />
+          </div>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {elevenlabsImages.length > 0 ? elevenlabsImages.map((src, i) => (
+              <div
+                key={i}
+                onClick={() => setLightbox(src)}
+                style={{
+                  flex: 1, borderRadius: 10, overflow: 'hidden',
+                  background: T.bgSecondary,
+                  border: '1px solid rgba(0,77,34,0.15)',
+                  cursor: 'zoom-in',
+                  position: 'relative',
+                }}
+              >
+                <img src={src} alt={`ElevenLabs ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <div style={{
+                  position: 'absolute', bottom: 8, right: 10,
+                  fontFamily: T.mono, fontSize: 10, color: 'rgba(255,255,255,0.5)',
+                  letterSpacing: '0.06em',
+                }}>click to expand</div>
+              </div>
+            )) : (
+              <div style={{
+                flex: 1, borderRadius: 10, overflow: 'hidden',
+                background: T.bgSecondary, border: '1px solid rgba(0,77,34,0.15)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                {panel.label}
-              </span>
-              {panel.highlight && (
-                <span style={{
-                  display: 'inline-block', width: 6, height: 6,
-                  borderRadius: '50%', background: T.accentLight,
-                }} />
-              )}
-            </div>
-            {/* Image area */}
-            <div style={{
-              flex: 1,
-              borderRadius: 12, overflow: 'hidden',
-              background: T.bgSecondary,
-              border: `1px solid ${panel.highlight ? 'rgba(0,77,34,0.15)' : T.border}`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              {panel.image ? (
-                <img src={panel.image} alt={panel.label} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
                 <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                  — {panel.label} screenshot —
+                  — ElevenLabs screenshots —
                 </div>
-              )}
-            </div>
-          </motion.div>
-        ))}
+              </div>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Cartesia — single or stack */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: EASE, delay: 0.06 }}
+          style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+        >
+          <div style={{ marginBottom: 10 }}>
+            <span style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: T.inkTertiary }}>Cartesia</span>
+          </div>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {cartesiaImages.length > 0 ? cartesiaImages.map((src, i) => (
+              <div
+                key={i}
+                onClick={() => setLightbox(src)}
+                style={{
+                  flex: 1, borderRadius: 10, overflow: 'hidden',
+                  background: T.bgSecondary, border: `1px solid ${T.border}`,
+                  cursor: 'zoom-in', position: 'relative',
+                }}
+              >
+                <img src={src} alt={`Cartesia ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <div style={{
+                  position: 'absolute', bottom: 8, right: 10,
+                  fontFamily: T.mono, fontSize: 10, color: 'rgba(0,0,0,0.3)',
+                  letterSpacing: '0.06em',
+                }}>click to expand</div>
+              </div>
+            )) : (
+              <div style={{
+                flex: 1, borderRadius: 10,
+                background: T.bgSecondary, border: `1px solid ${T.border}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  — Cartesia screenshot —
+                </div>
+              </div>
+            )}
+          </div>
+        </motion.div>
       </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && <Lightbox src={lightbox} onClose={() => setLightbox(null)} />}
+      </AnimatePresence>
 
       <SlideNum n={slideNum} />
     </div>
