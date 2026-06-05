@@ -220,63 +220,49 @@ function SlideTeardownIntro() {
   )
 }
 
-// ── Lightbox ───────────────────────────────────────────────────────────────
-function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      onClick={onClose}
-      style={{
-        position: 'absolute', inset: 0, zIndex: 100,
-        background: 'rgba(26,23,20,0.85)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        cursor: 'zoom-out',
-      }}
-    >
-      <motion.img
-        src={src}
-        initial={{ scale: 0.92, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.92, opacity: 0 }}
-        transition={{ duration: 0.25, ease: EASE }}
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          maxWidth: '88%', maxHeight: '88%',
-          borderRadius: 12,
-          boxShadow: '0 32px 80px rgba(0,0,0,0.4)',
-          objectFit: 'contain',
-          cursor: 'default',
-        }}
-      />
-    </motion.div>
-  )
-}
+// ── Comparison slide: toggle + single viewer + swipeable media ─────────────
+type MediaItem = { src: string; type?: 'image' | 'video' }
 
-// ── Comparison slide: ElevenLabs (wide, multi-image) vs Cartesia (narrow) ──
 interface CompareSlideProps {
   slideNum: string
   axis: string
   caption?: string
-  elevenlabsImages?: string[]   // multiple landscape screenshots
-  cartesiaImages?: string[]
+  elevenlabs?: MediaItem[]
+  cartesia?: MediaItem[]
 }
 
 function CompareSlide({
   slideNum, axis, caption,
-  elevenlabsImages = [],
-  cartesiaImages = [],
+  elevenlabs = [],
+  cartesia = [],
 }: CompareSlideProps) {
+  const tabs = [
+    { id: 'elevenlabs', label: 'ElevenLabs', items: elevenlabs, accent: true },
+    { id: 'cartesia',   label: 'Cartesia',   items: cartesia,   accent: false },
+  ]
+  const [activeTab, setActiveTab] = useState<'elevenlabs' | 'cartesia'>('elevenlabs')
+  const [activeIdx, setActiveIdx] = useState(0)
   const [lightbox, setLightbox] = useState<string | null>(null)
-  const panelH = H - MY * 2 - 56
+
+  const current = tabs.find(t => t.id === activeTab)!
+  const items = current.items
+  const item = items[activeIdx]
+
+  const goTo = (idx: number) => setActiveIdx(Math.max(0, Math.min(items.length - 1, idx)))
+
+  const switchTab = (id: 'elevenlabs' | 'cartesia') => {
+    setActiveTab(id)
+    setActiveIdx(0)
+  }
+
+  const viewerH = H - MY * 2 - 120
+
   return (
     <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
-      {/* Top bar */}
+
+      {/* Top row: axis label + caption */}
       <motion.div
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: EASE }}
         style={{
           position: 'absolute', top: MY, left: MX, right: MX,
@@ -286,110 +272,163 @@ function CompareSlide({
         <div style={{ fontFamily: T.mono, fontSize: 12, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.inkTertiary }}>
           {axis}
         </div>
-        {caption && (
-          <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.04em' }}>
-            {caption}
+        {caption && <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.04em' }}>{caption}</div>}
+      </motion.div>
+
+      {/* Toggle tabs + dot indicators */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: EASE, delay: 0.06 }}
+        style={{
+          position: 'absolute', top: MY + 44, left: MX,
+          display: 'flex', alignItems: 'center', gap: 0,
+        }}
+      >
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id
+          return (
+            <button
+              key={tab.id}
+              onClick={() => switchTab(tab.id as 'elevenlabs' | 'cartesia')}
+              style={{
+                padding: '8px 20px',
+                fontFamily: T.mono, fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase',
+                fontWeight: isActive ? 600 : 400,
+                color: isActive ? (tab.accent ? T.accent : T.inkPrimary) : T.inkTertiary,
+                background: isActive ? (tab.accent ? T.accentTint : T.bgSecondary) : 'transparent',
+                border: `1px solid ${isActive ? (tab.accent ? 'rgba(0,77,34,0.2)' : T.border) : 'transparent'}`,
+                borderRadius: 8, cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: 8,
+                transition: 'all 0.15s ease',
+              }}
+            >
+              {tab.label}
+              {tab.accent && isActive && <span style={{ width: 6, height: 6, borderRadius: '50%', background: T.accentLight, display: 'inline-block' }} />}
+              <span style={{ fontFamily: T.mono, fontSize: 10, opacity: 0.5 }}>
+                {tab.items.length > 0 ? `${tab.items.length}` : ''}
+              </span>
+            </button>
+          )
+        })}
+
+        {/* Dot indicators for current tab */}
+        {items.length > 1 && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 24 }}>
+            {items.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                style={{
+                  width: i === activeIdx ? 18 : 6,
+                  height: 6, borderRadius: 3,
+                  background: i === activeIdx ? T.inkPrimary : T.border,
+                  border: 'none', cursor: 'pointer', padding: 0,
+                  transition: 'all 0.2s ease',
+                }}
+              />
+            ))}
           </div>
         )}
       </motion.div>
 
-      {/* Panels — ElevenLabs 62%, Cartesia 38% */}
-      <div style={{
-        position: 'absolute',
-        top: MY + 44, left: MX, right: MX, height: panelH,
-        display: 'grid', gridTemplateColumns: '62fr 38fr', gap: 20,
-      }}>
-        {/* ElevenLabs — multi-image stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: EASE }}
-          style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
-        >
-          <div style={{ marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: T.accent, fontWeight: 600 }}>ElevenLabs</span>
-            <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: T.accentLight }} />
-          </div>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {elevenlabsImages.length > 0 ? elevenlabsImages.map((src, i) => (
-              <div
-                key={i}
-                onClick={() => setLightbox(src)}
-                style={{
-                  flex: 1, borderRadius: 10, overflow: 'hidden',
-                  background: T.bgSecondary,
-                  border: '1px solid rgba(0,77,34,0.15)',
-                  cursor: 'zoom-in',
-                  position: 'relative',
-                }}
-              >
-                <img src={src} alt={`ElevenLabs ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                <div style={{
-                  position: 'absolute', bottom: 8, right: 10,
-                  fontFamily: T.mono, fontSize: 10, color: 'rgba(255,255,255,0.5)',
-                  letterSpacing: '0.06em',
-                }}>click to expand</div>
-              </div>
-            )) : (
-              <div style={{
-                flex: 1, borderRadius: 10, overflow: 'hidden',
-                background: T.bgSecondary, border: '1px solid rgba(0,77,34,0.15)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                  — ElevenLabs screenshots —
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
+      {/* Main viewer */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: EASE, delay: 0.1 }}
+        style={{
+          position: 'absolute',
+          top: MY + 100, left: MX, right: MX,
+          height: viewerH,
+          borderRadius: 14, overflow: 'hidden',
+          background: T.bgSecondary,
+          border: `1px solid ${activeTab === 'elevenlabs' ? 'rgba(0,77,34,0.15)' : T.border}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          cursor: item ? 'zoom-in' : 'default',
+        }}
+        onClick={() => item && setLightbox(item.src)}
+      >
+        <AnimatePresence mode="wait">
+          {item ? (
+            <motion.div
+              key={`${activeTab}-${activeIdx}`}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              style={{ width: '100%', height: '100%' }}
+            >
+              {item.type === 'video' ? (
+                <video
+                  src={item.src} autoPlay loop muted playsInline
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              ) : (
+                <img src={item.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              )}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              style={{ fontFamily: T.mono, fontSize: 13, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}
+            >
+              — {current.label} media —
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* Cartesia — single or stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: EASE, delay: 0.06 }}
-          style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
-        >
-          <div style={{ marginBottom: 10 }}>
-            <span style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: T.inkTertiary }}>Cartesia</span>
-          </div>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {cartesiaImages.length > 0 ? cartesiaImages.map((src, i) => (
-              <div
-                key={i}
-                onClick={() => setLightbox(src)}
-                style={{
-                  flex: 1, borderRadius: 10, overflow: 'hidden',
-                  background: T.bgSecondary, border: `1px solid ${T.border}`,
-                  cursor: 'zoom-in', position: 'relative',
-                }}
-              >
-                <img src={src} alt={`Cartesia ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                <div style={{
-                  position: 'absolute', bottom: 8, right: 10,
-                  fontFamily: T.mono, fontSize: 10, color: 'rgba(0,0,0,0.3)',
-                  letterSpacing: '0.06em',
-                }}>click to expand</div>
-              </div>
-            )) : (
-              <div style={{
-                flex: 1, borderRadius: 10,
-                background: T.bgSecondary, border: `1px solid ${T.border}`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                  — Cartesia screenshot —
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
-      </div>
+        {/* Prev / Next arrows */}
+        {items.length > 1 && (
+          <>
+            <button
+              onClick={(e) => { e.stopPropagation(); goTo(activeIdx - 1) }}
+              disabled={activeIdx === 0}
+              style={{
+                position: 'absolute', left: 20, top: '50%', transform: 'translateY(-50%)',
+                width: 40, height: 40, borderRadius: '50%',
+                background: 'rgba(26,23,20,0.5)', border: 'none', cursor: 'pointer',
+                color: '#fff', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                opacity: activeIdx === 0 ? 0.2 : 1, transition: 'opacity 0.15s',
+              }}
+            >‹</button>
+            <button
+              onClick={(e) => { e.stopPropagation(); goTo(activeIdx + 1) }}
+              disabled={activeIdx === items.length - 1}
+              style={{
+                position: 'absolute', right: 20, top: '50%', transform: 'translateY(-50%)',
+                width: 40, height: 40, borderRadius: '50%',
+                background: 'rgba(26,23,20,0.5)', border: 'none', cursor: 'pointer',
+                color: '#fff', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                opacity: activeIdx === items.length - 1 ? 0.2 : 1, transition: 'opacity 0.15s',
+              }}
+            >›</button>
+          </>
+        )}
+      </motion.div>
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightbox && <Lightbox src={lightbox} onClose={() => setLightbox(null)} />}
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setLightbox(null)}
+            style={{
+              position: 'absolute', inset: 0, zIndex: 100,
+              background: 'rgba(26,23,20,0.88)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'zoom-out',
+            }}
+          >
+            <motion.img
+              src={lightbox}
+              initial={{ scale: 0.94, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ duration: 0.25, ease: EASE }}
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: '90%', maxHeight: '90%', borderRadius: 12, objectFit: 'contain', cursor: 'default' }}
+            />
+          </motion.div>
+        )}
       </AnimatePresence>
 
       <SlideNum n={slideNum} />
