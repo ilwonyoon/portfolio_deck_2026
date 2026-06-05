@@ -126,7 +126,7 @@ function SlideCover() {
 // ── 01 · Agenda ─────────────────────────────────────────────────────────────
 function SlideAgenda() {
   const sections = [
-    { num: '01', label: 'Competitive teardown', sub: 'ElevenLabs · Deepgram · Inworld' },
+    { num: '01', label: 'Competitive teardown', sub: 'ElevenLabs', crossedOut: ['Deepgram', 'Inworld'] },
     { num: '02', label: 'Concept — Give Your Agent a Face', sub: '5-step flow · Avatar layer for voice agents' },
   ]
   return (
@@ -153,7 +153,14 @@ function SlideAgenda() {
               <div style={{ fontFamily: T.mono, fontSize: 13, color: T.inkTertiary, width: 40, flexShrink: 0, paddingTop: 4 }}>{s.num}</div>
               <div>
                 <div style={{ fontSize: 28, fontWeight: 500, color: T.inkPrimary, marginBottom: 8 }}>{s.label}</div>
-                <div style={{ fontSize: 16, color: T.inkSecondary, fontFamily: T.mono, letterSpacing: '0.04em' }}>{s.sub}</div>
+                <div style={{ fontSize: 16, fontFamily: T.mono, letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                  <span style={{ color: T.inkPrimary, fontWeight: 500 }}>{s.sub}</span>
+                  {'crossedOut' in s && s.crossedOut && s.crossedOut.map((item: string) => (
+                    <span key={item} style={{ color: T.inkTertiary, textDecoration: 'line-through', fontWeight: 400 }}>
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
