@@ -232,7 +232,7 @@ interface CompareSlideProps {
 }
 
 function CompareSlide({
-  slideNum, axis, caption,
+  slideNum,
   elevenlabs = [],
   cartesia = [],
 }: CompareSlideProps) {
@@ -255,58 +255,50 @@ function CompareSlide({
     setActiveIdx(0)
   }
 
-  const viewerH = H - MY * 2 - 120
+  const viewerH = H - MY * 2 - 96
+
+  const logoSrc: Record<string, string> = {
+    elevenlabs: '/media/cartesia/elevenlabs-logo.png',
+    cartesia: '/media/cartesia/cartesia-logo.png',
+  }
 
   return (
     <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
 
-      {/* Top row: axis label + caption */}
+      {/* Toggle tabs + dot indicators — top aligned */}
       <motion.div
         initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: EASE }}
         style={{
-          position: 'absolute', top: MY, left: MX, right: MX,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }}
-      >
-        <div style={{ fontFamily: T.mono, fontSize: 12, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.inkTertiary }}>
-          {axis}
-        </div>
-        {caption && <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.04em' }}>{caption}</div>}
-      </motion.div>
-
-      {/* Toggle tabs + dot indicators */}
-      <motion.div
-        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: EASE, delay: 0.06 }}
-        style={{
-          position: 'absolute', top: MY + 44, left: MX,
-          display: 'flex', alignItems: 'center', gap: 0,
+          position: 'absolute', top: MY, left: MX,
+          display: 'flex', alignItems: 'center', gap: 8,
         }}
       >
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id
+          const logo = logoSrc[tab.id]
           return (
             <button
               key={tab.id}
               onClick={() => switchTab(tab.id as 'elevenlabs' | 'cartesia')}
               style={{
                 padding: '8px 20px',
-                fontFamily: T.mono, fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase',
-                fontWeight: isActive ? 600 : 400,
-                color: isActive ? (tab.accent ? T.accent : T.inkPrimary) : T.inkTertiary,
                 background: isActive ? (tab.accent ? T.accentTint : T.bgSecondary) : 'transparent',
                 border: `1px solid ${isActive ? (tab.accent ? 'rgba(0,77,34,0.2)' : T.border) : 'transparent'}`,
-                borderRadius: 8, cursor: 'pointer',
-                display: 'flex', alignItems: 'center', gap: 8,
+                borderRadius: 10, cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: 10,
+                opacity: isActive ? 1 : 0.4,
                 transition: 'all 0.15s ease',
               }}
             >
-              {tab.label}
-              {tab.accent && isActive && <span style={{ width: 6, height: 6, borderRadius: '50%', background: T.accentLight, display: 'inline-block' }} />}
-              <span style={{ fontFamily: T.mono, fontSize: 10, opacity: 0.5 }}>
-                {tab.items.length > 0 ? `${tab.items.length}` : ''}
-              </span>
+              {logo ? (
+                <img src={logo} alt={tab.label} style={{ height: 20, width: 'auto', objectFit: 'contain', display: 'block' }} />
+              ) : (
+                <span style={{ fontFamily: T.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', color: T.inkPrimary, fontWeight: 600 }}>{tab.label}</span>
+              )}
+              {tab.items.length > 1 && (
+                <span style={{ fontFamily: T.mono, fontSize: 10, color: T.inkTertiary }}>{tab.items.length}</span>
+              )}
             </button>
           )
         })}
@@ -337,7 +329,7 @@ function CompareSlide({
         transition={{ duration: 0.45, ease: EASE, delay: 0.1 }}
         style={{
           position: 'absolute',
-          top: MY + 100, left: MX, right: MX,
+          top: MY + 68, left: MX, right: MX,
           height: viewerH,
           borderRadius: 14, overflow: 'hidden',
           background: T.bgSecondary,
