@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 32" fill="none">
-  <rect width="4" height="28" x="0" y="2" rx="2" fill="#000"/>
-  <rect width="4" height="20" x="8" y="10" rx="2" fill="#000"/>
-  <rect width="4" height="14" x="16" y="16" rx="2" fill="#000"/>
-  <text x="28" y="23" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" font-size="16" font-weight="600" fill="#000" letter-spacing="-0.3">ElevenLabs</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 36" fill="none">
+  <!-- bar icon -->
+  <rect x="0" y="4"  width="5" height="28" rx="2.5" fill="#000"/>
+  <rect x="9" y="10" width="5" height="22" rx="2.5" fill="#000"/>
+  <rect x="18" y="16" width="5" height="16" rx="2.5" fill="#000"/>
+  <!-- wordmark -->
+  <text x="32" y="25" font-family="-apple-system, 'Inter', 'Helvetica Neue', sans-serif" font-size="17" font-weight="600" fill="#000" letter-spacing="-0.4">ElevenLabs</text>
 </svg>

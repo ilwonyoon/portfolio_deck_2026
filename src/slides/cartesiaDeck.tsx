@@ -258,8 +258,8 @@ function CompareSlide({
   const viewerH = H - MY * 2 - 96
 
   const logoSrc: Record<string, string> = {
-    elevenlabs: '/media/cartesia/elevenlabs-logo.png',
-    cartesia: '/media/cartesia/cartesia-logo.png',
+    elevenlabs: '/media/cartesia/elevenlabs-logo.svg',
+    cartesia: '/media/cartesia/cartesia-logo.svg',
   }
 
   return (
@@ -631,6 +631,10 @@ export const cartesiaSlides: SlideDefinition[] = [
         slideNum="02"
         axis="① Onboarding funnel"
         caption="How each product greets a new user"
+        elevenlabs={[
+          { src: '/media/cartesia/el-onboarding-01.png' },
+          { src: '/media/cartesia/el-onboarding-02.png' },
+        ]}
       />
     ),
   },
