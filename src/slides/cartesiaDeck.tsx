@@ -219,87 +219,101 @@ function SlideTeardownIntro() {
   )
 }
 
-// Teardown slide template: image left, analysis right
-interface TeardownSlideProps {
+// ── Comparison slide: side-by-side ElevenLabs vs Cartesia ─────────────────
+interface CompareSlideProps {
   slideNum: string
-  competitor: string
-  finding: string
-  what: string
-  why: string
-  how: string
-  image?: string
-  step: number
+  axis: string          // e.g. "① Onboarding funnel"
+  caption?: string      // optional 1-line note at bottom
+  leftImage?: string
+  rightImage?: string
+  leftLabel?: string
+  rightLabel?: string
 }
 
-function TeardownSlide({ slideNum, competitor, finding, what, why, how, image, step }: TeardownSlideProps) {
+function CompareSlide({
+  slideNum, axis, caption, leftImage, rightImage,
+  leftLabel = 'ElevenLabs', rightLabel = 'Cartesia',
+}: CompareSlideProps) {
+  const panelH = H - MY * 2 - 80
   return (
     <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
-      {/* Left — image */}
+      {/* Top label */}
       <motion.div
-        initial={{ opacity: 0, x: -16 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, ease: EASE }}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: EASE }}
         style={{
-          position: 'absolute',
-          top: MY, left: MX, width: 900, height: H - MY * 2,
-          borderRadius: 16, overflow: 'hidden',
-          background: T.bgSecondary,
-          border: `1px solid ${T.border}`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          position: 'absolute', top: MY, left: MX, right: MX,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}
       >
-        {image ? (
-          <img src={image} alt={finding} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        ) : (
-          <div style={{ fontFamily: T.mono, fontSize: 13, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            — screenshot —
+        <div style={{ fontFamily: T.mono, fontSize: 12, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.inkTertiary }}>
+          {axis}
+        </div>
+        {caption && (
+          <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.04em' }}>
+            {caption}
           </div>
         )}
       </motion.div>
 
-      {/* Right — copy */}
+      {/* Two panels */}
       <div style={{
         position: 'absolute',
-        top: 0, bottom: 0, right: MX, width: 620,
-        display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        top: MY + 48, left: MX, right: MX, height: panelH,
+        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24,
       }}>
-        <FadeUp delay={0}>
-          <AccentTag>{competitor}</AccentTag>
-          <div style={{ height: 20 }} />
-        </FadeUp>
-        <FadeUp delay={0.08}>
-          <div style={{
-            fontSize: 36, fontWeight: 500, lineHeight: 1.2,
-            letterSpacing: '-0.015em', color: T.inkPrimary, marginBottom: 48,
-          }}>
-            {finding}
-          </div>
-        </FadeUp>
-        <AnimatePresence>
-          {step >= 1 && (
-            <motion.div
-              key="analysis"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: EASE }}
-              style={{ display: 'flex', flexDirection: 'column', gap: 28 }}
-            >
-              {[
-                { label: 'What', body: what },
-                { label: 'Why it\'s better', body: why },
-                { label: 'Apply to Cartesia', body: how },
-              ].map(item => (
-                <div key={item.label}>
-                  <div style={{
-                    fontFamily: T.mono, fontSize: 11, letterSpacing: '0.10em',
-                    textTransform: 'uppercase', color: T.accent, marginBottom: 8,
-                  }}>{item.label}</div>
-                  <div style={{ fontSize: 16, lineHeight: 1.6, color: T.inkSecondary }}>{item.body}</div>
+        {[
+          { label: leftLabel, image: leftImage, highlight: true },
+          { label: rightLabel, image: rightImage, highlight: false },
+        ].map((panel) => (
+          <motion.div
+            key={panel.label}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: EASE }}
+            style={{
+              display: 'flex', flexDirection: 'column', height: '100%',
+            }}
+          >
+            {/* Panel label */}
+            <div style={{
+              marginBottom: 12,
+              display: 'flex', alignItems: 'center', gap: 8,
+            }}>
+              <span style={{
+                fontFamily: T.mono, fontSize: 11, letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: panel.highlight ? T.accent : T.inkTertiary,
+                fontWeight: panel.highlight ? 600 : 400,
+              }}>
+                {panel.label}
+              </span>
+              {panel.highlight && (
+                <span style={{
+                  display: 'inline-block', width: 6, height: 6,
+                  borderRadius: '50%', background: T.accentLight,
+                }} />
+              )}
+            </div>
+            {/* Image area */}
+            <div style={{
+              flex: 1,
+              borderRadius: 12, overflow: 'hidden',
+              background: T.bgSecondary,
+              border: `1px solid ${panel.highlight ? 'rgba(0,77,34,0.15)' : T.border}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              {panel.image ? (
+                <img src={panel.image} alt={panel.label} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <div style={{ fontFamily: T.mono, fontSize: 12, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  — {panel.label} screenshot —
                 </div>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
+              )}
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       <SlideNum n={slideNum} />
@@ -493,57 +507,49 @@ export const cartesiaSlides: SlideDefinition[] = [
   },
 
   // Part 1 — Competitive teardown
+  // Teardown: thesis slide first, then image comparisons
   {
     id: 'ca-teardown-intro',
     navLabel: 'Teardown',
     steps: 1,
     render: () => <SlideTeardownIntro />,
   },
+  // ① Onboarding funnel — image(s)
   {
-    id: 'ca-teardown-1',
-    navLabel: '① Onboarding funnel',
-    steps: 2,
-    render: ({ step }: SlideRenderContext) => (
-      <TeardownSlide
+    id: 'ca-compare-onboarding',
+    navLabel: '① Onboarding',
+    steps: 1,
+    render: () => (
+      <CompareSlide
         slideNum="02"
-        competitor="Onboarding funnel"
-        finding="ElevenLabs asks what you came to do. Cartesia shows what it can do."
-        what="ElevenLabs opens with 'What's your use case?' — Creative, Agent, Enterprise — and routes the entire onboarding accordingly. Cartesia drops users directly into the console dashboard."
-        why="Intent-first onboarding means every subsequent screen, tooltip, and default is calibrated to that user's goal. The product feels built for you from the first click."
-        how="Add a lightweight intent screen before the Cartesia console — 3 paths max. Use the answer to set defaults, surface relevant docs, and prioritize the right API features."
-        step={step}
+        axis="① Onboarding funnel"
+        caption="How each product greets a new user"
       />
     ),
   },
+  // ② Side nav / IA — image(s)
   {
-    id: 'ca-teardown-2',
+    id: 'ca-compare-nav',
     navLabel: '② Side nav / IA',
-    steps: 2,
-    render: ({ step }: SlideRenderContext) => (
-      <TeardownSlide
+    steps: 1,
+    render: () => (
+      <CompareSlide
         slideNum="03"
-        competitor="Side navigation / IA"
-        finding="ElevenLabs organizes by what you make. Cartesia organizes by what it has."
-        what="ElevenLabs nav: Speech, Voices, Agents, Dubbing, Studio — output types the user creates. Cartesia nav: API keys, Models, Usage — inputs and infrastructure the system exposes."
-        why="Output-oriented IA maps to user mental models. 'I want to build an agent' matches a nav item directly. 'I need to configure a model' is an implementation detail most users don't start with."
-        how="Restructure Cartesia's left nav around user jobs-to-be-done: Build a voice, Deploy an agent, Monitor usage. Keep technical config a level deeper."
-        step={step}
+        axis="② Side navigation / IA"
+        caption="Output-oriented vs. capability-oriented structure"
       />
     ),
   },
+  // ③ Content panel — image(s)
   {
-    id: 'ca-teardown-3',
+    id: 'ca-compare-content',
     navLabel: '③ Content panel',
-    steps: 2,
-    render: ({ step }: SlideRenderContext) => (
-      <TeardownSlide
+    steps: 1,
+    render: () => (
+      <CompareSlide
         slideNum="04"
-        competitor="Content panel"
-        finding="ElevenLabs teaches while you build. Cartesia shows while you explore."
-        what="ElevenLabs embeds contextual guidance — inline examples, 'Try it' buttons, progressive tooltips — directly in the content panel next to each control. Cartesia's panels are clean but silent."
-        why="Learning-in-context reduces tab-switching to docs. Users build confidence faster and reach their first working integration sooner."
-        how="Add inline 'Try this' micro-interactions to Cartesia's voice and agent panels. Show a working code snippet next to every API parameter. Make the first success zero-friction."
-        step={step}
+        axis="③ Content panel"
+        caption="Teaching while building vs. showing what exists"
       />
     ),
   },
