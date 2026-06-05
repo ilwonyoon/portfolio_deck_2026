@@ -177,19 +177,41 @@ function SlideTeardownIntro() {
   return (
     <Shell>
       <FadeUp delay={0}>
-        <Eyebrow>Part 01</Eyebrow>
+        <Eyebrow>Part 01 · ElevenLabs vs. Cartesia</Eyebrow>
       </FadeUp>
       <FadeUp delay={0.07}>
         <div style={{
-          fontSize: 80, fontWeight: 500, lineHeight: 1.0,
-          letterSpacing: '-0.03em', color: T.inkPrimary, marginBottom: 40,
+          fontSize: 72, fontWeight: 500, lineHeight: 1.0,
+          letterSpacing: '-0.03em', color: T.inkPrimary, marginBottom: 48,
         }}>
-          Competitive<br />teardown.
+          Same goal.<br />Different belief.
         </div>
       </FadeUp>
       <FadeUp delay={0.14}>
-        <div style={{ fontSize: 22, lineHeight: 1.6, color: T.inkSecondary, maxWidth: 640 }}>
-          Three things a competitor does better —<br />and how to apply them to Cartesia.
+        <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start', marginBottom: 56 }}>
+          <div style={{
+            flex: 1, padding: '28px 32px',
+            background: T.bgSecondary, borderRadius: 12,
+            border: `1px solid ${T.border}`,
+          }}>
+            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.inkTertiary, marginBottom: 12 }}>Cartesia</div>
+            <div style={{ fontSize: 18, fontWeight: 500, color: T.inkPrimary, marginBottom: 8 }}>Research lab that demos its tech</div>
+            <div style={{ fontSize: 15, lineHeight: 1.6, color: T.inkSecondary }}>Enters the console showing what it can do. Capability-first, then workflow.</div>
+          </div>
+          <div style={{
+            flex: 1, padding: '28px 32px',
+            background: T.accentTint, borderRadius: 12,
+            border: `1px solid rgba(0,77,34,0.12)`,
+          }}>
+            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.accent, marginBottom: 12, opacity: 0.7 }}>ElevenLabs</div>
+            <div style={{ fontSize: 18, fontWeight: 500, color: T.inkPrimary, marginBottom: 8 }}>Product company built for outcomes</div>
+            <div style={{ fontSize: 15, lineHeight: 1.6, color: T.inkSecondary }}>Asks what you came to do. Segments by goal, then routes everything — IA, nav, onboarding, content — to serve that intent.</div>
+          </div>
+        </div>
+      </FadeUp>
+      <FadeUp delay={0.20}>
+        <div style={{ fontSize: 15, color: T.inkTertiary, fontFamily: T.mono, letterSpacing: '0.06em' }}>
+          Comparing across three surfaces → Onboarding · Side nav / IA · Content panel
         </div>
       </FadeUp>
       <SlideNum n="01" />
@@ -479,48 +501,48 @@ export const cartesiaSlides: SlideDefinition[] = [
   },
   {
     id: 'ca-teardown-1',
-    navLabel: 'Finding 01',
+    navLabel: '① Onboarding funnel',
     steps: 2,
     render: ({ step }: SlideRenderContext) => (
       <TeardownSlide
         slideNum="02"
-        competitor="ElevenLabs"
-        finding="Voice library with instant audio preview"
-        what="Hovering any voice plays a sample clip immediately — no separate preview step."
-        why="Reduces decision friction. Users audition voices in context without context-switching."
-        how="Inline play button on Cartesia voice cards — single click, no modal."
+        competitor="Onboarding funnel"
+        finding="ElevenLabs asks what you came to do. Cartesia shows what it can do."
+        what="ElevenLabs opens with 'What's your use case?' — Creative, Agent, Enterprise — and routes the entire onboarding accordingly. Cartesia drops users directly into the console dashboard."
+        why="Intent-first onboarding means every subsequent screen, tooltip, and default is calibrated to that user's goal. The product feels built for you from the first click."
+        how="Add a lightweight intent screen before the Cartesia console — 3 paths max. Use the answer to set defaults, surface relevant docs, and prioritize the right API features."
         step={step}
       />
     ),
   },
   {
     id: 'ca-teardown-2',
-    navLabel: 'Finding 02',
+    navLabel: '② Side nav / IA',
     steps: 2,
     render: ({ step }: SlideRenderContext) => (
       <TeardownSlide
         slideNum="03"
-        competitor="ElevenLabs"
-        finding="Agent builder with visual flow editor"
-        what="Drag-and-drop node graph for connecting agent components — LLM, voice, tools."
-        why="Makes agent architecture legible. Non-engineers can understand and modify agent logic."
-        how="Add a lightweight visual overview panel to the Cartesia Agent config page."
+        competitor="Side navigation / IA"
+        finding="ElevenLabs organizes by what you make. Cartesia organizes by what it has."
+        what="ElevenLabs nav: Speech, Voices, Agents, Dubbing, Studio — output types the user creates. Cartesia nav: API keys, Models, Usage — inputs and infrastructure the system exposes."
+        why="Output-oriented IA maps to user mental models. 'I want to build an agent' matches a nav item directly. 'I need to configure a model' is an implementation detail most users don't start with."
+        how="Restructure Cartesia's left nav around user jobs-to-be-done: Build a voice, Deploy an agent, Monitor usage. Keep technical config a level deeper."
         step={step}
       />
     ),
   },
   {
     id: 'ca-teardown-3',
-    navLabel: 'Finding 03',
+    navLabel: '③ Content panel',
     steps: 2,
     render: ({ step }: SlideRenderContext) => (
       <TeardownSlide
         slideNum="04"
-        competitor="ElevenLabs"
-        finding="First-run onboarding with contextual tooltips"
-        what="Progressive disclosure — tooltips surface on first interaction with each feature area."
-        why="Reduces empty-state confusion. Users understand what each config option does without docs."
-        how="Add contextual hints to Cartesia's voice config and agent setup panels."
+        competitor="Content panel"
+        finding="ElevenLabs teaches while you build. Cartesia shows while you explore."
+        what="ElevenLabs embeds contextual guidance — inline examples, 'Try it' buttons, progressive tooltips — directly in the content panel next to each control. Cartesia's panels are clean but silent."
+        why="Learning-in-context reduces tab-switching to docs. Users build confidence faster and reach their first working integration sooner."
+        how="Add inline 'Try this' micro-interactions to Cartesia's voice and agent panels. Show a working code snippet next to every API parameter. Make the first success zero-friction."
         step={step}
       />
     ),
