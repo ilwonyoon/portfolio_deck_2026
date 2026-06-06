@@ -26,6 +26,18 @@ const MX = 128
 const MY = 96
 const EASE = [0.25, 0.1, 0.25, 1] as [number, number, number, number]
 
+// ── Global keyframes (CSS-based entrance — reliable inside the deck viewport) ──
+const CA_KEYFRAMES = `
+@keyframes ca-fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ca-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ca-slide-in { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes ca-swipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0% 0 0); } }
+`
+
+function CaStyles() {
+  return <style>{CA_KEYFRAMES}</style>
+}
+
 // ── Shared components ──────────────────────────────────────────────────────
 function Shell({ children, bg = T.bg }: { children: React.ReactNode; bg?: string }) {
   return (
@@ -34,6 +46,7 @@ function Shell({ children, bg = T.bg }: { children: React.ReactNode; bg?: string
       position: 'relative', overflow: 'hidden',
       padding: `${MY}px ${MX}px`, boxSizing: 'border-box',
     }}>
+      <CaStyles />
       {children}
     </div>
   )
@@ -41,13 +54,11 @@ function Shell({ children, bg = T.bg }: { children: React.ReactNode; bg?: string
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: EASE, delay }}
-    >
+    <div style={{
+      animation: `ca-fade-up 0.5s cubic-bezier(0.25,0.1,0.25,1) ${delay}s both`,
+    }}>
       {children}
-    </motion.div>
+    </div>
   )
 }
 
@@ -93,14 +104,13 @@ function SlideCover() {
       alignItems: 'center', justifyContent: 'center',
       position: 'relative', overflow: 'hidden',
     }}>
+      <CaStyles />
       {/* Green accent line */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
+      <div
         style={{
           width: 48, height: 3, background: T.accent, borderRadius: 2,
           marginBottom: 48, transformOrigin: 'left',
+          animation: 'ca-fade-in 0.6s cubic-bezier(0.25,0.1,0.25,1) 0.2s both',
         }}
       />
       <FadeUp delay={0.1}>
@@ -221,7 +231,7 @@ function SlideTeardownIntro() {
 }
 
 // ── Comparison slide: toggle + single viewer + swipeable media ─────────────
-type MediaItem = { src: string; type?: 'image' | 'video' }
+type MediaItem = { src: string; type?: 'image' | 'video'; webm?: string }
 
 interface CompareSlideProps {
   slideNum: string
@@ -264,14 +274,14 @@ function CompareSlide({
 
   return (
     <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
+      <CaStyles />
 
       {/* Toggle tabs + dot indicators — top aligned */}
-      <motion.div
-        initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: EASE }}
+      <div
         style={{
           position: 'absolute', top: MY, left: MX,
           display: 'flex', alignItems: 'center', gap: 8,
+          animation: 'ca-fade-up 0.4s cubic-bezier(0.25,0.1,0.25,1) both',
         }}
       >
         {tabs.map((tab) => {
@@ -321,12 +331,10 @@ function CompareSlide({
             ))}
           </div>
         )}
-      </motion.div>
+      </div>
 
       {/* Main viewer */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: EASE, delay: 0.1 }}
+      <div
         style={{
           position: 'absolute',
           top: MY + 68, left: MX, right: MX,
@@ -335,38 +343,29 @@ function CompareSlide({
           background: T.bgSecondary,
           border: `1px solid ${activeTab === 'elevenlabs' ? 'rgba(0,77,34,0.15)' : T.border}`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          cursor: item ? 'zoom-in' : 'default',
+          cursor: item && item.type !== 'video' ? 'zoom-in' : 'default',
+          animation: 'ca-fade-up 0.45s cubic-bezier(0.25,0.1,0.25,1) 0.1s both',
         }}
-        onClick={() => item && setLightbox(item.src)}
+        onClick={() => item && item.type !== 'video' && setLightbox(item.src)}
       >
-        <AnimatePresence mode="wait">
-          {item ? (
-            <motion.div
-              key={`${activeTab}-${activeIdx}`}
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              style={{ width: '100%', height: '100%' }}
-            >
-              {item.type === 'video' ? (
-                <video
-                  src={item.src} autoPlay loop muted playsInline
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              ) : (
-                <img src={item.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-              )}
-            </motion.div>
+        {item ? (
+          item.type === 'video' ? (
+            <video
+              key={item.src}
+              src={item.src}
+              autoPlay loop muted playsInline preload="auto"
+              ref={(el) => { if (el) el.play().catch(() => {}) }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              onClick={(e) => e.stopPropagation()}
+            />
           ) : (
-            <motion.div
-              key="empty"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              style={{ fontFamily: T.mono, fontSize: 13, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}
-            >
-              — {current.label} media —
-            </motion.div>
-          )}
-        </AnimatePresence>
+            <img key={item.src} src={item.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          )
+        ) : (
+          <div style={{ fontFamily: T.mono, fontSize: 13, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            — {current.label} media —
+          </div>
+        )}
 
         {/* Prev / Next arrows */}
         {items.length > 1 && (
@@ -395,7 +394,7 @@ function CompareSlide({
             >›</button>
           </>
         )}
-      </motion.div>
+      </div>
 
       {/* Lightbox */}
       <AnimatePresence>
@@ -475,26 +474,23 @@ function SlideFlowOverview({ step }: { step: number }) {
       </FadeUp>
       <div style={{ display: 'flex', gap: 0 }}>
         {steps.map((s, i) => (
-          <AnimatePresence key={s.num}>
-            {step >= i && (
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: EASE, delay: i * 0.06 }}
-                style={{
-                  flex: 1,
-                  padding: '28px 24px',
-                  background: i === step - 1 ? T.accentTint : T.bgSecondary,
-                  borderLeft: i === 0 ? 'none' : `1px solid ${T.border}`,
-                  borderRadius: i === 0 ? '12px 0 0 12px' : i === 4 ? '0 12px 12px 0' : 0,
-                }}
-              >
-                <div style={{ fontFamily: T.mono, fontSize: 11, color: i === step - 1 ? T.accent : T.inkTertiary, letterSpacing: '0.08em', marginBottom: 12 }}>{s.num}</div>
-                <div style={{ fontSize: 20, fontWeight: 600, color: T.inkPrimary, marginBottom: 8 }}>{s.label}</div>
-                <div style={{ fontSize: 14, color: T.inkSecondary, lineHeight: 1.5 }}>{s.desc}</div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          step >= i && (
+            <div
+              key={s.num}
+              style={{
+                flex: 1,
+                padding: '28px 24px',
+                background: i === step - 1 ? T.accentTint : T.bgSecondary,
+                borderLeft: i === 0 ? 'none' : `1px solid ${T.border}`,
+                borderRadius: i === 0 ? '12px 0 0 12px' : i === 4 ? '0 12px 12px 0' : 0,
+                animation: 'ca-fade-up 0.35s cubic-bezier(0.25,0.1,0.25,1) both',
+              }}
+            >
+              <div style={{ fontFamily: T.mono, fontSize: 11, color: i === step - 1 ? T.accent : T.inkTertiary, letterSpacing: '0.08em', marginBottom: 12 }}>{s.num}</div>
+              <div style={{ fontSize: 20, fontWeight: 600, color: T.inkPrimary, marginBottom: 8 }}>{s.label}</div>
+              <div style={{ fontSize: 14, color: T.inkSecondary, lineHeight: 1.5 }}>{s.desc}</div>
+            </div>
+          )
         ))}
       </div>
       <SlideNum n="06" />
@@ -515,15 +511,14 @@ interface FlowSlideProps {
 function FlowSlide({ slideNum, stepNum, stepLabel, headline, body, image }: FlowSlideProps) {
   return (
     <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
+      <CaStyles />
       {/* Left copy */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: EASE }}
+      <div
         style={{
           position: 'absolute',
           top: 0, bottom: 0, left: MX, width: 500,
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
+          animation: 'ca-fade-up 0.45s cubic-bezier(0.25,0.1,0.25,1) both',
         }}
       >
         <div style={{ marginBottom: 20 }}>
@@ -538,13 +533,10 @@ function FlowSlide({ slideNum, stepNum, stepLabel, headline, body, image }: Flow
         <div style={{ fontSize: 20, lineHeight: 1.65, color: T.inkSecondary }}>
           {body}
         </div>
-      </motion.div>
+      </div>
 
       {/* Right — mockup stage */}
-      <motion.div
-        initial={{ opacity: 0, x: 24 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, ease: EASE, delay: 0.08 }}
+      <div
         style={{
           position: 'absolute',
           top: MY, right: MX, width: 1080, height: H - MY * 2,
@@ -552,6 +544,7 @@ function FlowSlide({ slideNum, stepNum, stepLabel, headline, body, image }: Flow
           background: T.bgSecondary,
           border: `1px solid ${T.border}`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
+          animation: 'ca-slide-in 0.5s cubic-bezier(0.25,0.1,0.25,1) 0.08s both',
         }}
       >
         {image ? (
@@ -561,7 +554,7 @@ function FlowSlide({ slideNum, stepNum, stepLabel, headline, body, image }: Flow
             Step {stepNum} — {stepLabel}
           </div>
         )}
-      </motion.div>
+      </div>
 
       <SlideNum n={slideNum} />
     </div>
@@ -577,6 +570,7 @@ function SlideEnd() {
       alignItems: 'center', justifyContent: 'center',
       position: 'relative', overflow: 'hidden',
     }}>
+      <CaStyles />
       <FadeUp delay={0.1}>
         <div style={{
           fontSize: 96, fontWeight: 500, lineHeight: 1.0,
@@ -632,8 +626,7 @@ export const cartesiaSlides: SlideDefinition[] = [
         axis="① Onboarding funnel"
         caption="How each product greets a new user"
         elevenlabs={[
-          { src: '/media/cartesia/el-onboarding-01.png' },
-          { src: '/media/cartesia/el-onboarding-02.png' },
+          { src: '/media/cartesia/el-onboarding.mp4', webm: '/media/cartesia/el-onboarding.webm', type: 'video' },
         ]}
       />
     ),
