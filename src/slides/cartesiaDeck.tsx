@@ -82,18 +82,6 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   )
 }
 
-function AccentTag({ children }: { children: React.ReactNode }) {
-  return (
-    <span style={{
-      display: 'inline-block',
-      background: T.accentTint, color: T.accent,
-      fontFamily: T.mono, fontSize: 11, letterSpacing: '0.08em',
-      textTransform: 'uppercase', padding: '3px 10px', borderRadius: 4,
-    }}>
-      {children}
-    </span>
-  )
-}
 
 // ── 00 · Cover ─────────────────────────────────────────────────────────────
 function SlideCover() {
@@ -119,7 +107,7 @@ function SlideCover() {
           letterSpacing: '-0.03em', color: T.inkPrimary, textAlign: 'center',
           marginBottom: 24,
         }}>
-          Give Your Agent<br />a Face.
+          Hello.
         </div>
       </FadeUp>
       <FadeUp delay={0.25}>
@@ -143,7 +131,7 @@ function SlideAgenda() {
   return (
     <Shell>
       <FadeUp delay={0}>
-        <Eyebrow>Overview</Eyebrow>
+        <Eyebrow>Agenda</Eyebrow>
       </FadeUp>
       <FadeUp delay={0.07}>
         <div style={{
@@ -187,44 +175,25 @@ function SlideAgenda() {
 function SlideTeardownIntro() {
   return (
     <Shell>
-      <FadeUp delay={0}>
-        <Eyebrow>Part 01 · ElevenLabs vs. Cartesia</Eyebrow>
-      </FadeUp>
-      <FadeUp delay={0.07}>
-        <div style={{
-          fontSize: 72, fontWeight: 500, lineHeight: 1.0,
-          letterSpacing: '-0.03em', color: T.inkPrimary, marginBottom: 48,
-        }}>
-          Same goal.<br />Different belief.
-        </div>
-      </FadeUp>
-      <FadeUp delay={0.14}>
-        <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start', marginBottom: 56 }}>
-          <div style={{
-            flex: 1, padding: '28px 32px',
-            background: T.bgSecondary, borderRadius: 12,
-            border: `1px solid ${T.border}`,
-          }}>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.inkTertiary, marginBottom: 12 }}>Cartesia</div>
-            <div style={{ fontSize: 18, fontWeight: 500, color: T.inkPrimary, marginBottom: 8 }}>Research lab that demos its tech</div>
-            <div style={{ fontSize: 15, lineHeight: 1.6, color: T.inkSecondary }}>Enters the console showing what it can do. Capability-first, then workflow.</div>
-          </div>
-          <div style={{
-            flex: 1, padding: '28px 32px',
-            background: T.accentTint, borderRadius: 12,
-            border: `1px solid rgba(0,77,34,0.12)`,
-          }}>
-            <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.accent, marginBottom: 12, opacity: 0.7 }}>ElevenLabs</div>
-            <div style={{ fontSize: 18, fontWeight: 500, color: T.inkPrimary, marginBottom: 8 }}>Product company built for outcomes</div>
-            <div style={{ fontSize: 15, lineHeight: 1.6, color: T.inkSecondary }}>Asks what you came to do. Segments by goal, then routes everything — IA, nav, onboarding, content — to serve that intent.</div>
-          </div>
-        </div>
-      </FadeUp>
-      <FadeUp delay={0.20}>
-        <div style={{ fontSize: 15, color: T.inkTertiary, fontFamily: T.mono, letterSpacing: '0.06em' }}>
-          Comparing across three surfaces → Onboarding · Side nav / IA · Content panel
-        </div>
-      </FadeUp>
+      <div style={{ position: 'absolute', top: MY, left: MX }}>
+        <FadeUp delay={0}>
+          <Eyebrow>Part 01 · ElevenLabs vs. Cartesia</Eyebrow>
+        </FadeUp>
+      </div>
+      <div style={{
+        position: 'absolute', inset: 0,
+        display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        gap: 80, padding: `0 ${MX}px`,
+      }}>
+        <FadeUp delay={0.1}>
+          <div style={{ fontFamily: T.mono, fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', color: T.inkTertiary, marginBottom: 20 }}>Cartesia</div>
+          <div style={{ fontSize: 56, fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.02em', color: T.inkPrimary }}>Research lab that demos its tech</div>
+        </FadeUp>
+        <FadeUp delay={0.2}>
+          <div style={{ fontFamily: T.mono, fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', color: T.accent, marginBottom: 20 }}>ElevenLabs</div>
+          <div style={{ fontSize: 56, fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.02em', color: T.inkPrimary }}>Product company built for outcomes</div>
+        </FadeUp>
+      </div>
       <SlideNum n="01" />
     </Shell>
   )
@@ -235,113 +204,48 @@ type MediaItem = { src: string; type?: 'image' | 'video'; webm?: string }
 
 interface CompareSlideProps {
   slideNum: string
-  axis: string
-  caption?: string
+  title?: string
   elevenlabs?: MediaItem[]
-  cartesia?: MediaItem[]
 }
 
 function CompareSlide({
   slideNum,
+  title,
   elevenlabs = [],
-  cartesia = [],
 }: CompareSlideProps) {
-  const tabs = [
-    { id: 'elevenlabs', label: 'ElevenLabs', items: elevenlabs, accent: true },
-    { id: 'cartesia',   label: 'Cartesia',   items: cartesia,   accent: false },
-  ]
-  const [activeTab, setActiveTab] = useState<'elevenlabs' | 'cartesia'>('elevenlabs')
+  const items = elevenlabs
   const [activeIdx, setActiveIdx] = useState(0)
   const [lightbox, setLightbox] = useState<string | null>(null)
 
-  const current = tabs.find(t => t.id === activeTab)!
-  const items = current.items
   const item = items[activeIdx]
+  const topOffset = title ? MY + 64 : MY
 
   const goTo = (idx: number) => setActiveIdx(Math.max(0, Math.min(items.length - 1, idx)))
-
-  const switchTab = (id: 'elevenlabs' | 'cartesia') => {
-    setActiveTab(id)
-    setActiveIdx(0)
-  }
-
-  const viewerH = H - MY * 2 - 96
-
-  const logoSrc: Record<string, string> = {
-    elevenlabs: '/media/cartesia/elevenlabs-logo.svg',
-    cartesia: '/media/cartesia/cartesia-logo.svg',
-  }
 
   return (
     <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
       <CaStyles />
 
-      {/* Toggle tabs + dot indicators — top aligned */}
-      <div
-        style={{
-          position: 'absolute', top: MY, left: MX,
-          display: 'flex', alignItems: 'center', gap: 8,
+      {/* Title */}
+      {title && (
+        <div style={{
+          position: 'absolute', top: MY, left: MX, right: MX,
+          fontSize: 18, fontWeight: 500, color: T.inkPrimary,
+          letterSpacing: '-0.01em',
           animation: 'ca-fade-up 0.4s cubic-bezier(0.25,0.1,0.25,1) both',
-        }}
-      >
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab.id
-          const logo = logoSrc[tab.id]
-          return (
-            <button
-              key={tab.id}
-              onClick={() => switchTab(tab.id as 'elevenlabs' | 'cartesia')}
-              style={{
-                padding: '8px 20px',
-                background: isActive ? (tab.accent ? T.accentTint : T.bgSecondary) : 'transparent',
-                border: `1px solid ${isActive ? (tab.accent ? 'rgba(0,77,34,0.2)' : T.border) : 'transparent'}`,
-                borderRadius: 10, cursor: 'pointer',
-                display: 'flex', alignItems: 'center', gap: 10,
-                opacity: isActive ? 1 : 0.4,
-                transition: 'all 0.15s ease',
-              }}
-            >
-              {logo ? (
-                <img src={logo} alt={tab.label} style={{ height: 20, width: 'auto', objectFit: 'contain', display: 'block' }} />
-              ) : (
-                <span style={{ fontFamily: T.mono, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', color: T.inkPrimary, fontWeight: 600 }}>{tab.label}</span>
-              )}
-              {tab.items.length > 1 && (
-                <span style={{ fontFamily: T.mono, fontSize: 10, color: T.inkTertiary }}>{tab.items.length}</span>
-              )}
-            </button>
-          )
-        })}
-
-        {/* Dot indicators for current tab */}
-        {items.length > 1 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginLeft: 24 }}>
-            {items.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                style={{
-                  width: i === activeIdx ? 18 : 6,
-                  height: 6, borderRadius: 3,
-                  background: i === activeIdx ? T.inkPrimary : T.border,
-                  border: 'none', cursor: 'pointer', padding: 0,
-                  transition: 'all 0.2s ease',
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+        }}>
+          {title}
+        </div>
+      )}
 
       {/* Main viewer */}
       <div
         style={{
           position: 'absolute',
-          top: MY + 68, left: MX, right: MX,
-          height: viewerH,
+          top: topOffset, left: MX, right: MX, bottom: MY,
           borderRadius: 14, overflow: 'hidden',
           background: T.bgSecondary,
-          border: `1px solid ${activeTab === 'elevenlabs' ? 'rgba(0,77,34,0.15)' : T.border}`,
+          border: `1px solid rgba(0,77,34,0.15)`,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           cursor: item && item.type !== 'video' ? 'zoom-in' : 'default',
           animation: 'ca-fade-up 0.45s cubic-bezier(0.25,0.1,0.25,1) 0.1s both',
@@ -363,36 +267,45 @@ function CompareSlide({
           )
         ) : (
           <div style={{ fontFamily: T.mono, fontSize: 13, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            — {current.label} media —
+            — media —
           </div>
         )}
 
-        {/* Prev / Next arrows */}
+        {/* Thumbnail strip — bottom-left overlay */}
         {items.length > 1 && (
-          <>
-            <button
-              onClick={(e) => { e.stopPropagation(); goTo(activeIdx - 1) }}
-              disabled={activeIdx === 0}
-              style={{
-                position: 'absolute', left: 20, top: '50%', transform: 'translateY(-50%)',
-                width: 40, height: 40, borderRadius: '50%',
-                background: 'rgba(26,23,20,0.5)', border: 'none', cursor: 'pointer',
-                color: '#fff', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                opacity: activeIdx === 0 ? 0.2 : 1, transition: 'opacity 0.15s',
-              }}
-            >‹</button>
-            <button
-              onClick={(e) => { e.stopPropagation(); goTo(activeIdx + 1) }}
-              disabled={activeIdx === items.length - 1}
-              style={{
-                position: 'absolute', right: 20, top: '50%', transform: 'translateY(-50%)',
-                width: 40, height: 40, borderRadius: '50%',
-                background: 'rgba(26,23,20,0.5)', border: 'none', cursor: 'pointer',
-                color: '#fff', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                opacity: activeIdx === items.length - 1 ? 0.2 : 1, transition: 'opacity 0.15s',
-              }}
-            >›</button>
-          </>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'absolute', left: '50%', bottom: 20, transform: 'translateX(-50%)',
+              display: 'flex', alignItems: 'center', gap: 6,
+              padding: 6, borderRadius: 10,
+              background: 'rgba(26,23,20,0.55)', backdropFilter: 'blur(8px)',
+            }}
+          >
+            {items.map((thumb, i) => {
+              const isActive = i === activeIdx
+              return (
+                <button
+                  key={thumb.src}
+                  onClick={() => goTo(i)}
+                  style={{
+                    width: 60, height: 36, borderRadius: 4, overflow: 'hidden',
+                    padding: 0, cursor: 'pointer',
+                    border: `2px solid ${isActive ? '#fff' : 'transparent'}`,
+                    opacity: isActive ? 1 : 0.5,
+                    background: T.bgSecondary,
+                    display: 'block', transition: 'opacity 0.15s, border-color 0.15s',
+                  }}
+                >
+                  {thumb.type === 'video' ? (
+                    <video src={`${thumb.src}#t=0.1`} muted playsInline preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }} />
+                  ) : (
+                    <img src={thumb.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }} />
+                  )}
+                </button>
+              )
+            })}
+          </div>
         )}
       </div>
 
@@ -454,142 +367,121 @@ function SlideConceptIntro() {
   )
 }
 
-function SlideFlowOverview({ step }: { step: number }) {
-  const steps = [
-    { num: '01', label: 'Start', desc: 'Existing Cartesia Agent' },
-    { num: '02', label: 'Upload', desc: 'Choose avatar image' },
-    { num: '03', label: 'Configure', desc: 'Expressiveness, style, background' },
-    { num: '04', label: 'Preview', desc: 'Real-time animated avatar' },
-    { num: '05', label: 'Deploy', desc: 'Embed snippet or widget URL' },
-  ]
-  return (
-    <Shell>
-      <FadeUp delay={0}>
-        <Eyebrow>Core flow · 5 steps</Eyebrow>
-      </FadeUp>
-      <FadeUp delay={0.07}>
-        <div style={{ fontSize: 52, fontWeight: 500, lineHeight: 1.05, letterSpacing: '-0.02em', color: T.inkPrimary, marginBottom: 64 }}>
-          Start → Upload → Configure<br />→ Preview → Deploy
-        </div>
-      </FadeUp>
-      <div style={{ display: 'flex', gap: 0 }}>
-        {steps.map((s, i) => (
-          step >= i && (
-            <div
-              key={s.num}
-              style={{
-                flex: 1,
-                padding: '28px 24px',
-                background: i === step - 1 ? T.accentTint : T.bgSecondary,
-                borderLeft: i === 0 ? 'none' : `1px solid ${T.border}`,
-                borderRadius: i === 0 ? '12px 0 0 12px' : i === 4 ? '0 12px 12px 0' : 0,
-                animation: 'ca-fade-up 0.35s cubic-bezier(0.25,0.1,0.25,1) both',
-              }}
-            >
-              <div style={{ fontFamily: T.mono, fontSize: 11, color: i === step - 1 ? T.accent : T.inkTertiary, letterSpacing: '0.08em', marginBottom: 12 }}>{s.num}</div>
-              <div style={{ fontSize: 20, fontWeight: 600, color: T.inkPrimary, marginBottom: 8 }}>{s.label}</div>
-              <div style={{ fontSize: 14, color: T.inkSecondary, lineHeight: 1.5 }}>{s.desc}</div>
-            </div>
-          )
-        ))}
-      </div>
-      <SlideNum n="06" />
-    </Shell>
-  )
-}
+const B = ({ children }: { children: React.ReactNode }) => <strong style={{ color: T.inkPrimary, fontWeight: 600 }}>{children}</strong>
 
-// Flow step template — image + copy
-interface FlowSlideProps {
+// Shared writeup layout: left eyebrow+headline, right content with stepper
+function WriteupShell({ eyebrow, headline, sub, right, slideNum }: {
+  eyebrow: string
+  headline: React.ReactNode
+  sub?: string
+  right: React.ReactNode
   slideNum: string
-  stepNum: string
-  stepLabel: string
-  headline: string
-  body: string
-  image?: string
-}
-
-function FlowSlide({ slideNum, stepNum, stepLabel, headline, body, image }: FlowSlideProps) {
+}) {
   return (
-    <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
+    <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden', padding: `${MY}px ${MX}px`, boxSizing: 'border-box', display: 'flex', gap: 96, alignItems: 'center' }}>
       <CaStyles />
-      {/* Left copy */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0, bottom: 0, left: MX, width: 500,
-          display: 'flex', flexDirection: 'column', justifyContent: 'center',
-          animation: 'ca-fade-up 0.45s cubic-bezier(0.25,0.1,0.25,1) both',
-        }}
-      >
-        <div style={{ marginBottom: 20 }}>
-          <AccentTag>{`Step ${stepNum} · ${stepLabel}`}</AccentTag>
-        </div>
-        <div style={{
-          fontSize: 48, fontWeight: 500, lineHeight: 1.1,
-          letterSpacing: '-0.02em', color: T.inkPrimary, marginBottom: 24,
-        }}>
+      <div style={{ width: 520, flexShrink: 0 }}>
+        <div style={{ marginBottom: 24 }}><Eyebrow>{eyebrow}</Eyebrow></div>
+        <div style={{ fontSize: 42, fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.02em', color: T.inkPrimary, animation: 'ca-fade-up 0.5s cubic-bezier(0.25,0.1,0.25,1) both' }}>
           {headline}
         </div>
-        <div style={{ fontSize: 20, lineHeight: 1.65, color: T.inkSecondary }}>
-          {body}
-        </div>
+        {sub && <div style={{ fontSize: 17, lineHeight: 1.6, color: T.inkSecondary, marginTop: 20 }}>{sub}</div>}
       </div>
-
-      {/* Right — mockup stage */}
-      <div
-        style={{
-          position: 'absolute',
-          top: MY, right: MX, width: 1080, height: H - MY * 2,
-          borderRadius: 16, overflow: 'hidden',
-          background: T.bgSecondary,
-          border: `1px solid ${T.border}`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          animation: 'ca-slide-in 0.5s cubic-bezier(0.25,0.1,0.25,1) 0.08s both',
-        }}
-      >
-        {image ? (
-          <img src={image} alt={stepLabel} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-        ) : (
-          <div style={{ fontFamily: T.mono, fontSize: 13, color: T.inkTertiary, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Step {stepNum} — {stepLabel}
-          </div>
-        )}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 20 }}>
+        {right}
       </div>
-
       <SlideNum n={slideNum} />
     </div>
   )
 }
 
-// ── End ────────────────────────────────────────────────────────────────────
-function SlideEnd() {
+// Writeup 0 — Goal
+function SlideWriteupGoal() {
   return (
-    <div style={{
-      width: W, height: H, background: T.accent, fontFamily: T.sans,
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <CaStyles />
-      <FadeUp delay={0.1}>
-        <div style={{
-          fontSize: 96, fontWeight: 500, lineHeight: 1.0,
-          letterSpacing: '-0.03em', color: '#ffffff', textAlign: 'center',
-          marginBottom: 32,
-        }}>
-          Questions?
-        </div>
-      </FadeUp>
-      <FadeUp delay={0.2}>
-        <div style={{
-          fontFamily: T.mono, fontSize: 14, letterSpacing: '0.08em',
-          color: 'rgba(255,255,255,0.6)', textAlign: 'center',
-        }}>
-          Ilwon Yoon · ilwonyoon@gmail.com
-        </div>
-      </FadeUp>
-    </div>
+    <WriteupShell
+      eyebrow="Design Writeup · 1 / 5"
+      headline={<>Success metric: <span style={{ color: T.accent }}>% of avatars attached to an existing agent and deployed live.</span></>}
+      sub="Activation comes before discovery. The experience from selection to deployment needs to work first — driving more users into a leaky flow only scales failed attempts."
+      right={<div />}
+      slideNum="06"
+    />
   )
+}
+
+// Writeup 1 — Thesis
+function SlideWriteupThesis() {
+  return (
+    <WriteupShell
+      eyebrow="Design Writeup · 2 / 5"
+      headline={<>A face increases engagement — but only when it's <span style={{ color: T.accent }}>felt, not explained.</span></>}
+      sub="The whole design was organized around one question: how do you let someone experience that value in seconds, without a word of persuasion?"
+      right={<div />}
+      slideNum="06"
+    />
+  )
+}
+
+// Left label + right bullets layout
+function BulletSlide({ eyebrow, headline, items, step, slideNum }: {
+  eyebrow: string
+  headline: string
+  items: React.ReactNode[]
+  step: number
+  slideNum: string
+}) {
+  return (
+    <WriteupShell
+      eyebrow={eyebrow}
+      headline={headline}
+      slideNum={slideNum}
+      right={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+          {items.map((item, i) => (
+            step >= i + 1 && (
+              <div key={i} style={{ display: 'flex', gap: 20, alignItems: 'flex-start', animation: 'ca-fade-up 0.4s cubic-bezier(0.25,0.1,0.25,1) both' }}>
+                <span style={{ marginTop: 11, width: 6, height: 6, borderRadius: '50%', background: T.accent, flexShrink: 0 }} />
+                <span style={{ fontSize: 24, lineHeight: 1.5, color: T.inkSecondary }}>{item}</span>
+              </div>
+            )
+          ))}
+        </div>
+      }
+    />
+  )
+}
+
+// Writeup 2 — What I focused on (stepper)
+function SlideWriteupFocus({ step }: { step: number }) {
+  const items: React.ReactNode[] = [
+    <><B>Discovery</B> — surface the feature without forcing it</>,
+    <><B>Value communication</B> — show why it matters before setup</>,
+    <><B>Add avatar</B> to an existing agent (curated presets, not user-uploaded)</>,
+    <><B>Preview</B> live — the wow moment</>,
+    <><B>Deploy</B> — one copy action</>,
+  ]
+  return <BulletSlide eyebrow="Design Writeup · 3 / 5" headline="What I focused on" items={items} step={step} slideNum="06" />
+}
+
+// Writeup 3 — What I decided not to focus on (stepper)
+function SlideWriteupCuts({ step }: { step: number }) {
+  const items: React.ReactNode[] = [
+    <><B>Upload your own image &amp; generate</B> — too many unknowns (which face, which brand, which voice pairing), technically hard, no validated upside</>,
+    <><B>Visual style / background / display settings</B> — Cartesia's target customers (Finance, Healthcare, Gov) don't need illustration or 3D avatars. A realistic face is enough to test the core value</>,
+    <><B>Expression settings</B> — voice already carries style. Facial expression follows the voice; no separate control needed</>,
+  ]
+  return <BulletSlide eyebrow="Design Writeup · 4 / 5" headline="What I scoped out" items={items} step={step} slideNum="06" />
+}
+
+// Writeup 4 — Why a prototype + What's next (stepper, same BulletSlide style)
+function SlideWriteupWhy({ step }: { step: number }) {
+  const items: React.ReactNode[] = [
+    <>Mockups show <em>what</em> it looks like — not <B>why it matters</B></>,
+    <>The value only lands when someone sees a face speak and thinks <B>"I could put this on my site"</B></>,
+    <><B>Cartesia's own site has no face</B> — building the prototype was the most honest argument</>,
+    <><B>Idle state</B> is the next hard problem — nothing = creepy, unprompted = noise</>,
+    <>Needs <B>live conversation + transcription</B> to feel like a real agent, not a performance</>,
+  ]
+  return <BulletSlide eyebrow="Design Writeup · 5 / 5" headline="Why a prototype — and what's next" items={items} step={step} slideNum="06" />
 }
 
 // ── Deck ───────────────────────────────────────────────────────────────────
@@ -615,45 +507,52 @@ export const cartesiaSlides: SlideDefinition[] = [
     steps: 1,
     render: () => <SlideTeardownIntro />,
   },
-  // ① Onboarding funnel — image(s)
+  // ① Onboarding / IA
   {
     id: 'ca-compare-onboarding',
-    navLabel: '① Onboarding',
+    navLabel: '① Onboarding / IA',
     steps: 1,
     render: () => (
       <CompareSlide
         slideNum="02"
-        axis="① Onboarding funnel"
-        caption="How each product greets a new user"
+        title="Goal-oriented IA — users are segmented by intent from entry"
         elevenlabs={[
-          { src: '/media/cartesia/el-onboarding.mp4', webm: '/media/cartesia/el-onboarding.webm', type: 'video' },
+          { src: '/media/cartesia/el-ob-1-platform.png' },
+          { src: '/media/cartesia/el-ob-3-agents.png' },
+          { src: '/media/cartesia/el-ob-4-creative.png' },
+          { src: '/media/cartesia/el-ob-5-api.png' },
         ]}
       />
     ),
   },
-  // ② Side nav / IA — image(s)
+  // ② Curated paths
   {
     id: 'ca-compare-nav',
-    navLabel: '② Side nav / IA',
+    navLabel: '② Curated paths',
     steps: 1,
     render: () => (
       <CompareSlide
         slideNum="03"
-        axis="② Side navigation / IA"
-        caption="Output-oriented vs. capability-oriented structure"
+        title="Curated paths — step-by-step questions to reach your goal faster"
+        elevenlabs={[
+          { src: '/media/cartesia/el-nav-1-agent-creation.mp4', webm: '/media/cartesia/el-nav-1-agent-creation.webm', type: 'video' },
+        ]}
       />
     ),
   },
-  // ③ Content panel — image(s)
+  // ③ Decision support (micro details)
   {
     id: 'ca-compare-content',
-    navLabel: '③ Content panel',
+    navLabel: '③ Decision support',
     steps: 1,
     render: () => (
       <CompareSlide
         slideNum="04"
-        axis="③ Content panel"
-        caption="Teaching while building vs. showing what exists"
+        title="Context-aware curation — same surface, different recommendations per goal"
+        elevenlabs={[
+          { src: '/media/cartesia/el-nav-2-voice-agent.mp4', webm: '/media/cartesia/el-nav-2-voice-agent.webm', type: 'video' },
+          { src: '/media/cartesia/el-nav-3-voice-creative.mp4', webm: '/media/cartesia/el-nav-3-voice-creative.webm', type: 'video' },
+        ]}
       />
     ),
   },
@@ -666,85 +565,33 @@ export const cartesiaSlides: SlideDefinition[] = [
     render: () => <SlideConceptIntro />,
   },
   {
-    id: 'ca-flow-overview',
-    navLabel: 'Flow overview',
-    steps: 6,
-    render: ({ step }: SlideRenderContext) => <SlideFlowOverview step={step} />,
+    id: 'ca-writeup-0',
+    navLabel: 'Writeup · Goal',
+    steps: 1,
+    render: () => <SlideWriteupGoal />,
   },
   {
-    id: 'ca-step-1',
-    navLabel: 'Step 1 · Start',
+    id: 'ca-writeup-1',
+    navLabel: 'Writeup · Thesis',
     steps: 1,
-    render: () => (
-      <FlowSlide
-        slideNum="07"
-        stepNum="01"
-        stepLabel="Start"
-        headline="You're on an existing Agent."
-        body="The avatar layer is an optional add-on. No changes to TTS, LLM, or knowledge base config — just a new 'Avatar' tab in the Agent panel."
-      />
-    ),
+    render: () => <SlideWriteupThesis />,
   },
   {
-    id: 'ca-step-2',
-    navLabel: 'Step 2 · Upload',
-    steps: 1,
-    render: () => (
-      <FlowSlide
-        slideNum="08"
-        stepNum="02"
-        stepLabel="Upload"
-        headline="Upload any image."
-        body="Photo, illustration, or character — Cartesia generates a real-time animated avatar. Drag and drop or choose from a gallery of starter templates."
-      />
-    ),
+    id: 'ca-writeup-2',
+    navLabel: 'Writeup · Focus',
+    steps: 5,
+    render: ({ step }: SlideRenderContext) => <SlideWriteupFocus step={step} />,
   },
   {
-    id: 'ca-step-3',
-    navLabel: 'Step 3 · Configure',
-    steps: 1,
-    render: () => (
-      <FlowSlide
-        slideNum="09"
-        stepNum="03"
-        stepLabel="Configure"
-        headline="Set the behavior."
-        body="Control expressiveness (subtle → dramatic), visual style (realistic, illustrated, minimal), background, and display settings for the widget."
-      />
-    ),
+    id: 'ca-writeup-3',
+    navLabel: 'Writeup · Cuts',
+    steps: 3,
+    render: ({ step }: SlideRenderContext) => <SlideWriteupCuts step={step} />,
   },
   {
-    id: 'ca-step-4',
-    navLabel: 'Step 4 · Preview',
-    steps: 1,
-    render: () => (
-      <FlowSlide
-        slideNum="10"
-        stepNum="04"
-        stepLabel="Preview"
-        headline="See and hear it live."
-        body="The avatar speaks in real time, driven by the existing agent's voice and LLM. Test different inputs before deploying."
-      />
-    ),
-  },
-  {
-    id: 'ca-step-5',
-    navLabel: 'Step 5 · Deploy',
-    steps: 1,
-    render: () => (
-      <FlowSlide
-        slideNum="11"
-        stepNum="05"
-        stepLabel="Deploy"
-        headline="Embed anywhere."
-        body="Copy a single <script> tag or widget URL. Drop into any website, support portal, or landing page. Live in under a minute."
-      />
-    ),
-  },
-  {
-    id: 'ca-end',
-    navLabel: 'End',
-    steps: 1,
-    render: () => <SlideEnd />,
+    id: 'ca-writeup-4',
+    navLabel: 'Writeup · Why + Next',
+    steps: 5,
+    render: ({ step }: SlideRenderContext) => <SlideWriteupWhy step={step} />,
   },
 ]
