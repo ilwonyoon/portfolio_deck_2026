@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
-import type { SlideDefinition, SlideRenderContext } from '../types/presentation'
+import type { SlideDefinition } from '../types/presentation'
 
 // ── Design tokens ──────────────────────────────────────────────────────────
 const T = {
@@ -177,21 +177,19 @@ function SlideTeardownIntro() {
     <Shell>
       <div style={{ position: 'absolute', top: MY, left: MX }}>
         <FadeUp delay={0}>
-          <Eyebrow>Part 01 · ElevenLabs vs. Cartesia</Eyebrow>
+          <Eyebrow>Part 01 · ElevenLabs</Eyebrow>
         </FadeUp>
       </div>
       <div style={{
         position: 'absolute', inset: 0,
         display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        gap: 80, padding: `0 ${MX}px`,
+        padding: `0 ${MX}px`,
       }}>
         <FadeUp delay={0.1}>
-          <div style={{ fontFamily: T.mono, fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', color: T.inkTertiary, marginBottom: 20 }}>Cartesia</div>
-          <div style={{ fontSize: 56, fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.02em', color: T.inkPrimary }}>Research lab that demos its tech</div>
-        </FadeUp>
-        <FadeUp delay={0.2}>
           <div style={{ fontFamily: T.mono, fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', color: T.accent, marginBottom: 20 }}>ElevenLabs</div>
-          <div style={{ fontSize: 56, fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.02em', color: T.inkPrimary }}>Product company built for outcomes</div>
+          <div style={{ fontSize: 72, fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.03em', color: T.inkPrimary, maxWidth: 1100 }}>
+            Curated paths for each job to be done.
+          </div>
         </FadeUp>
       </div>
       <SlideNum n="01" />
@@ -340,6 +338,39 @@ function CompareSlide({
   )
 }
 
+// ── UX Writing comparison — stacked two images ─────────────────────────────
+function SlideWritingCompare() {
+  const GAP = 12
+  const imgH = (H - MY * 2 - 56 - GAP) / 2
+  return (
+    <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
+      <CaStyles />
+      <div style={{
+        position: 'absolute', top: MY, left: MX,
+        fontSize: 18, fontWeight: 500, color: T.inkPrimary, letterSpacing: '-0.01em',
+        animation: 'ca-fade-up 0.4s cubic-bezier(0.25,0.1,0.25,1) both',
+      }}>
+        UX writing — user-facing outcomes vs. research-driven naming
+      </div>
+      <div style={{
+        position: 'absolute', top: MY + 56, left: MX, right: MX, bottom: MY,
+        display: 'flex', flexDirection: 'column', gap: GAP,
+      }}>
+        {[
+          { src: '/media/cartesia/el-writing-cartesia.png', label: 'Cartesia' },
+          { src: '/media/cartesia/el-writing-elevenlabs.png', label: 'ElevenLabs' },
+        ].map(({ src, label }) => (
+          <div key={label} style={{ position: 'relative', height: imgH, borderRadius: 12, overflow: 'hidden', background: T.bgSecondary, border: `1px solid ${T.border}`, flexShrink: 0 }}>
+            <img src={src} alt={label} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            <div style={{ position: 'absolute', top: 12, left: 16, fontFamily: T.mono, fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.inkTertiary, background: 'rgba(249,249,248,0.85)', padding: '3px 8px', borderRadius: 4 }}>{label}</div>
+          </div>
+        ))}
+      </div>
+      <SlideNum n="04b" />
+    </div>
+  )
+}
+
 // ── Part 2: Concept — Give Your Agent a Face ───────────────────────────────
 
 function SlideConceptIntro() {
@@ -422,11 +453,10 @@ function SlideWriteupThesis() {
 }
 
 // Left label + right bullets layout
-function BulletSlide({ eyebrow, headline, items, step, slideNum }: {
+function BulletSlide({ eyebrow, headline, items, slideNum }: {
   eyebrow: string
   headline: string
   items: React.ReactNode[]
-  step: number
   slideNum: string
 }) {
   return (
@@ -435,14 +465,12 @@ function BulletSlide({ eyebrow, headline, items, step, slideNum }: {
       headline={headline}
       slideNum={slideNum}
       right={
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 28, animation: 'ca-fade-up 0.4s cubic-bezier(0.25,0.1,0.25,1) 0.1s both' }}>
           {items.map((item, i) => (
-            step >= i + 1 && (
-              <div key={i} style={{ display: 'flex', gap: 20, alignItems: 'flex-start', animation: 'ca-fade-up 0.4s cubic-bezier(0.25,0.1,0.25,1) both' }}>
-                <span style={{ marginTop: 11, width: 6, height: 6, borderRadius: '50%', background: T.accent, flexShrink: 0 }} />
-                <span style={{ fontSize: 24, lineHeight: 1.5, color: T.inkSecondary }}>{item}</span>
-              </div>
-            )
+            <div key={i} style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+              <span style={{ marginTop: 11, width: 6, height: 6, borderRadius: '50%', background: T.accent, flexShrink: 0 }} />
+              <span style={{ fontSize: 24, lineHeight: 1.5, color: T.inkSecondary }}>{item}</span>
+            </div>
           ))}
         </div>
       }
@@ -450,8 +478,8 @@ function BulletSlide({ eyebrow, headline, items, step, slideNum }: {
   )
 }
 
-// Writeup 2 — What I focused on (stepper)
-function SlideWriteupFocus({ step }: { step: number }) {
+// Writeup 2 — What I focused on
+function SlideWriteupFocus() {
   const items: React.ReactNode[] = [
     <><B>Discovery</B> — surface the feature without forcing it</>,
     <><B>Value communication</B> — show why it matters before setup</>,
@@ -459,21 +487,21 @@ function SlideWriteupFocus({ step }: { step: number }) {
     <><B>Preview</B> live — the wow moment</>,
     <><B>Deploy</B> — one copy action</>,
   ]
-  return <BulletSlide eyebrow="Design Writeup · 3 / 5" headline="What I focused on" items={items} step={step} slideNum="06" />
+  return <BulletSlide eyebrow="Design Writeup · 3 / 5" headline="What I focused on" items={items} slideNum="06" />
 }
 
-// Writeup 3 — What I decided not to focus on (stepper)
-function SlideWriteupCuts({ step }: { step: number }) {
+// Writeup 3 — What I scoped out
+function SlideWriteupCuts() {
   const items: React.ReactNode[] = [
     <><B>Upload your own image &amp; generate</B> — too many unknowns (which face, which brand, which voice pairing), technically hard, no validated upside</>,
     <><B>Visual style / background / display settings</B> — Cartesia's target customers (Finance, Healthcare, Gov) don't need illustration or 3D avatars. A realistic face is enough to test the core value</>,
     <><B>Expression settings</B> — voice already carries style. Facial expression follows the voice; no separate control needed</>,
   ]
-  return <BulletSlide eyebrow="Design Writeup · 4 / 5" headline="What I scoped out" items={items} step={step} slideNum="06" />
+  return <BulletSlide eyebrow="Design Writeup · 4 / 5" headline="What I scoped out" items={items} slideNum="06" />
 }
 
-// Writeup 4 — Why a prototype + What's next (stepper, same BulletSlide style)
-function SlideWriteupWhy({ step }: { step: number }) {
+// Writeup 4 — Why a prototype + What's next
+function SlideWriteupWhy() {
   const items: React.ReactNode[] = [
     <>Mockups show <em>what</em> it looks like — not <B>why it matters</B></>,
     <>The value only lands when someone sees a face speak and thinks <B>"I could put this on my site"</B></>,
@@ -481,7 +509,7 @@ function SlideWriteupWhy({ step }: { step: number }) {
     <><B>Idle state</B> is the next hard problem — nothing = creepy, unprompted = noise</>,
     <>Needs <B>live conversation + transcription</B> to feel like a real agent, not a performance</>,
   ]
-  return <BulletSlide eyebrow="Design Writeup · 5 / 5" headline="Why a prototype — and what's next" items={items} step={step} slideNum="06" />
+  return <BulletSlide eyebrow="Design Writeup · 5 / 5" headline="Why a prototype — and what's next" items={items} slideNum="06" />
 }
 
 // ── Deck ───────────────────────────────────────────────────────────────────
@@ -536,25 +564,34 @@ export const cartesiaSlides: SlideDefinition[] = [
         title="Curated paths — step-by-step questions to reach your goal faster"
         elevenlabs={[
           { src: '/media/cartesia/el-nav-1-agent-creation.mp4', webm: '/media/cartesia/el-nav-1-agent-creation.webm', type: 'video' },
-        ]}
-      />
-    ),
-  },
-  // ③ Decision support (micro details)
-  {
-    id: 'ca-compare-content',
-    navLabel: '③ Decision support',
-    steps: 1,
-    render: () => (
-      <CompareSlide
-        slideNum="04"
-        title="Context-aware curation — same surface, different recommendations per goal"
-        elevenlabs={[
           { src: '/media/cartesia/el-nav-2-voice-agent.mp4', webm: '/media/cartesia/el-nav-2-voice-agent.webm', type: 'video' },
           { src: '/media/cartesia/el-nav-3-voice-creative.mp4', webm: '/media/cartesia/el-nav-3-voice-creative.webm', type: 'video' },
         ]}
       />
     ),
+  },
+  // ③ Live preview throughout
+  {
+    id: 'ca-compare-content',
+    navLabel: '③ Live preview',
+    steps: 1,
+    render: () => (
+      <CompareSlide
+        slideNum="04"
+        title="Live preview throughout — a glimpse of what you're building at every step"
+        elevenlabs={[
+          { src: '/media/cartesia/el-preview-1-agent.png' },
+          { src: '/media/cartesia/el-preview-2-widget.png' },
+        ]}
+      />
+    ),
+  },
+
+  {
+    id: 'ca-writing-compare',
+    navLabel: '④ UX writing',
+    steps: 1,
+    render: () => <SlideWritingCompare />,
   },
 
   // Part 2 — Concept
@@ -579,19 +616,19 @@ export const cartesiaSlides: SlideDefinition[] = [
   {
     id: 'ca-writeup-2',
     navLabel: 'Writeup · Focus',
-    steps: 5,
-    render: ({ step }: SlideRenderContext) => <SlideWriteupFocus step={step} />,
+    steps: 1,
+    render: () => <SlideWriteupFocus />,
   },
   {
     id: 'ca-writeup-3',
     navLabel: 'Writeup · Cuts',
-    steps: 3,
-    render: ({ step }: SlideRenderContext) => <SlideWriteupCuts step={step} />,
+    steps: 1,
+    render: () => <SlideWriteupCuts />,
   },
   {
     id: 'ca-writeup-4',
     navLabel: 'Writeup · Why + Next',
-    steps: 5,
-    render: ({ step }: SlideRenderContext) => <SlideWriteupWhy step={step} />,
+    steps: 1,
+    render: () => <SlideWriteupWhy />,
   },
 ]
