@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import type { SlideDefinition } from '../types/presentation'
 
 // ── Design tokens ──────────────────────────────────────────────────────────
@@ -371,6 +371,139 @@ function SlideWritingCompare() {
   )
 }
 
+// ── Prototype transition slide ─────────────────────────────────────────────
+function SlidePrototypeIntro() {
+  return (
+    <div style={{
+      width: W, height: H, background: T.bg, fontFamily: T.sans,
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      position: 'relative', overflow: 'hidden',
+    }}>
+      <CaStyles />
+      <FadeUp delay={0.1}>
+        <div style={{ fontSize: 96, fontWeight: 500, lineHeight: 1.0, letterSpacing: '-0.03em', color: T.inkPrimary, textAlign: 'center' }}>
+          Here is the prototype.
+        </div>
+      </FadeUp>
+    </div>
+  )
+}
+
+// ── Prototype demo slide — 3 videos with sound toggle ──────────────────────
+const PROTO_VIDEOS = [
+  { src: '/media/cartesia/proto-01_Discovery_preview.mp4', label: '01 · Discovery & value', desc: 'Surface the feature and communicate why it matters before setup' },
+  { src: '/media/cartesia/proto-02_pick_avatar.mp4',        label: '02 · Pick an avatar',    desc: 'Recommended avatars based on existing agent system prompt & voice' },
+  { src: '/media/cartesia/proto-03_deploy_preview.mp4',     label: '03 · Deploy & preview',  desc: 'Embeddable widget — deploy to web, not just phone' },
+]
+
+function SlidePrototypeDemo() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const [muted, setMuted] = useState(true)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const item = PROTO_VIDEOS[activeIdx]
+  const topOffset = MY + 64
+
+  const switchTo = (i: number) => {
+    setActiveIdx(i)
+    setMuted(true)
+  }
+
+  return (
+    <div style={{ width: W, height: H, background: T.bg, fontFamily: T.sans, position: 'relative', overflow: 'hidden' }}>
+      <CaStyles />
+
+      {/* Header row */}
+      <div style={{
+        position: 'absolute', top: MY, left: MX, right: MX,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        animation: 'ca-fade-up 0.4s cubic-bezier(0.25,0.1,0.25,1) both',
+      }}>
+        <div>
+          <div style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', color: T.accent, marginBottom: 6 }}>{item.label}</div>
+          <div style={{ fontSize: 18, fontWeight: 500, color: T.inkPrimary, letterSpacing: '-0.01em' }}>{item.desc}</div>
+        </div>
+        {/* Sound toggle */}
+        <button
+          onClick={() => {
+            const next = !muted
+            setMuted(next)
+            if (videoRef.current) videoRef.current.muted = next
+          }}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 8,
+            padding: '8px 18px', borderRadius: 10,
+            background: muted ? T.bgSecondary : T.accentTint,
+            border: `1px solid ${muted ? T.border : 'rgba(0,77,34,0.2)'}`,
+            cursor: 'pointer', outline: 'none',
+            fontFamily: T.mono, fontSize: 12, letterSpacing: '0.06em',
+            color: muted ? T.inkSecondary : T.accent,
+            transition: 'all 0.15s ease',
+          }}
+        >
+          {muted ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+          )}
+          {muted ? 'Turn on sound' : 'Sound on'}
+        </button>
+      </div>
+
+      {/* Video viewer */}
+      <div style={{
+        position: 'absolute', top: topOffset, left: MX, right: MX, bottom: MY,
+        borderRadius: 14, overflow: 'hidden',
+        background: T.bgSecondary, border: `1px solid rgba(0,77,34,0.15)`,
+        animation: 'ca-fade-up 0.45s cubic-bezier(0.25,0.1,0.25,1) 0.1s both',
+      }}>
+        <video
+          key={item.src}
+          ref={videoRef}
+          src={item.src}
+          autoPlay loop playsInline preload="auto"
+          muted={muted}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        />
+
+        {/* Thumbnail strip */}
+        <div
+          style={{
+            position: 'absolute', left: '50%', bottom: 20, transform: 'translateX(-50%)',
+            display: 'flex', alignItems: 'center', gap: 6,
+            padding: 6, borderRadius: 10,
+            background: 'rgba(26,23,20,0.55)', backdropFilter: 'blur(8px)',
+          }}
+        >
+          {PROTO_VIDEOS.map((v, i) => (
+            <button
+              key={v.src}
+              onClick={() => switchTo(i)}
+              style={{
+                width: 60, height: 36, borderRadius: 4, overflow: 'hidden',
+                padding: 0, cursor: 'pointer', outline: 'none',
+                border: `2px solid ${i === activeIdx ? '#fff' : 'transparent'}`,
+                opacity: i === activeIdx ? 1 : 0.5,
+                background: T.bgSecondary,
+                display: 'block', transition: 'opacity 0.15s, border-color 0.15s',
+              }}
+            >
+              <video src={`${v.src}#t=0.1`} muted playsInline preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover', pointerEvents: 'none' }} />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <SlideNum n="07" />
+    </div>
+  )
+}
+
 // ── Part 2: Concept — Give Your Agent a Face ───────────────────────────────
 
 function SlideConceptIntro() {
@@ -630,5 +763,17 @@ export const cartesiaSlides: SlideDefinition[] = [
     navLabel: 'Writeup · Why + Next',
     steps: 1,
     render: () => <SlideWriteupWhy />,
+  },
+  {
+    id: 'ca-prototype-intro',
+    navLabel: 'Prototype →',
+    steps: 1,
+    render: () => <SlidePrototypeIntro />,
+  },
+  {
+    id: 'ca-prototype-demo',
+    navLabel: 'Prototype',
+    steps: 1,
+    render: () => <SlidePrototypeDemo />,
   },
 ]
